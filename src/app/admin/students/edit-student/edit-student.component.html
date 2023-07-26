@@ -1,0 +1,179 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Öğrenci Düzenle</h2>
+
+          </div>
+          <div class="body">
+            <form class="m-4" [formGroup]="stdForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Ad</mat-label>
+                    <input matInput formControlName="first" required>
+                    <mat-error *ngIf="stdForm.get('first').hasError('required')">
+                      Adınızı girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Soyad</mat-label>
+                    <input matInput formControlName="last">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Roll No</mat-label>
+                    <input matInput formControlName="rollNo">
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Cinsiyet</mat-label>
+                    <mat-select formControlName="gender" required>
+                      <mat-option [value]="'male'">
+                        Bay
+                      </mat-option>
+                      <mat-option [value]="'female'">
+                        Bayan
+                      </mat-option>
+                      <mat-option [value]="'other'">
+                        Diğer
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="stdForm.get('gender').hasError('required')">
+                      Cinsiyet seçin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="stdForm.get('email').hasError('email') && stdForm.get('email').touched">
+                      Geçerli bir mail adresi girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Telefon</mat-label>
+                    <input matInput formControlName="mobile" type="number" required>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Kayıt Tarihi</mat-label>
+                    <input matInput [matDatepicker]="rpicker" formControlName="rDate" required>
+                    <mat-datepicker-toggle matSuffix [for]="rpicker"></mat-datepicker-toggle>
+                    <mat-datepicker #rpicker></mat-datepicker>
+                    <mat-error *ngIf="stdForm.get('rDate').hasError('required')">
+                      Tarih seçin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Departman Seç</mat-label>
+                    <mat-select formControlName="department" required>
+                      <mat-option [value]="'mechanical'">
+                        Mekanik Mühendisliği
+                      </mat-option>
+                      <mat-option [value]="'science'">
+                        Fen Bilimleri
+                      </mat-option>
+                      <mat-option [value]="'mathematics'">
+                        Matematik Mühendisliği
+                      </mat-option>
+                      <mat-option [value]="'computer'">
+                        Bilgisayar Mühendisliği
+                      </mat-option>
+                      <mat-option [value]="'civil'">
+                        İnşaat Mühendisliği
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="stdForm.get('department').hasError('required')">
+                     Bölüm seçin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Ebeveyn Adı</mat-label>
+                    <input matInput formControlName="parentName" required>
+                    <mat-error *ngIf="stdForm.get('parentName').hasError('required')">
+                      Ebeveyn adı girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Ebeveyn Cep Numarası</mat-label>
+                    <input matInput formControlName="parentNo" type="number">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Doğum Tarihi</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dob" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="stdForm.get('dob').hasError('required')">
+                      Tarih seçin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Kan Grubu</mat-label>
+                    <input matInput formControlName="bGroup">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Adres</mat-label>
+                    <textarea matInput formControlName="address"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5">
+                  <label>Yükle</label>
+                  <app-file-upload formControlName="uploadFile"></app-file-upload>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <button class="btn-space" [disabled]="!stdForm.valid " mat-raised-button
+                    color="primary">Gönder</button>
+                  <button type="button" mat-button>İptal</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,179 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="body">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <img src="assets/images/pages/book.jpg" alt="" class="w-100">
+              </div>
+              <div class="col-md-8">
+                <h4 class="font-20 weight-500 mb-2">
+                  Hoş Geldiniz <div class="weight-600 font-30 col-blue pt-1">{{fullName}}</div>
+                </h4>
+                <p class="font-18 max-width-600">Bir yıl sonrasıysa düşündüğün, tohum ek. Ağaç dik, on yıI sonrasıysa
+                  tasarIadığın, Ama düşünüyorsan yüz yıl ötesini,
+                  halkı eğit o zaman… Bir kez tohum ekersen, bir kez ürün alırsın, Bir kez ağaç dikersen, on kez ürün
+                  alırsın, Yüz kez olur bu ürün,
+                  eğitirsen toplumu. Birisine bir balık versen, doyar bir defa; Balık tutmayı öğret, doysun ömür
+                  boyunca.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>
+              Derslerim</h2>
+          </div>
+          <div class="tableBody overflow-auto" style="height: 400px;">
+            <div class="table-responsive">
+              <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Sınıf</th>
+                    <th>Kodu</th>
+                    <th>Ders </th>
+                    <th>Süresi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let lesson of AcademicianLessons">
+                    <td>{{lesson.lessonId}}</td>
+                    <td>{{lesson.className}}</td>
+                    <td>{{lesson.lessonCode}}</td>
+                    <td>{{lesson.lessonName}}</td>
+                    <td>
+                      <button mat-flat-button color="primary">{{lesson.lessonTime}}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Derslerde Bulunan Öğrenci Sayısı</h2>
+          </div>
+          <div class="body overflow-auto" style="height: 400px;">
+            <div id="chart">
+              <apx-chart [series]="pieChartOptions.series" [chart]="pieChartOptions.chart"
+                [labels]="pieChartOptions.labels" [responsive]="pieChartOptions.responsive"
+                [dataLabels]="pieChartOptions.dataLabels" [legend]="pieChartOptions.legend" class="apex-pie-center">
+              </apx-chart>
+            </div>
+            <div class="table-responsive m-t-15">
+              <table class="table align-items-center">
+                <tbody>
+                  <tr *ngFor="let studentNumber of forEachCoursStudentNumber">
+                    <td><i class="fa fa-circle col-blue msr-2"></i> {{studentNumber.lessonName}}</td>
+                    <td class="col-orange">{{studentNumber.count}}</td>
+                    <td class="col-green">{{studentNumber.rate}} %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Genel Duyurlar</h2>
+          </div>
+          <div class="body overflow-auto" style="height: 400px;">
+            <div class="table-responsive">
+              <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th>Başlık</th>
+                    <th>Yayın Tarihi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let announcement of generalAnnouncements" (click)="openAnnouncementCardDialog(announcement)">
+                    <td>{{announcement.head}}</td>
+                    <td>
+                      <button mat-flat-button class="col-pink">{{announcement.Date}}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Bölüm Duyurları</h2>
+          </div>
+          <div class="body overflow-auto" style="height: 400px;">
+            <div class="table-responsive">
+              <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th>Başlık</th>
+                    <th>Yayın Tarihi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let announcement of departmentAnnouncements" (click)="openAnnouncementCardDialog(announcement)">
+                    <td>{{announcement.head}}</td>
+                    <td>
+                      <button mat-flat-button class="col-pink">{{announcement.Date}}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Dersler Duyurları</h2>
+          </div>
+          <div class="body overflow-auto" style="height: 400px;">
+            <div class="table-responsive">
+              <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th>Başlık</th>
+                    <th>Yayın Tarihi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let announcement of lessonsAnnouncements" (click)="openAnnouncementCardDialog(announcement)">
+                    <td>{{announcement.head}}</td>
+                    <td>
+                      <button  mat-flat-button class="col-pink">{{announcement.Date}}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  </div>
+</section>

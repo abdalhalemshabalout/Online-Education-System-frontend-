@@ -1,0 +1,73 @@
+{
+  "MENUITEMS": {
+    "MAIN": {
+      "TEXT": "Main"
+    },
+    "DASHBOARD": {
+      "TEXT": "Dashboard",
+      "LIST": {
+        "DASHBOARD1": "Dashboard 1",
+        "DASHBOARD2": "Dashboard 2",
+        "TEACHER-DASHBOARD": "Lehrerin Dashboard",
+        "STUDENT-DASHBOARD": "Studentin Dashboard"
+      }
+    },
+    "TEACHERS": {
+      "TEXT": "Lehrer",
+      "LIST": {
+        "ALL-TEACHERS": "Alle Lehrer",
+        "ADD-TEACHER": "Lehrer hinzufügen",
+        "EDIT-TEACHER": "Lehrer bearbeiten",
+        "ABOUT-TEACHER": "Über den Lehrer"
+      }
+    },
+    "STUDENTS": {
+      "TEXT": "Studentinnen",
+      "LIST": {
+        "ALL-STUDENTS": "Alle Schüler",
+        "ADD-STUDENT": "Schüler hinzufügen",
+        "EDIT-STUDENT": "Schüler bearbeiten",
+        "ABOUT-STUDENT": "Über Student",
+        "STUDENT-ATTENDANCE": "Student Attendance"
+      }
+    },
+    "COURSES": {
+      "TEXT": "Kurse",
+      "LIST": {
+        "ALL-COURSES": "Alle Kurse",
+        "ADD-COURSE": "Kurs hinzufügen",
+        "EDIT-COURSE": "Kurs bearbeiten",
+        "ABOUT-COURSE": "Über den Kurs"
+      }
+    },
+    "DEPARTMENTS": {
+      "TEXT": "Abteilungen",
+      "LIST": {
+        "ALL-DEPARTMENT": "Alle Abteilungen",
+        "ADD-DEPARTMENT": "Abteilung hinzufügen",
+        "EDIT-DEPARTMENT": "Abteilung bearbeiten"
+      }
+    },
+    "ANNOUNCEMENT": {
+      "TEXT": "Ankündigungen",
+      "LIST": {
+        "ALL-ANNOUNCEMENT": "Alle Ankündigungen",
+        "ADD-ANNOUNCEMENT": "Ankündigung hinzufügen"
+      }
+    },
+    "TEACHER": {    
+      "TEXT": "Lehrerin",
+      "LIST": {
+        "DASHBOARD": "Dashboard",
+        "LECTURES": "Vorträge",
+      }
+    },
+    "STUDENT": {    
+      "TEXT": "Studentin",
+      "LIST": {
+        "DASHBOARD": "Dashboard",
+        "LECTURES": "Vorträge"
+      }
+    }
+  }
+}

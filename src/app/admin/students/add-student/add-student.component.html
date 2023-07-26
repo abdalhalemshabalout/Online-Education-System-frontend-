@@ -1,0 +1,252 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Öğrenci Ekleme Formu</h2>
+
+          </div>
+          <div class="body">
+            <form class="m-4" [formGroup]="stdForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Ad</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-error *ngIf="stdForm.get('name').hasError('required')">
+                      Adınızı girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Soyad</mat-label>
+                    <input matInput formControlName="surname" required>
+                    <mat-error *ngIf="stdForm.get('surname').hasError('required')">
+                      Soyadınızı girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Baba Adı</mat-label>
+                    <input matInput formControlName="fatherName" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-error *ngIf="stdForm.get('fatherName').hasError('required')">
+                      Baba adı girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Anne Adı</mat-label>
+                    <input matInput formControlName="motherName" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-error *ngIf="stdForm.get('motherName').hasError('required')">
+                      Anne adı girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Kimlik Numarası</mat-label>
+                    <input matInput formControlName="identityNumber" required type="number">
+                    <mat-error *ngIf="stdForm.get('identityNumber').hasError('required')">
+                      Kimlik numarası giriniz!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Uyruk</mat-label>
+                    <mat-select formControlName="countryId" required>
+                      <mat-option *ngFor="let country of countrise" [value]="country.id">{{country.name}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="stdForm.get('countryId').hasError('required')">
+                      Uyruk seçin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Doğum Yeri</mat-label>
+                    <input matInput formControlName="placeOfBirth"  required>
+                    <mat-error *ngIf="stdForm.get('placeOfBirth').hasError('required')">
+                      Doğum yerini girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Doğum tarihi</mat-label>
+                    <input matInput type="date" formControlName="birthDate">
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="stdForm.get('birthDate').hasError('required')">
+                      Doğum tarihi girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Cinsiyet</mat-label>
+                    <mat-select formControlName="gender" required>
+                      <mat-option [value]="'bay'">
+                        Bay
+                      </mat-option>
+                      <mat-option [value]="'bayan'">
+                        Bayan
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="stdForm.get('gender').hasError('required')">
+                      Cinsiyet seçin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Telefon Numarası</mat-label>
+                    <input matInput formControlName="telephone" required type="number">
+                    <mat-icon matSuffix>phone</mat-icon>
+                    <mat-error *ngIf="stdForm.get('telephone').hasError('required')">
+                      Telefon numarası girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Fakülte seçin</mat-label>
+                    <mat-select formControlName="facultyId" required (selectionChange)="onChangeSelect($event.value)">
+                      <mat-option *ngFor="let fau of faculty" [value]="fau.id">{{fau.name}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="stdForm.get('facultyId').hasError('required')">
+                      Fakülte seçin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Departman Seçin</mat-label>
+                    <mat-select formControlName="departmentId" required>
+                      <mat-option *ngFor="let dep of selectedDepartment" [value]="dep.id">{{dep.name}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="stdForm.get('departmentId').hasError('required')">
+                      Departman seçin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Sınıf Seçin</mat-label>
+                    <mat-select formControlName="classId" required (selectionChange)="onChangeSelect($event.value)">
+                      <mat-option *ngFor="let clas of dclass" [value]="clas.id">{{clas.name}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="stdForm.get('classId').hasError('required')">
+                      Sınıf seçiniz!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Başlama tarihi</mat-label>
+                    <input matInput type="date" formControlName="startDate">
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="stdForm.get('startDate').hasError('required')">
+                      başlama tarihi girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-error *ngIf="stdForm.get('email').hasError('email') && stdForm.get('email').touched">
+                      Geçerli bir mail adresi girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Öğrenci Numarası</mat-label>
+                    <input matInput formControlName="studentNumber">
+                    <mat-error *ngIf="stdForm.get('studentNumber').hasError('required')">
+                      Öğrenci numarası girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div> -->
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Şifre</mat-label>
+                    <input matInput formControlName="password" type="password" required>
+                    <!-- <mat-icon matSuffix>visibility_off</mat-icon> -->
+                    <mat-error *ngIf="stdForm.get('password').hasError('required')">
+                      Şifre girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Şifreyi yeniden gir</mat-label>
+                    <input matInput formControlName="c_password" type="password" required>
+                    <!-- <mat-icon matSuffix>visibility_off</mat-icon> -->
+                    <mat-error *ngIf="stdForm.get('c_password').hasError('required')">
+                      Lütfen şifreyi tekrar girin!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Adres</mat-label>
+                    <textarea matInput formControlName="address"></textarea>
+                    <mat-error *ngIf="stdForm.get('address').hasError('required')">
+                      Adres giriniz!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5">
+                  <label>Ekle</label>
+                  <app-file-upload  formControlName="img"></app-file-upload>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <button class="btn-space" mat-raised-button
+                    color="primary">Gönder</button>
+                  <button type="button" mat-button>İptal</button>
+                  <!-- [disabled]="!stdForm.valid"  -->
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

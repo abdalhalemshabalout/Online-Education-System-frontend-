@@ -1,0 +1,65 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          <div class="font-weight-bold p-t-5 font-17">
+            {{dialogTitle}}</div>
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="announcementForm" (ngSubmit)="submit">
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Başlık</mat-label>
+            <input matInput formControlName="head">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <!-- <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>İçerik</mat-label>
+                <input matInput formControlName="body" >
+              </mat-form-field> -->
+          <!-- <div class="example-full-width mb-3" appearance="outline">
+            <ckeditor [config]="{ toolbar: []}" disabled=true
+             matInput formControlName="body" [editor]="Editor" data=""></ckeditor>
+          </div> -->
+          <div class="example-full-width mb-3" appearance="outline">
+            <ckeditor [config]="{
+                      link: {
+            decorators: {
+                openInNewTab: {
+                    mode: 'manual',
+                    label: 'Open in a new tab',
+                    attributes: {
+                        target: '_blank',
+                        rel: 'noopener noreferrer'
+                    }
+                }
+            }
+        }
+             }" matInput formControlName="body" [editor]="Editor" data=""></ckeditor>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row">
+            <button mat-raised-button color="primary" [type]="submit" [disabled]="!announcementForm.valid"
+              [mat-dialog-close]="1" (click)="confirmAdd()">Kaydet</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Sil</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

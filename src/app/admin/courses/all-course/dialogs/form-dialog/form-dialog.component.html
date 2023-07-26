@@ -1,0 +1,147 @@
+<div class="addContainer">
+    <div class="modalHeader">
+      <div class="editRowModal">
+        <div class="modalHeader clearfix">
+          <div class="modal-about">
+            <div class="font-weight-bold p-t-5 font-17">
+              {{dialogTitle}}</div>
+          </div>
+        </div>
+      </div>
+      <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div mat-dialog-content>
+      <form class="register-form m-4" [formGroup]="courseForm" (ngSubmit)="submit">
+        <div class="row">
+            <div *ngIf="action!=='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>Fakülte seçin</mat-label>
+                  <mat-select formControlName="facultyId" required (selectionChange)="onChangeSelect($event.value)">
+                    <mat-option *ngFor="let fau of faculty" [value]="fau.id">{{fau.name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="courseForm.get('facultyId').hasError('required')">
+                    Fakülte seçin!
+                  </mat-error>
+                </mat-form-field>
+            </div>
+            <div *ngIf="action==='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Fakülte Adı</mat-label>
+                <input readonly matInput formControlName="facultyId" required>
+              </mat-form-field>
+            </div>
+            <div *ngIf="action!=='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>Departman Seçin</mat-label>
+                  <mat-select formControlName="departmentId" required>
+                    <mat-option *ngFor="let dep of selectedDepartment" [value]="dep.id">{{dep.name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="courseForm.get('departmentId').hasError('required')">
+                    Departman seçin!
+                  </mat-error>
+                </mat-form-field>
+            </div>
+            <div *ngIf="action==='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Departman Adı</mat-label>
+                <input readonly matInput formControlName="departmentId" required>
+              </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div *ngIf="action!=='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>Sınıf Seçin</mat-label>
+                  <mat-select formControlName="classId" required (selectionChange)="onChangeSelect($event.value)">
+                    <mat-option *ngFor="let clas of dclass" [value]="clas.id">{{clas.name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="courseForm.get('classId').hasError('required')">
+                    Sınıf seçiniz!
+                  </mat-error>
+                </mat-form-field>
+            </div> -->
+            <div *ngIf="action!=='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Sınıf Adı</mat-label>
+                <mat-select formControlName="classId" required>
+                  <mat-option *ngFor="let clas of dclass" [value]="clas.id">{{clas.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="courseForm.get('classId').hasError('required')">
+                  sınıf seçin!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div *ngIf="action==='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Sınıf Adı</mat-label>
+                <input readonly matInput formControlName="classId" required>
+              </mat-form-field>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>Ders Süresi</mat-label>
+                  <input matInput formControlName="lessonTime">
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="courseForm.get('lessonTime').hasError('required')">
+                    lütfen ders süresi girin!
+                  </mat-error>
+                </mat-form-field>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Ders Kodu</mat-label>
+                <input matInput formControlName="lessonCode">
+                <mat-error *ngIf="courseForm.get('lessonCode').hasError('required')">
+                  Ders kodu girin!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Ders Adı</mat-label>
+                <input matInput formControlName="lessonName" required>
+                <mat-error *ngIf="courseForm.get('lessonName').hasError('required')">
+                  Ders adı girin!
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Kredi</mat-label>
+                <input matInput formControlName="kredi" type="number">
+              </mat-form-field>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Akts</mat-label>
+                <input matInput formControlName="akts" type="number">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Ders Detayları</mat-label>
+                <input matInput formControlName="detaily">
+              </mat-form-field>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row">
+              <button mat-raised-button color="primary" [type]="submit" [disabled]="!courseForm.valid"
+                [mat-dialog-close]="1" (click)="confirmAdd()">Kaydet</button>
+              <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Sil</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

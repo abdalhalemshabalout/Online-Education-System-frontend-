@@ -1,0 +1,71 @@
+{
+  "MENUITEMS": {
+    "MAIN": {
+      "TEXT": "Main"
+    },
+    "DASHBOARD": {
+      "TEXT": "Dashboard",
+      "LIST": {
+        "DASHBOARD1": "Dashboard 1",
+        "DASHBOARD2": "Dashboard 2",
+        "TEACHER-DASHBOARD": "Teacher Dashboard",
+        "STUDENT-DASHBOARD": "Student Dashboard"
+      }
+    },
+    "TEACHERS": {
+      "TEXT": "Teachers",
+      "LIST": {
+        "ALL-TEACHERS": "All Teachers",
+        "ADD-TEACHER": "Add Teacher",
+        "EDIT-TEACHER": "Edit Teacher",
+        "ABOUT-TEACHER": "About Teacher"
+      }
+    },
+    "STUDENTS": {
+      "TEXT": "Students",
+      "LIST": {
+        "ALL-STUDENTS": "All Students",
+        "ADD-STUDENT": "Add Student",
+        "EDIT-STUDENT": "Edit Student",
+        "ABOUT-STUDENT": "About Student",
+        "STUDENT-ATTENDANCE": "Student Attendance"
+      }
+    },
+    "COURSES": {
+      "TEXT": "Lessons",
+      "LIST": {
+        "ALL-COURSES": "All Lessons",
+        "ADD-COURSE": "Add Course"
+      }
+    },
+    "DEPARTMENTS": {
+      "TEXT": "Departments",
+      "LIST": {
+        "ALL-DEPARTMENT": "All Departments",
+        "ADD-DEPARTMENT": "Add Department",
+        "EDIT-DEPARTMENT": "Edit Department"
+      }
+    },
+    "ANNOUNCEMENT": {
+      "TEXT": "Announcement",
+      "LIST": {
+        "ALL-ANNOUNCEMENT": "All Announcements",
+        "ADD-ANNOUNCEMENT": "Add Announcement"
+      }
+    },
+    "TEACHER": {    
+      "TEXT": "Teacher",
+      "LIST": {
+        "DASHBOARD": "Dashboard",
+        "LECTURES": "Lectures"
+      }
+    },
+    "STUDENT": {    
+      "TEXT": "Student",
+      "LIST": {
+        "DASHBOARD": "Dashboard",
+        "LECTURES": "Lessons"
+      }
+    }
+  }
+}

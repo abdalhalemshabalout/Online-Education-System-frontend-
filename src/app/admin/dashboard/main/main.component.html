@@ -1,0 +1,288 @@
+<section class="content" *ngIf="totalNumber">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <!-- Widgets -->
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card card-statistic-2">
+          <div class="clearfix">
+            <div class="card-icon-only shadow-primary float-start">
+              <img src="assets/images/banner/faculty.png" alt="">
+            </div>
+            <div class="card-right">
+              <div>
+                <h5 class="float-end">Toplam Fakülte Sayısı</h5>
+              </div>
+              <div class="col-green">
+                <h3 class="font-weight-bold float-end mb-0">{{totalNumber.facultyTotal}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="card-content msl-4 mb-3">
+            <p class="m-b-0 d-flex"><i class="material-icons col-green psr-2">star</i></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card card-statistic-2">
+          <div class="clearfix">
+            <div class="card-icon-only shadow-primary float-start">
+              <img src="assets/images/banner/department.png" alt="">
+            </div>
+            <div class="card-right">
+              <div>
+                <h5 class="float-end">Toplam Bölüm Sayısı</h5>
+              </div>
+              <div class="col-green">
+                <h3 class="font-weight-bold float-end mb-0">{{totalNumber.DepartmentTotal}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="card-content msl-4 mb-3">
+            <p class="m-b-0 d-flex"><i class="material-icons col-green psr-2">star</i>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card card-statistic-2">
+          <div class="clearfix">
+            <div class="card-icon-only shadow-primary float-start">
+              <img src="assets/images/banner/academician.png" alt="">
+            </div>
+            <div class="card-right">
+              <div>
+                <h5 class="float-end">Toplam Eğitmen Sayısı</h5>
+              </div>
+              <div class="col-green">
+                <h3 class="font-weight-bold float-end mb-0">{{totalNumber.AcademicianTotal}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="card-content msl-4 mb-3">
+            <p class="m-b-0 d-flex"><i class="material-icons col-green psr-2">star</i></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card card-statistic-2">
+          <div class="clearfix">
+            <div class="card-icon-only shadow-primary float-start">
+              <img src="assets/images/banner/student.png" alt="">
+            </div>
+            <div class="card-right">
+              <div>
+                <h5 class="float-end">Toplam Öğrenci Sayısı</h5>
+              </div>
+              <div class="col-green">
+                <h3 class="font-weight-bold float-end mb-0">{{totalNumber.studentTotal}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="card-content msl-4 mb-3">
+            <p class="m-b-0 d-flex"><i class="material-icons col-green psr-2">star</i></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- #END# Widgets -->
+    <div class="row">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+        <div class="card">
+          <div class="header">
+            <h2>Genel Duyurlar</h2>
+          </div>
+          <div class="body overflow-auto" style="height: 400px;">
+            <div class="table-responsive">
+              <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th>Başlık</th>
+                    <th>Yayın Tarihi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let announcement of generalAnnouncements" (click)="openAnnouncementCardDialog(announcement)">
+                    <td>{{announcement.head}}</td>
+                    <td>
+                      <button mat-flat-button class="col-pink">{{announcement.Date}}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+        <div class="card">
+          <div class="header">
+            <h2>Yıllara Göre Öğrenci Dağılımı Tablosu</h2>
+          </div>
+          <div class="body overflow-auto" style="height: 400px;">
+            <apx-chart [series]="barChartOptions.series" [chart]="barChartOptions.chart"
+              [dataLabels]="barChartOptions.dataLabels" [plotOptions]="barChartOptions.plotOptions"
+              [yaxis]="barChartOptions.yaxis" [xaxis]="barChartOptions.xaxis" [fill]="barChartOptions.fill"></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="card">
+          <div class="header">
+            <h2>
+              Bölümlere Göre Eğitmen Dağılımı
+            </h2>
+          </div>
+          <div class="card-body mb-3">
+            <div class="float-start">
+              <!-- <h6 class="text-muted">Sınıf : Sınıf 1</h6> -->
+              <h5>Eğitmen Sayısı {{totalAcademicianNumber}} </h5>
+            </div>
+            <div class="mb-5">
+              <apx-chart [series]="areaChartOptions.series2" [chart]="areaChartOptions.chart"
+                [labels]="areaChartOptions.labels" [title]="areaChartOptions.title" [theme]="areaChartOptions.theme"
+                [fill]="areaChartOptions.fill" [yaxis]="polarChartOptions.yaxis" [stroke]="areaChartOptions.stroke"
+                [legend]="areaChartOptions.legend" [plotOptions]="areaChartOptions.plotOptions"></apx-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="card">
+          <div class="header">
+            <h2>
+              Bölümlere Göre Öğrenci Dağılımı
+            </h2>
+          </div>
+          <div class="card-body mb-3">
+            <div class="float-start">
+              <!-- <h6 class="text-muted">Sınıf : Sınıf 1</h6> -->
+              <h5>Öğrenci Sayısı {{totalStudentNumber}} </h5>
+            </div>
+            <div class="mb-5">
+              <apx-chart [series]="polarChartOptions.series2" [chart]="polarChartOptions.chart"
+                [labels]="polarChartOptions.labels" [title]="polarChartOptions.title" [theme]="polarChartOptions.theme"
+                [fill]="polarChartOptions.fill" [yaxis]="polarChartOptions.yaxis" [stroke]="polarChartOptions.stroke"
+                [legend]="polarChartOptions.legend" [plotOptions]="polarChartOptions.plotOptions"></apx-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+          <div class="header">
+            <h2>Eğitmenler Listesi</h2>
+          </div>
+          <div class="tableBody overflow-auto" style="height: 400px;">
+            <div class="table-responsive">
+              <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Eğitmen</th>
+                    <th>Bölüm</th>
+                    <th>Email</th>
+                    <th>Katılım Tarihi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let academician of topAcademician">
+                    <td class="table-img">
+                      <img src={{url+academician.img}} alt="">
+                    </td>
+                    <td>{{academician.name}}</td>
+                    <td>
+                      <div class="badge col-red">{{academician.DepartmentName}}</div>
+                    </td>
+                    <td><a href="mailto:{{academician.email}}"> {{academician.email}} </a></td>
+                    <td>{{academician.startDate}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+          <div class="header">
+            <h2>Bölüm Başkanların Listesi</h2>
+          </div>
+          <div class="tableBody overflow-auto" style="height: 400px;">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Bölüm Başkanı</th>
+                    <th>Bölüm</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let deparmentOfHead of topDeparmentOfHead">
+                    <td class="table-img">
+                      <img src={{url+deparmentOfHead.img}} alt="">
+                    </td>
+                    <td>
+                      <div class="media-title">{{deparmentOfHead.headName}}</div>
+                    </td>
+                    <td>
+                      <div class="badge badge-solid-green">{{deparmentOfHead.departmentName}}</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2>Yeni Öğrenci Listesi</h2>
+          </div>
+          <div class="tableBody overflow-auto" style="height: 400px;">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Öğrenci </th>
+                    <th>Bölüm</th>
+                    <th>Telefon No</th>
+                    <th>Email</th>
+                    <th>Katılım Tarihi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let student of topStudentInfo">
+                    <td class="table-img">
+                      <img src={{url+student.img}} alt="">
+                    </td>
+                    <td>{{student.name}}</td>
+                    <td>
+                      <div class="badge col-orange">{{student.DepartmentName}}</div>
+                    </td>
+                    <td>{{student.telephone}}</td>
+                    <td><a href="mailto:{{student.email}}"> {{student.email}} </a></td>
+                    <td>{{student.startDate}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

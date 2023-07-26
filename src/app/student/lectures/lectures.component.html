@@ -1,0 +1,78 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+          <div class="header">
+          </div>
+          <div class="body">
+            <div class="row">
+              <div *ngIf="isLoad === false" style="margin-left:40%" id="preloadLesson">
+                <mat-spinner></mat-spinner>
+              </div>
+              <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let course of AllCourses">
+                  <div class="course-card" (click)="goToLecturesPage(course.lessonId)" id="{{course.lessonId}}">
+                    <div class="course-card-body">
+                      <div class="course-card-top-overflow text-white">
+                        <img src="assets/images/banner/lessonimg.jpg">
+                      </div>
+                      <div class="post-user mt-3">
+                        <span class="float-start msr-3">
+                          <img class="img-circle" src={{url+course.img}} width="40" height="40" alt="...">
+                        </span>
+                        <h6 class="mb-xs mt-xs">{{course.lessonName}}</h6>
+                        <p class="text-muted"><time>---</time></p>
+                        <h5>Sınıf : {{course.className}}</h5>
+                        <h6>Ders Kodu : {{course.lessonCode}}</h6>
+                        <span>Kredi : {{course.kredi}}</span><span class="right">Akts :
+                          {{course.akts}}</span>
+                        <p class="text-muted"></p>
+                      </div>
+                      <div *ngIf="course.detaily">
+                      <p>Detayları : {{course.detaily}}</p>
+                      </div>
+                      <ng-template *ngIf="!course.detaily"></ng-template>
+                    </div>
+                    <footer class="bg-body-light"></footer>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-md-3">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="header">
+              <h3>Dersler Duyurları</h3>
+            </div>
+            <div class="body overflow-auto" style="height: 400px;">
+              <div class="table-responsive">
+                <table class="table table-hover ">
+                  <thead>
+                    <tr>
+                      <th>Başlık</th>
+                      <th>Yayın Tarihi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let announcement of lessonsAnnouncements"
+                      (click)="openAnnouncementCardDialog(announcement)">
+                      <td><a href="{{announcement.head}}"><td class="col-black">{{announcement.head}}</td></a></td>
+                      <td>
+                        <button mat-flat-button class="col-pink">{{announcement.Date}}</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</section>

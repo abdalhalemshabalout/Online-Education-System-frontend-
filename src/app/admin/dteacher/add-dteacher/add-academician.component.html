@@ -1,0 +1,79 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" *ngFor="let breadscrum of breadscrums">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Ders Eğitmeni Ekleme Formu</h2>
+  
+            </div>
+            <div class="body">
+              <form class="m-4" [formGroup]="dteacherForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Fakülte seçin</mat-label>
+                      <mat-select formControlName="facultyId" required (selectionChange)="onChangeSelect($event.value)">
+                        <mat-option *ngFor="let fau of faculty" [value]="fau.id">{{fau.name}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="dteacherForm.get('facultyId').hasError('required')">
+                        Fakülte seçin!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Departman Seçin</mat-label>
+                      <mat-select formControlName="departmentId" required (selectionChange)="onChangeSelectLesson($event.value)" (selectionChange)="onChangeSelectAcademician($event.value)">
+                        <mat-option *ngFor="let dep of selectedDepartment" [value]="dep.id">{{dep.name}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="dteacherForm.get('departmentId').hasError('required')">
+                         Departman seçin!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Academician Ad</mat-label>
+                      <mat-select formControlName="academicianId" required>
+                        <mat-option *ngFor="let aca of selectedAcademician" [value]="aca.id">{{aca.name}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="dteacherForm.get('academicianId').hasError('required')">
+                        eğitmen seçin!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Ders Adi</mat-label>
+                      <mat-select formControlName="lessonId" required>
+                        <mat-option *ngFor="let les of selectedLesson" [value]="les.id">{{les.lessonName}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="dteacherForm.get('lessonId').hasError('required')">
+                        ders seçin!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <button class="btn-space" [disabled]="!dteacherForm.valid " mat-raised-button
+                      color="primary">Gönder</button>
+                    <button type="button" mat-button>İptal</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

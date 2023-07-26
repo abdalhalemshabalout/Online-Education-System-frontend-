@@ -1,0 +1,39 @@
+<div>
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          <div class="font-weight-bold p-t-5 font-17">
+            <h2 mat-dialog-title>Duyuru Ekleme Formu</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form [formGroup]="addAnnuncementForm" (ngSubmit)="onSubmitClick()">
+      <div class="text-inside">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Duyuru Başlığı" formControlName="head" required>
+          <mat-error *ngIf="addAnnuncementForm.controls.head.hasError('required')">
+            lütfen duyuru başlığı girin
+          </mat-error>
+          <mat-error *ngIf="addAnnuncementForm.controls.head.hasError('pattern')">
+            lütfen duyuru başlığı girin
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="text-inside" class="example-full-width mb-3" appearance="outline">
+        <ckeditor appearance="outline" formControlName="body" [editor]="Editor"></ckeditor>
+      </div>
+
+      <div class="btn-sec">
+        <button class="btn-space" mat-raised-button color="primary">Kaydet</button>
+        <button type="button" mat-button (click)="closeDialog()">Iptal</button>
+      </div>
+    </form>
+  </div>
+</div>
