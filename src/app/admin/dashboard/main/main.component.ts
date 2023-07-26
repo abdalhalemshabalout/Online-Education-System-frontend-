@@ -88,17 +88,17 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getTotal();
-    this.getStudentOfYearTotal();
-    this.getStudentOfDepartment();
-    this.getTopAcademicianInfo();
-    this.getDepartmentOfHead();
-    this.getTopStudentInfo();
-    this.getAcademicianOfDepartment();
-    this.getGeneralAnnouncements();
-    this.chart3();
-    this.chart2();
-    this.chart1();
+    // this.getTotal();
+    // this.getStudentOfYearTotal();
+    // this.getStudentOfDepartment();
+    // this.getTopAcademicianInfo();
+    // this.getDepartmentOfHead();
+    // this.getTopStudentInfo();
+    // this.getAcademicianOfDepartment();
+    // this.getGeneralAnnouncements();
+    // this.chart3();
+    // this.chart2();
+    // this.chart1();
   }
   // get Academician Of Department
   public chart1() {

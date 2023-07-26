@@ -69,12 +69,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     if (this.authService.currentUserValue) {
-      const userRole = this.authService.currentUserValue['data']['roleId'];
+      const userRole = this.authService.currentUserValue.role;
       this.userFullName =
-        this.authService.currentUserValue['data']['firstName'] +
+        this.authService.currentUserValue.firstName +
         ' ' +
-        this.authService.currentUserValue['data']['lastName'];
-      this.userImg = this.authService.currentUserValue['data']['img']!==""?this.authService.currentUserValue['data']['img'] :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmAPeq1xFfv9zuMj-od5i_ybvJUHoB5MFf-A&usqp=CAU";
+        this.authService.currentUserValue.lastName;
 
       this.sidebarItems = ROUTES.filter(
 
@@ -88,8 +87,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.userType = 'Akademisyen';
       } else if (userRole === Role.Student) {
         this.userType = 'Öğrenci';
-      } else if (userRole=== Role.Personal) {
-        this.userType = 'Idare Personel';
       }
     }
 

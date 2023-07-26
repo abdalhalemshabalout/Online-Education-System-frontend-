@@ -37,15 +37,15 @@ export class SigninComponent
     return this.authForm.controls;
   }
   adminSet() {
-    this.authForm.get('username').setValue('personal@logdef.com');
+    this.authForm.get('username').setValue('manager@school.com');
     this.authForm.get('password').setValue('123456');
   }
   teacherSet() {
-    this.authForm.get('username').setValue('academician@logdef.com');
+    this.authForm.get('username').setValue('teacher@school.com');
     this.authForm.get('password').setValue('123456');
   }
   studentSet() {
-    this.authForm.get('username').setValue('student@logdef.com');
+    this.authForm.get('username').setValue('student@school.com');
     this.authForm.get('password').setValue('123456');
   }
   onSubmit() {
@@ -62,14 +62,16 @@ export class SigninComponent
           (res) => {
             if (res) {
               setTimeout(() => {
-                const role = this.authService.currentUserValue['data']['roleId'];
-                if (role === Role.Admin) {
+                const role = this.authService.currentUserValue.role;
+                console.log('role' + role);
+                if (role == Role.Admin) {
                   this.router.navigate(['/admin/dashboard/dashboard2']);
-                } else if (role === Role.Personal) {
+                } else if (role == Role.Personal) {
                   this.router.navigate(['/admin/dashboard/main']);
-                } else if (role === Role.Teacher) {
+                  console.log('signin')
+                } else if (role == Role.Teacher) {
                   this.router.navigate(['/teacher/dashboard']);
-                } else if (role === Role.Student) {
+                } else if (role == Role.Student) {
                   this.router.navigate(['/student/dashboard']);
                 } else {
                   this.router.navigate(['/authentication/signin']);
@@ -88,5 +90,5 @@ export class SigninComponent
         );
     }
   }
-  
+
 }

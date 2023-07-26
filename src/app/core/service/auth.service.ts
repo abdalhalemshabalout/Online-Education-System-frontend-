@@ -25,7 +25,7 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<any>(`${environment.apiUrl}/auth/login`, {
+      .post<any>(`${environment.apiUrl}/login`, {
         email,
         password,
       })
@@ -34,9 +34,10 @@ export class AuthService {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
 
           localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          // console.log(JSON.parse(JSON.stringify(user))['data']['roleId']);
-          // console.log(this.currentUserSubject.value['data']['roleId']);
+          this.setCurrentUser(JSON.parse(JSON.stringify(user)));
+          // this.currentUserSubject.next(userRes);
+          // console.log(JSON.parse(JSON.stringify(user))['data']);
+          // console.log(this.currentUserSubject.value);
           return user;
         })
       );
@@ -47,5 +48,13 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     return of({ success: false });
+  }
+
+  async setCurrentUser(userRes) {
+    console.log(userRes);
+    this.currentUserSubject.value.id = userRes['data']['user']["id"];
+    this.currentUserSubject.value.role = userRes['data']['user']["role_id"];
+    this.currentUserSubject.value.token = userRes['data']['token'];
+    this.currentUserSubject.value.username = userRes['data']['user']["email"];
   }
 }

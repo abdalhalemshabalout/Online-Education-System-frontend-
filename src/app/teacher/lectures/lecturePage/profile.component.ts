@@ -71,7 +71,6 @@ export class LectuerPageComponent implements OnInit {
   }
   ngOnInit() {
     this.isLoad = false;
-    this.userImg = this.authService.currentUserValue['data']['img']!==""?this.authService.currentUserValue['data']['img'] :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmAPeq1xFfv9zuMj-od5i_ybvJUHoB5MFf-A&usqp=CAU";
      this.route
       .queryParamMap
        .subscribe(params => {
@@ -185,7 +184,7 @@ export class LectuerPageComponent implements OnInit {
   getQuestionBank(coursId) {
       this.questionBank = [];
       this.httpClient.post(`${environment.apiUrl}/academician/get-question-bank`,{'lessonId':coursId}).subscribe(data => {
-      this.questionBank = data['data']; 
+      this.questionBank = data['data'];
       },
       (err: HttpErrorResponse) => {
      // error code here
@@ -297,7 +296,7 @@ export class LectuerPageComponent implements OnInit {
         }
        });
   }
-  // Delete Content 
+  // Delete Content
   deleteItem(content) {
     this.contentID = content['contentId'];
     let tempDirection;
