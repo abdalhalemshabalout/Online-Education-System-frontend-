@@ -26,7 +26,7 @@ export class FormDialogComponent {
   public Editor = ClassicEditor;
     readonly: boolean = false;
     personal = [];
-    userId = "";
+    userId = 0;
     action: string;
     dialogTitle: string;
     announcementForm: UntypedFormGroup;
@@ -40,7 +40,7 @@ export class FormDialogComponent {
     private authService: AuthService,
   ) {
 
-     this.userId=this.authService.currentUserValue['data']['userId'];
+     this.userId=this.authService.currentUserValue.id;
     // Set the defaults
     this.action = data.action;
     this.getPersonal();

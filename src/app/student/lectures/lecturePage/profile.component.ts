@@ -34,7 +34,7 @@ export class LectuerPageComponent implements OnInit {
   courseHomeworks=[];
   questionBank = [];
   courseExams=[];
-  studentId=0;
+  studentId="";
   number = 1;
 
   url=environment.imgUrl;
@@ -49,7 +49,7 @@ export class LectuerPageComponent implements OnInit {
   noteID: Number;
   userImg: string;
   isLoad = false;
- 
+
   constructor(private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
@@ -61,10 +61,9 @@ export class LectuerPageComponent implements OnInit {
   }
   ngOnInit() {
     this.isLoad = false;
-    this.userImg = this.authService.currentUserValue['data']['img']!==""?this.authService.currentUserValue['data']['img'] :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmAPeq1xFfv9zuMj-od5i_ybvJUHoB5MFf-A&usqp=CAU";
     if (this.authService.currentUserValue) {
-      const userRole = this.authService.currentUserValue['data']['roleId'];
-        this.studentId=this.authService.currentUserValue['data']['userId'];  
+      const userRole = this.authService.currentUserValue.role;
+        this.studentId=this.authService.currentUserValue.role;
     }
      this.route
       .queryParamMap

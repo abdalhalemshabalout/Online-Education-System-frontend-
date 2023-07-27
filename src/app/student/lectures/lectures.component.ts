@@ -59,7 +59,6 @@ export class LecturesComponent
     this.loadData();
     this.getLessonsAnnouncements();
     this.url=environment.imgUrl;
-    this.userImg = this.authService.currentUserValue['data']['img']!==""?this.authService.currentUserValue['data']['img'] :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmAPeq1xFfv9zuMj-od5i_ybvJUHoB5MFf-A&usqp=CAU";
 
   }
 

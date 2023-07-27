@@ -105,10 +105,9 @@ export class HeaderComponent
   ngOnInit() {
     this.config = this.configService.configData;
 
-    const userRole = this.authService.currentUserValue['data']['roleId'];
-    this.userImg = this.authService.currentUserValue['data']['img']!==""?this.authService.currentUserValue['data']['img'] :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmAPeq1xFfv9zuMj-od5i_ybvJUHoB5MFf-A&usqp=CAU";
-    this.fullName=this.authService.currentUserValue['data']['firstName']+' '+
-    this.authService.currentUserValue['data']['lastName'];
+    const userRole = this.authService.currentUserValue.role;
+    this.fullName=this.authService.currentUserValue.firstName+' '+
+    this.authService.currentUserValue.lastName;
 
     if (userRole === Role.Admin) {
       this.homePage = 'admin/dashboard/dashboard2';

@@ -84,16 +84,16 @@ export class DashboardComponent implements OnInit {
   ) {}
   ngOnInit() {
 
-    this.fullName=this.authService.currentUserValue['data']['firstName']+' '+
-      this.authService.currentUserValue['data']['lastName'];
-    this.teacherId= this.authService.currentUserValue['data']['userId'];
-    this.getAllAcademicianLessons();
-    this.getForEachCoursStudentNumber();
-    this.getGeneralAnnouncements();
-    this.getDepartmentAnnouncements();
-    this.getLessonsAnnouncements();
-    this.chart2();
-    this.chart1();
+    this.fullName=this.authService.currentUserValue.firstName+' '+
+      this.authService.currentUserValue.lastName;
+    this.teacherId= this.authService.currentUserValue.id;
+    // this.getAllAcademicianLessons();
+    // this.getForEachCoursStudentNumber();
+    // this.getGeneralAnnouncements();
+    // this.getDepartmentAnnouncements();
+    // this.getLessonsAnnouncements();
+    // this.chart2();
+    // this.chart1();
   }
   private chart1() {
     this.avgLecChartOptions = {

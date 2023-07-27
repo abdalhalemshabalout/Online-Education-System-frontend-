@@ -121,17 +121,17 @@ export class DashboardComponent implements OnInit {
   // Doughnut chart end
 
   ngOnInit() {
-    this.fullName=this.authService.currentUserValue['data']['firstName']+' '+
-    this.authService.currentUserValue['data']['lastName'];
-    this.getAllDepartmentBooks();
-    this.getLastAddedExam();
-    this.getLastAddedHomework();
-    this.getAllStudentLessons();
-    this.getGeneralAnnouncements();
-    this.getDepartmentAnnouncements();
-    this.getLessonsAnnouncements();
-    this.getTotalContentInLessons();
-    this.chart3();
+    this.fullName=this.authService.currentUserValue.firstName+' '+
+    this.authService.currentUserValue.lastName;
+    // this.getAllDepartmentBooks();
+    // this.getLastAddedExam();
+    // this.getLastAddedHomework();
+    // this.getAllStudentLessons();
+    // this.getGeneralAnnouncements();
+    // this.getDepartmentAnnouncements();
+    // this.getLessonsAnnouncements();
+    // this.getTotalContentInLessons();
+    // this.chart3();
   }
 
 
