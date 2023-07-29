@@ -14,43 +14,43 @@ import { Role } from '../models/role';
 
 const users: User[] = [
   {
-    id: 1,
+    user_id: 1,
     img: 'assets/images/user/admin.jpg',
-    username: 'admin@school.org',
+    email: 'admin@school.org',
     password: 'admin@123',
     firstName: 'Sarah',
     lastName: 'Smith',
-    role: Role.Admin,
+    role_id: Role.Admin,
     token: 'admin-token',
   },
   {
-    id: 2,
+    user_id: 2,
     img: 'assets/images/user/admin.jpg',
-    username: 'admin@school.org',
+    email: 'admin@school.org',
     password: 'admin@123',
     firstName: 'Sarah',
     lastName: 'Smith',
-    role: Role.Personal,
+    role_id: Role.Staff,
     token: 'admin-token',
   },
   {
-    id: 3,
+    user_id: 3,
     img: 'assets/images/user/teacher.jpg',
-    username: 'teacher@school.org',
+    email: 'teacher@school.org',
     password: 'teacher@123',
     firstName: 'Ashton',
     lastName: 'Cox',
-    role: Role.Teacher,
+    role_id: Role.Teacher,
     token: 'teacher-token',
   },
   {
-    id: 3,
+    user_id: 3,
     img: 'assets/images/user/student.jpg',
-    username: 'student@school.org',
+    email: 'student@school.org',
     password: 'student@123',
     firstName: 'Ashton',
     lastName: 'Cox',
-    role: Role.Student,
+    role_id: Role.Student,
     token: 'student-token',
   },
 ];
@@ -80,18 +80,18 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function authenticate() {
       const { username, password } = body;
       const user = users.find(
-        (x) => x.username === username && x.password === password
+        (x) => x.email === username && x.password === password
       );
       if (!user) {
         return error('Username or password is incorrect');
       }
       return ok({
-        id: user.id,
+        id: user.user_id,
         img: user.img,
-        username: user.username,
+        username: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        role: user.role,
+        role: user.role_id,
         token: user.token,
       });
     }

@@ -105,13 +105,12 @@ export class HeaderComponent
   ngOnInit() {
     this.config = this.configService.configData;
 
-    const userRole = this.authService.currentUserValue.role;
-    this.fullName=this.authService.currentUserValue.firstName+' '+
-    this.authService.currentUserValue.lastName;
+    const userRole = this.authService.currentUserValue.role_id;
+    this.fullName = this.authService.currentUserValue.email;
 
     if (userRole === Role.Admin) {
-      this.homePage = 'admin/dashboard/dashboard2';
-    } else if (userRole === Role.Personal) {
+      this.homePage = 'admin/dashboard/main';
+    } else if (userRole === Role.Staff) {
       this.router.navigate(['/admin/dashboard/main']);
     } else if (userRole === Role.Teacher) {
       this.homePage = 'teacher/dashboard';

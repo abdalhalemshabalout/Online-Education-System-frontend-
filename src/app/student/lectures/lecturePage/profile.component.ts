@@ -62,8 +62,8 @@ export class LectuerPageComponent implements OnInit {
   ngOnInit() {
     this.isLoad = false;
     if (this.authService.currentUserValue) {
-      const userRole = this.authService.currentUserValue.role;
-        this.studentId=this.authService.currentUserValue.role;
+      const userRole = this.authService.currentUserValue.role_id;
+        this.studentId=this.authService.currentUserValue.role_id;
     }
      this.route
       .queryParamMap
