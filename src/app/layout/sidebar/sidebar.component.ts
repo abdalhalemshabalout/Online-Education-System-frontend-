@@ -69,11 +69,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     if (this.authService.currentUserValue) {
-      const userRole = this.authService.currentUserValue.role;
+      const userRole = this.authService.currentUserValue.role_id;
       this.userFullName =
-        this.authService.currentUserValue.firstName +
-        ' ' +
-        this.authService.currentUserValue.lastName;
+        this.authService.currentUserValue.email;
 
       this.sidebarItems = ROUTES.filter(
 
@@ -81,12 +79,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
       );
       if (userRole === Role.Admin) {
         this.userType = Role.Admin;
-      } else if (userRole === Role.Personal) {
-        this.userType = 'Idare Personel';
+      } else if (userRole === Role.Staff) {
+        this.userType = Role.Staff;
       } else if (userRole === Role.Teacher) {
-        this.userType = 'Akademisyen';
+        this.userType = Role.Teacher;
       } else if (userRole === Role.Student) {
-        this.userType = 'Öğrenci';
+        this.userType = Role.Student;
       }
     }
 

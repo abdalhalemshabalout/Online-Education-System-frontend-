@@ -40,7 +40,7 @@ export class FormDialogComponent {
     private authService: AuthService,
   ) {
 
-     this.userId=this.authService.currentUserValue.id;
+     this.userId=this.authService.currentUserValue.user_id;
     // Set the defaults
     this.action = data.action;
     this.getPersonal();

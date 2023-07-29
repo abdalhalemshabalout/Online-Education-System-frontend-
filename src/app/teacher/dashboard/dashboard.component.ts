@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
 
     this.fullName=this.authService.currentUserValue.firstName+' '+
       this.authService.currentUserValue.lastName;
-    this.teacherId= this.authService.currentUserValue.id;
+    this.teacherId= this.authService.currentUserValue.user_id;
     // this.getAllAcademicianLessons();
     // this.getForEachCoursStudentNumber();
     // this.getGeneralAnnouncements();

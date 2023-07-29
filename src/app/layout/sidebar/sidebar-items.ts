@@ -24,7 +24,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Personal'],
+    role: ['Admin'],
     submenu: [
       {
         path: '/admin/dashboard/main',
@@ -40,6 +40,7 @@ export const ROUTES: RouteInfo[] = [
       },
     ],
   },
+  // multi DASHBOARD
   {
     path: '',
     title: 'MENUITEMS.DASHBOARD.TEXT',
@@ -49,7 +50,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin'],
+    role: [''],
     submenu: [
       {
         path: '/admin/dashboard/main',
@@ -60,7 +61,7 @@ export const ROUTES: RouteInfo[] = [
         groupTitle: false,
         badge: '',
         badgeClass: '',
-        role: ['Admin'],
+        role: [''],
         submenu: [],
       },
       {
@@ -72,7 +73,7 @@ export const ROUTES: RouteInfo[] = [
         groupTitle: false,
         badge: '',
         badgeClass: '',
-        role: ['Admin'],
+        role: [''],
         submenu: [],
       },
       {
@@ -84,7 +85,7 @@ export const ROUTES: RouteInfo[] = [
         groupTitle: false,
         badge: '',
         badgeClass: '',
-        role: ['Admin'],
+        role: [''],
         submenu: [],
       },
       {
@@ -96,11 +97,51 @@ export const ROUTES: RouteInfo[] = [
         groupTitle: false,
         badge: '',
         badgeClass: '',
-        role: ['Admin'],
+        role: [''],
         submenu: [],
       },
     ],
   },
+   // Classes - get - add
+  {
+    path: '',
+    title: 'MENUITEMS.DEPARTMENTS.TEXT',
+    iconType: 'material-icons-two-tone',
+    icon: 'people_alt',
+    class: 'menu-toggle',
+    groupTitle: false,
+    badge: '',
+    badgeClass: '',
+    role: ['Admin'],
+    submenu: [
+      {
+        path: '/admin/departments/all-departments',
+        title: 'MENUITEMS.DEPARTMENTS.LIST.ALL-DEPARTMENT',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        role: [''],
+        submenu: [],
+      },
+      {
+        path: '/admin/departments/add-department',
+        title: 'MENUITEMS.DEPARTMENTS.LIST.ADD-DEPARTMENT',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        role: [''],
+        submenu: [],
+      },
+    ],
+  },
+
+  // teacher - get - add
   {
     path: '',
     title: 'MENUITEMS.TEACHERS.TEXT',
@@ -110,7 +151,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin','Personal'],
+    role: ['Admin'],
     submenu: [
       {
         path: '/admin/teachers/all-teachers',
@@ -138,6 +179,7 @@ export const ROUTES: RouteInfo[] = [
       },
     ],
   },
+  // studebt - get - add - delete - update
   {
     path: '',
     title: 'MENUITEMS.STUDENTS.TEXT',
@@ -147,7 +189,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin','Personal'],
+    role: ['Admin'],
     submenu: [
       {
         path: '/admin/students/all-students',
@@ -175,6 +217,8 @@ export const ROUTES: RouteInfo[] = [
       },
     ],
   },
+
+  // courses
   {
     path: '',
     title: 'MENUITEMS.COURSES.TEXT',
@@ -184,7 +228,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin','Personal'],
+    role: ['Admin'],
     submenu: [
       {
         path: '/admin/courses/all-courses',
@@ -212,6 +256,7 @@ export const ROUTES: RouteInfo[] = [
       },
     ],
   },
+  // announcements
   {
     path: '',
     title: 'MENUITEMS.ANNOUNCEMENT.TEXT',
@@ -221,7 +266,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Personal'],
+    role: ['Admin'],
     submenu: [
       {
         path: '/admin/announcement/all-announcements',
@@ -251,7 +296,6 @@ export const ROUTES: RouteInfo[] = [
   },
 
   // Teacher Modules
-
   {
     path: '/teacher/dashboard',
     title: 'MENUITEMS.TEACHER.LIST.DASHBOARD',
@@ -303,6 +347,8 @@ export const ROUTES: RouteInfo[] = [
     role: ['Student'],
     submenu: [],
   },
+
+
   // Common Module
 
   {
@@ -314,7 +360,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin'],
+    role: [''],
     submenu: [
       {
         path: '/authentication/signin',

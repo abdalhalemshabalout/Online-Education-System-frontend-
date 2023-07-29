@@ -55,14 +55,14 @@
         "ADD-ANNOUNCEMENT": "Ankündigung hinzufügen"
       }
     },
-    "TEACHER": {    
+    "TEACHER": {
       "TEXT": "Lehrerin",
       "LIST": {
         "DASHBOARD": "Dashboard",
-        "LECTURES": "Vorträge",
+        "LECTURES": "Vorträge"
       }
     },
-    "STUDENT": {    
+    "STUDENT": {
       "TEXT": "Studentin",
       "LIST": {
         "DASHBOARD": "Dashboard",

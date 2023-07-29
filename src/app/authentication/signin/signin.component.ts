@@ -62,11 +62,11 @@ export class SigninComponent
           (res) => {
             if (res) {
               setTimeout(() => {
-                const role = this.authService.currentUserValue.role;
+                const role = this.authService.currentUserValue.role_id;
                 console.log('role' + role);
                 if (role == Role.Admin) {
-                  this.router.navigate(['/admin/dashboard/dashboard2']);
-                } else if (role == Role.Personal) {
+                  this.router.navigate(['/admin/dashboard/main']);
+                } else if (role == Role.Staff) {
                   this.router.navigate(['/admin/dashboard/main']);
                   console.log('signin')
                 } else if (role == Role.Teacher) {

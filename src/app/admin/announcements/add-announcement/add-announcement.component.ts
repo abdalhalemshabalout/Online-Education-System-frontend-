@@ -65,12 +65,10 @@ export class AddAnnouncementComponent implements OnInit {
   }
   ngOnInit() {
     if (this.authService.currentUserValue) {
-      const userRole = this.authService.currentUserValue.role;
+      const userRole = this.authService.currentUserValue.role_id;
       this.userFullName =
-        this.authService.currentUserValue.firstName +
-        ' ' +
-        this.authService.currentUserValue.lastName;
-        this.userId=this.authService.currentUserValue.id;
+        this.authService.currentUserValue.email;
+        this.userId=this.authService.currentUserValue.user_id;
     }
     this.announcementForm = this.fb.group({
       liderId : [this.userFullName, [Validators.required]],
