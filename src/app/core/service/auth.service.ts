@@ -40,8 +40,6 @@ export class AuthService {
             localStorage.setItem('currentUser', JSON.stringify(UserModel));
           this.currentUserSubject.next(UserModel);
           // this.currentUserSubject.next(userRes);
-          // console.log(JSON.parse(JSON.stringify(user))['data']);
-          // console.log(this.currentUserSubject.value);
           return UserModel;
         })
       );
