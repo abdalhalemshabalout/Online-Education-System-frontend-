@@ -48,6 +48,10 @@ export class SigninComponent
     this.authForm.get('username').setValue('student@school.com');
     this.authForm.get('password').setValue('123456');
   }
+  staffSet() {
+    this.authForm.get('username').setValue('staff@school.com');
+    this.authForm.get('password').setValue('123456');
+  }
   onSubmit() {
     this.submitted = true;
     this.loading = true;
