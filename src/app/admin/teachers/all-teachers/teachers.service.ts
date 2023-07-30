@@ -38,7 +38,6 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
       }
     );
   }

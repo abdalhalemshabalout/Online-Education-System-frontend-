@@ -98,7 +98,7 @@ export const ROUTES: RouteInfo[] = [
     role: [Role.Admin],
     submenu: [
       {
-        path: '/admin/departments/all-departments',
+        path: '/admin/branches/all-branches',
         title: 'MENUITEMS.BRANCHES.LIST.ALL-BRANCHES',
         iconType: '',
         icon: '',
@@ -110,7 +110,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: '/admin/departments/add-department',
+        path: '/admin/branches/add-branch',
         title: 'MENUITEMS.BRANCHES.LIST.ADD-BRANCH',
         iconType: '',
         icon: '',
