@@ -48,7 +48,7 @@ export const ROUTES: RouteInfo[] = [
   //#region //?Class
      {
     path: '',
-    title: 'MENUITEMS.CLASSES.TEXT',
+    title: 'MENUITEMS.CLASSROOMS.TEXT',
     iconType: 'material-icons-two-tone',
     icon: 'people_alt',
     class: 'menu-toggle',
@@ -58,8 +58,8 @@ export const ROUTES: RouteInfo[] = [
     role: [Role.Admin],
     submenu: [
       {
-        path: '/admin/departments/all-departments',
-        title: 'MENUITEMS.CLASSES.LIST.ALL-CLASSES',
+        path: '/admin/classrooms/all-classrooms',
+        title: 'MENUITEMS.CLASSROOMS.LIST.ALL-CLASSROOMS',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -70,8 +70,8 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: '/admin/departments/add-department',
-        title: 'MENUITEMS.CLASSES.LIST.ADD-CLASS',
+        path: '/admin/classrooms/add-classroom',
+        title: 'MENUITEMS.CLASSROOMS.LIST.ADD-CLASSROOM',
         iconType: '',
         icon: '',
         class: 'ml-menu',

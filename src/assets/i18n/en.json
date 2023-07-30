@@ -12,6 +12,20 @@
         "STUDENT-DASHBOARD": "Student Dashboard"
       }
     },
+    "CLASSROOMS": {
+      "TEXT": "Classrooms",
+      "LIST": {
+        "ALL-CLASSROOMS": "All Classrooms",
+        "ADD-CLASSROOM": "Add Classroom"
+      }
+    },
+    "BRANCHES": {
+      "TEXT": "Branches",
+      "LIST": {
+        "ALL-BRANCHES": "All Branches",
+        "ADD-BRANCH": "Add Branch"
+      }
+    },
     "STAFFES": {
       "TEXT": "Staff",
       "LIST": {
@@ -44,22 +58,6 @@
       "LIST": {
         "ALL-COURSES": "All Cources",
         "ADD-COURSE": "Add Course"
-      }
-    },
-    "CLASSES": {
-      "TEXT": "Classes",
-      "LIST": {
-        "ALL-CLASSES": "All Classes",
-        "ADD-CLASS": "Add Classes",
-        "EDIT-CLASS": "Edit Classes"
-      }
-    },
-    "BRANCHES": {
-      "TEXT": "Branches",
-      "LIST": {
-        "ALL-BRANCHES": "All branches",
-        "ADD-BRANCH": "Add branches",
-        "EDIT-BRANCH": "Edit branches"
       }
     },
     "ANNOUNCEMENT": {
