@@ -125,7 +125,7 @@ export class HeaderComponent
     this.countryName = val.map((element) => element.text);
     if (val.length === 0) {
       if (this.flagvalue === undefined) {
-        this.defaultFlag = 'assets/images/flags/turkey.png';
+        this.defaultFlag = 'assets/images/flags/us.jpg';
       }
     } else {
       this.flagvalue = val.map((element) => element.flag);

@@ -12,6 +12,20 @@
         "STUDENT-DASHBOARD": "Studentin Dashboard"
       }
     },
+    "CLASSROOMS": {
+      "TEXT": "Klassenzimmer",
+      "LIST": {
+        "ALL-CLASSES": "Alle Klassenzimmer",
+        "ADD-CLASS": "Klassenzimmer hinzufügen"
+      }
+    },
+    "BRANCHES": {
+      "TEXT": "Geäst",
+      "LIST": {
+        "ALL-BRANCHES": "Alle Geäst",
+        "ADD-BRANCH": "Geäst hinzufügen"
+      }
+    },
     "TEACHERS": {
       "TEXT": "Lehrer",
       "LIST": {
