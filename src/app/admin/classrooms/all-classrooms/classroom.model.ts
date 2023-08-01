@@ -3,7 +3,7 @@ export class Classroom {
     name: string;
     constructor(classroom) {
       {
-        this.id = classroom.id || this.getRandomID();
+        this.id = classroom.id;
         this.name = classroom.name || '';
       }
     }
@@ -14,4 +14,3 @@ export class Classroom {
       return S4() + S4();
     }
   }
-  

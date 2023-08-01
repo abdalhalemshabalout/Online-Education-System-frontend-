@@ -65,7 +65,7 @@ export class AllClassroomsComponent
   refresh() {
     this.loadData();
   }
-  
+
   addNew() {
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
@@ -109,7 +109,7 @@ export class AllClassroomsComponent
     }
     const dialogRef = this.dialog.open(FormDialogComponent, {
       data: {
-        department: row,
+        classroom: row,
         action: 'edit',
       },
       direction: tempDirection,
@@ -273,7 +273,7 @@ export class ExampleDataSource extends DataSource<Classroom> {
           .slice()
           .filter((classroom: Classroom) => {
             const searchStr = (
-                classroom.name 
+                classroom.name
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });

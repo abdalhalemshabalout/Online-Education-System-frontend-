@@ -39,7 +39,6 @@ export class ClassroomService extends UnsubscribeOnDestroyAdapter {
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
       }
     );
   }
@@ -47,7 +46,7 @@ export class ClassroomService extends UnsubscribeOnDestroyAdapter {
     // add Classroom
     addClassroom(classroom: Classroom):void {
       this.dialogData = classroom;
-  
+
         this.httpClient.post(`${environment.apiUrl}/class-rooms`, classroom).subscribe(data => {
           this.dialogData = classroom;
           if (data['success'] === true) {
@@ -72,7 +71,7 @@ export class ClassroomService extends UnsubscribeOnDestroyAdapter {
        // error code here
       });
     }
-    
+
     // update Classroom
     updateClassroom(classroom: Classroom): void {
       this.dialogData = classroom;

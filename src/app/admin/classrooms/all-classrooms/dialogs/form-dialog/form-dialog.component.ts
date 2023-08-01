@@ -42,7 +42,7 @@ export class FormDialogComponent {
       // this.departmentForm.get('hod').disabled;
 
     } else {
-      this.dialogTitle = 'Yeni Bölüm Ekle Formu';
+      this.dialogTitle = 'Add new class';
       this.classroom = new Classroom({});
       this.classroomForm = this.createContactForm();
     }

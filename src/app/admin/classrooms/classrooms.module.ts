@@ -28,12 +28,14 @@ import { SharedModule } from '../../../app/shared/shared.module';
 import { ClassroomService } from './all-classrooms/classroom.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from './../../shared/components/components.module';
+import { FormDialogComponent } from './all-classrooms/dialogs/form-dialog/form-dialog.component';
 
 @NgModule({
   declarations: [
     AllClassroomsComponent,
     AddClassroomComponent,
     DeleteComponent,
+    FormDialogComponent,
 
   ],
   imports: [
