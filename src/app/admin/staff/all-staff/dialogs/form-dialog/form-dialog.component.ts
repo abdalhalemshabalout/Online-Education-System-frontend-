@@ -66,9 +66,9 @@ export class FormDialogComponent {
       email: [
         this.staff.email,
         [Validators.required, Validators.email, Validators.minLength(5)],
-      ],      
-      password: [this.staff.password],
-      c_password: [this.staff.c_password],
+      ],
+      password: [this.staff.password,this.action!='edit'?[Validators.required]:""],
+      c_password: [this.staff.c_password,this.action!='edit'?[Validators.required]:""],
       address: [this.staff.address, [Validators.required]],
     });
   }
@@ -85,5 +85,4 @@ export class FormDialogComponent {
       this.staffService.addStaff(this.staffForm.getRawValue());
     }
   }
-
 }
