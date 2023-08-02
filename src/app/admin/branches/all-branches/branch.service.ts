@@ -32,7 +32,6 @@ export class BranchService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllBranches(): void {
-    console.log('hello');
     this.subs.sink = this.httpClient.get<Branch[]>(`${environment.apiUrl}/branches`).subscribe(
       (data) => {
         this.isTblLoading = false;
@@ -47,7 +46,6 @@ export class BranchService extends UnsubscribeOnDestroyAdapter {
     // add Branch
     addBranch(branch: Branch):void {
       this.dialogData = branch;
-  
         this.httpClient.post(`${environment.apiUrl}/branches`, branch).subscribe(data => {
           this.dialogData = branch;
           if (data['success'] === true) {
@@ -72,28 +70,28 @@ export class BranchService extends UnsubscribeOnDestroyAdapter {
        // error code here
       });
     }
-    
+
     // update Classroom
-    // updateClassroom(classroom: Classroom): void {
-    //   this.dialogData = classroom;
-    //   this.httpClient.put(`${environment.apiUrl}/class-rooms/`+ classroom.id, classroom).subscribe(data => {
-    //     this.dialogData = classroom;
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     // error code here
-    //   }
-    // );
-    // }
+    updateBranch(branch: Branch): void {
+      this.dialogData = branch;
+      this.httpClient.put(`${environment.apiUrl}/branches/`+ branch.id, branch).subscribe(data => {
+        this.dialogData = branch;
+      },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+    }
 
     // delete Classroom
-    // deleteClassroom(id: number): void {
-    //   this.httpClient.delete(`${environment.apiUrl}/class-rooms/` + id).subscribe(data => {
-    //     },
-    //     (err: HttpErrorResponse) => {
-    //        // error code here
-    //     }
-    //   );
-    // }
+  deleteBranch(id: number): void {
+      this.httpClient.delete(`${environment.apiUrl}/branches/` + id).subscribe(data => {
+      },
+        (err: HttpErrorResponse) => {
+           // error code here
+        }
+      );
+    }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, '', {
       duration: 4000,

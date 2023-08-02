@@ -22,19 +22,22 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { BranchesRoutingModule } from './branches-routing.module';
 import { AllBranchesComponent } from './all-branches/all-branches.components';
-// import { AddBranchComponent } from './add-branch/add-branch.component';
-// import { DeleteComponent } from './all-branches/dialogs/delete/delete.component';
+import { AddBranchComponent } from './add-branch/add-branch.component';
+import { DeleteComponent } from './all-branches/dialogs/delete/delete.component';
 import { SharedModule } from '../../../app/shared/shared.module';
 import { BranchService } from './all-branches/branch.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComponentsModule } from './../../shared/components/components.module';
+import { ClassroomService } from '../classrooms/all-classrooms/classroom.service';
+import { FormDialogComponent } from './all-branches/dialogs/form-dialog/form-dialog.component';
+
 
 @NgModule({
   declarations: [
     AllBranchesComponent,
-    // AddBranchComponent,
-    // DeleteComponent,
-
+    AddBranchComponent,
+    DeleteComponent,
+    FormDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -62,6 +65,6 @@ import { ComponentsModule } from './../../shared/components/components.module';
     ComponentsModule,
     SharedModule,
   ],
-  providers: [BranchService],
+  providers: [BranchService,ClassroomService],
 })
 export class BranchesModule {}

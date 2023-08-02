@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AllBranchesComponent } from './all-branches/all-branches.components';
-// import { AddBranchComponent } from './add-branch/add-branch.component';
+import { AddBranchComponent } from './add-branch/add-branch.component';
 
 
 const routes: Routes = [
@@ -9,10 +9,10 @@ const routes: Routes = [
     path: 'all-branches',
     component: AllBranchesComponent
   },
-//   {
-//     path: 'add-branch',
-//     component: AddBranchComponent
-//   },
+  {
+    path: 'add-branch',
+    component: AddBranchComponent
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,54 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Branch Add Form</h2>
+          </div>
+          <div class="body">
+            <form class="m-4" [formGroup]="branchForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Classroom Name</mat-label>
+                    <mat-select formControlName="class_room_id" required>
+                      <mat-option *ngFor="let classroom of Classrooms"
+                        [value]="classroom.id">{{classroom.name}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="branchForm.get('class_room_id').hasError('required')">
+                      Classroom feild required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Branch Name</mat-label>
+                    <input matInput formControlName="name">
+                    <mat-error *ngIf="branchForm.get('name').hasError('required')">
+                      branch name required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <button class="btn-space" mat-raised-button color="primary"
+                    [disabled]="!branchForm.valid">Save</button>
+                  <button type="button" mat-button>Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

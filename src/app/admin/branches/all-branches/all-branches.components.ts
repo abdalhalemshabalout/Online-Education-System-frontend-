@@ -15,8 +15,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { UnsubscribeOnDestroyAdapter } from './../../../shared/UnsubscribeOnDestroyAdapter';
 import { environment } from 'src/environments/environment';
 import { setTimeout } from 'timers';
-// import { DeleteComponent } from './dialogs/delete/delete.component';
-// import { FormDialogComponent } from './dialogs/form-dialog/form-dialog.component';
+import { DeleteComponent } from './dialogs/delete/delete.component';
+import { FormDialogComponent } from './dialogs/form-dialog/form-dialog.component';
 
 @Component({
   selector: 'app-all-branches',
@@ -29,7 +29,7 @@ export class AllBranchesComponent
 {
   displayedColumns = [
     'select',
-    'Class_room_id',
+    'class_room.name',
     'name',
     'actions',
   ];
@@ -64,111 +64,110 @@ export class AllBranchesComponent
     this.loadData();
   }
   refresh() {
+    this.exampleDatabase.getAllBranches();
     this.loadData();
   }
-  
-//   addNew() {
-//     let tempDirection;
-//     if (localStorage.getItem('isRtl') === 'true') {
-//       tempDirection = 'rtl';
-//     } else {
-//       tempDirection = 'ltr';
-//     }
-//     const dialogRef = this.dialog.open(FormDialogComponent, {
-//       data: {
-//         classroom: this.classroom,
-//         action: 'add',
-//       },
-//       direction: tempDirection,
-//     });
-//     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-//       if (result === 1) {
-//         // After dialog is closed we're doing frontend updates
-//         // For add we're just pushing a new row inside DataService
-//         this.exampleDatabase.dataChange.value.unshift(
-//           this.classroomService.getDialogData()
-//         );
-//         this.refreshTable();
-//         this.showNotification(
-//           'snackbar-success',
-//           'Classroom added successfully...!!!',
-//           'bottom',
-//           'center'
-//         );
-//       }
-//     });
-//   }
+
+  addNew() {
+    let tempDirection;
+    if (localStorage.getItem('isRtl') === 'true') {
+      tempDirection = 'rtl';
+    } else {
+      tempDirection = 'ltr';
+    }
+    const dialogRef = this.dialog.open(FormDialogComponent, {
+      data: {
+        branch: this.branch,
+        action: 'add',
+      },
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+        // After dialog is closed we're doing frontend updates
+        // For add we're just pushing a new row inside DataService
+        this.exampleDatabase.dataChange.value.unshift(
+          this.branchService.getDialogData()
+        );
+        this.refresh()
+        this.showNotification(
+          'snackbar-success',
+          'Branch added successfully...!!!',
+          'bottom',
+          'center'
+        );
+      }
+    });
+  }
 
 
-//   editCall(row) {
-//     this.id = row.id;
-//     let tempDirection;
-//     if (localStorage.getItem('isRtl') === 'true') {
-//       tempDirection = 'rtl';
-//     } else {
-//       tempDirection = 'ltr';
-//     }
-//     const dialogRef = this.dialog.open(FormDialogComponent, {
-//       data: {
-//         department: row,
-//         action: 'edit',
-//       },
-//       direction: tempDirection,
-//     });
+  editCall(row) {
+    this.id = row.id;
+    let tempDirection;
+    if (localStorage.getItem('isRtl') === 'true') {
+      tempDirection = 'rtl';
+    } else {
+      tempDirection = 'ltr';
+    }
+    const dialogRef = this.dialog.open(FormDialogComponent, {
+      data: {
+        branch: row,
+        action: 'edit',
+      },
+      direction: tempDirection,
+    });
 
-//     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-//       if (result === 1) {
-//         console.log(result);
-//         // When using an edit things are little different, firstly we find record inside DataService by id
-//         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-//           (x) => x.id === this.id
-//         );
-//         // Then you update that record using data from dialogData (values you enetered)
-//         this.exampleDatabase.dataChange.value[foundIndex] =
-//           this.classroomService.getDialogData();
-//         // // And lastly refresh table
-//         this.loadData();
-//         this.showNotification(
-//           'black',
-//           'Classroom has been modified successfully...!!!',
-//           'bottom',
-//           'center'
-//         );
-//       }
-//     });
-//   }
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+        // When using an edit things are little different, firstly we find record inside DataService by id
+        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
+          (x) => x.id === this.id
+        );
+        // Then you update that record using data from dialogData (values you enetered)
+        this.exampleDatabase.dataChange.value[foundIndex] =
+          this.branchService.getDialogData();
+        // // And lastly refresh table
+        this.loadData();
+        this.showNotification(
+          'black',
+          'Branch has been modified successfully...!!!',
+          'bottom',
+          'center'
+        );
+      }
+    });
+  }
 
-//   deleteItem(row) {
-//     this.id = row.id;
-//     let tempDirection;
-//     if (localStorage.getItem('isRtl') === 'true') {
-//       tempDirection = 'rtl';
-//     } else {
-//       tempDirection = 'ltr';
-//     }
-//     const dialogRef = this.dialog.open(DeleteComponent, {
-//       data: row,
-//       direction: tempDirection,
-//     });
-//     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-//       if (result === 1) {
-//         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-//           (x) => x.id === this.id
-//         );
-//         // for delete we use splice in order to remove single object from DataService
-//         this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
-//         this.refreshTable();
-//         this.showNotification(
-//           'snackbar-danger',
-//           'Classroom has been removed successfully...!!!',
-//           'bottom',
-//           'center'
-//         );
-//       }
-//     });
-//   }
+  deleteItem(row) {
+    this.id = row.id;
+    let tempDirection;
+    if (localStorage.getItem('isRtl') === 'true') {
+      tempDirection = 'rtl';
+    } else {
+      tempDirection = 'ltr';
+    }
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: row,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
+          (x) => x.id === this.id
+        );
+        // for delete we use splice in order to remove single object from DataService
+        this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+        this.loadData();
+        this.showNotification(
+          'snackbar-danger',
+          'Branch has been removed successfully...!!!',
+          'bottom',
+          'center'
+        );
+      }
+    });
+  }
   private refreshTable() {
-    console.log(this.paginator.pageSize);
     this.paginator._changePageSize(this.paginator.pageSize);
   }
   /** Whether the number of selected elements matches the total number of rows. */
@@ -192,7 +191,6 @@ export class AllBranchesComponent
       const index: number = this.dataSource.renderedData.findIndex(
         (d) => d === item
       );
-      // console.log(this.dataSource.renderedData.findIndex((d) => d === item));
       this.exampleDatabase.dataChange.value.splice(index, 1);
       this.refreshTable();
       this.selection = new SelectionModel<Branch>(true, []);
@@ -275,7 +273,7 @@ export class ExampleDataSource extends DataSource<Branch> {
           .filter((branch: Branch) => {
             const searchStr = (
                 branch.class_room_id,
-                branch.name 
+                branch.name
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -305,7 +303,7 @@ export class ExampleDataSource extends DataSource<Branch> {
           [propertyA, propertyB] = [a.id, b.id];
           break;
         case 'class_room_id':
-          [propertyA, propertyB] = [a.class_room_id, b.class_room_id];
+          [propertyA, propertyB] = [a.class_room.name, b.class_room.name];
           break;
         case 'name':
           [propertyA, propertyB] = [a.name, b.name];
