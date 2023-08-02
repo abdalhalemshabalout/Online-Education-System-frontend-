@@ -1,50 +1,57 @@
-import { Announcement } from './announcement.model';
-import { AnnouncementService } from './announcements.service';
-import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { DataSource } from '@angular/cdk/collections';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormDialogComponent } from './dialogs/form-dialog/form-dialog.component';
-import { DeleteComponent } from './dialogs/delete/delete.component';
-import { MatSort } from '@angular/material/sort';
+import { colorSets } from '@swimlane/ngx-charts';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { StaffService } from './staff.service';
 import { HttpClient,HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { Staff } from './staff.model';
+import { DataSource } from '@angular/cdk/collections';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UnsubscribeOnDestroyAdapter } from './../../../shared/UnsubscribeOnDestroyAdapter';
+import { environment } from 'src/environments/environment';
+import { setTimeout } from 'timers';
+import { DeleteComponent } from './dialogs/delete/delete.component';
+import { FormDialogComponent } from './dialogs/form-dialog/form-dialog.component';
 
 @Component({
-  selector: 'app-all-announcement',
-  templateUrl: './all-announcement.component.html',
-  styleUrls: ['./all-announcement.component.sass'],
+  selector: 'app-all-staff',
+  templateUrl: './all-staff.components.html',
+  styleUrls: ['./all-staff.components.sass'],
 })
-export class AllAnnouncementComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
-
+export class AllStaffsComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   displayedColumns = [
     'select',
-    'title',
-    'text',
+    'name',
+    'surname',
+    'phone_number',
+    'email',
+    'address',
     'actions',
   ];
-  exampleDatabase: AnnouncementService | null;
+  exampleDatabase: StaffService | null;
   dataSource: ExampleDataSource | null;
-  selection = new SelectionModel<Announcement>(true, []);
+  selection = new SelectionModel<Staff>(true, []);
   id: number;
-  announcement: Announcement | null;
-    breadscrums = [
+  staff: Staff | null;
+  breadscrums = [
     {
-      title: 'All Announcements',
-      items: ['Announcements'],
+      title: 'All Staffs',
+      items: ['Staffs'],
       active: 'Full',
     },
   ];
-
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public announcementService: AnnouncementService,
+    public staffService: StaffService,
     private snackBar: MatSnackBar
   ) {
     super();
@@ -62,7 +69,7 @@ export class AllAnnouncementComponent extends UnsubscribeOnDestroyAdapter implem
   refresh() {
     this.loadData();
   }
-
+  
   addNew() {
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
@@ -72,7 +79,7 @@ export class AllAnnouncementComponent extends UnsubscribeOnDestroyAdapter implem
     }
     const dialogRef = this.dialog.open(FormDialogComponent, {
       data: {
-        Announcement: this.announcement,
+        staff: this.staff,
         action: 'add',
       },
       direction: tempDirection,
@@ -82,12 +89,12 @@ export class AllAnnouncementComponent extends UnsubscribeOnDestroyAdapter implem
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
         this.exampleDatabase.dataChange.value.unshift(
-          this.announcementService.getDialogData()
+          this.staffService.getDialogData()
         );
-        this.loadData();
+        this.refreshTable();
         this.showNotification(
           'snackbar-success',
-          'Announcement Added Successfully...!!!',
+          'Staff added successfully...!!!',
           'bottom',
           'center'
         );
@@ -106,7 +113,7 @@ export class AllAnnouncementComponent extends UnsubscribeOnDestroyAdapter implem
     }
     const dialogRef = this.dialog.open(FormDialogComponent, {
       data: {
-        announcement: row,
+        staff: row,
         action: 'edit',
       },
       direction: tempDirection,
@@ -114,24 +121,25 @@ export class AllAnnouncementComponent extends UnsubscribeOnDestroyAdapter implem
 
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
-        console.log(result);
         // When using an edit things are little different, firstly we find record inside DataService by id
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
           (x) => x.id === this.id
         );
+        // Then you update that record using data from dialogData (values you enetered)
         this.exampleDatabase.dataChange.value[foundIndex] =
-          this.announcementService.getDialogData();
+          this.staffService.getDialogData();
         // // And lastly refresh table
         this.loadData();
         this.showNotification(
           'black',
-          'Announcement has been modified successfully...!!!',
+          'Staff has been modified successfully...!!!',
           'bottom',
           'center'
         );
       }
     });
   }
+
   deleteItem(row) {
     this.id = row.id;
     let tempDirection;
@@ -154,16 +162,14 @@ export class AllAnnouncementComponent extends UnsubscribeOnDestroyAdapter implem
         this.refreshTable();
         this.showNotification(
           'snackbar-danger',
-          'Announcement has been removed successfully...!!!',
+          'Staff has been removed successfully...!!!',
           'bottom',
           'center'
         );
       }
     });
   }
-
-   private refreshTable() {
-    // console.log(this.paginator.pageSize);   => this is send announcement id to consol in delete
+  private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
   /** Whether the number of selected elements matches the total number of rows. */
@@ -190,17 +196,17 @@ export class AllAnnouncementComponent extends UnsubscribeOnDestroyAdapter implem
       // console.log(this.dataSource.renderedData.findIndex((d) => d === item));
       this.exampleDatabase.dataChange.value.splice(index, 1);
       this.refreshTable();
-      this.selection = new SelectionModel<Announcement>(true, []);
+      this.selection = new SelectionModel<Staff>(true, []);
     });
     this.showNotification(
       'snackbar-danger',
-      totalSelect + 'Announcement has been removed successfully...!!!',
+      totalSelect + 'Staff has been removed successfully...!!!',
       'bottom',
       'center'
     );
   }
-    public loadData() {
-    this.exampleDatabase = new AnnouncementService(this.httpClient,this.snackBar);
+  public loadData() {
+    this.exampleDatabase = new StaffService(this.httpClient,this.snackBar);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -215,7 +221,7 @@ export class AllAnnouncementComponent extends UnsubscribeOnDestroyAdapter implem
       }
     );
   }
-    showNotification(colorName, text, placementFrom, placementAlign) {
+  showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, '', {
       duration: 2000,
       verticalPosition: placementFrom,
@@ -223,10 +229,17 @@ export class AllAnnouncementComponent extends UnsubscribeOnDestroyAdapter implem
       panelClass: colorName,
     });
   }
+  // context menu
+  onContextMenu(event: MouseEvent, item: Staff) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + 'px';
+    this.contextMenuPosition.y = event.clientY + 'px';
+    this.contextMenu.menuData = { item: item };
+    this.contextMenu.menu.focusFirstItem('mouse');
+    this.contextMenu.openMenu();
+  }
 }
-
-
-export class ExampleDataSource extends DataSource<Announcement> {
+export class ExampleDataSource extends DataSource<Staff> {
   filterChange = new BehaviorSubject('');
   get filter(): string {
     return this.filterChange.value;
@@ -234,10 +247,10 @@ export class ExampleDataSource extends DataSource<Announcement> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: Announcement[] = [];
-  renderedData: Announcement[] = [];
+  filteredData: Staff[] = [];
+  renderedData: Staff[] = [];
   constructor(
-    public exampleDatabase: AnnouncementService,
+    public exampleDatabase: StaffService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -246,7 +259,7 @@ export class ExampleDataSource extends DataSource<Announcement> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Announcement[]> {
+  connect(): Observable<Staff[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -254,16 +267,19 @@ export class ExampleDataSource extends DataSource<Announcement> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllAnnouncements();
+    this.exampleDatabase.getAllStaffs();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((announcement: Announcement) => {
+          .filter((staff: Staff) => {
             const searchStr = (
-                announcement.title +
-                announcement.text
+                staff.name,
+                staff.surname,
+                staff.phone_number,
+                staff.email,
+                staff.address
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -281,7 +297,7 @@ export class ExampleDataSource extends DataSource<Announcement> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: Announcement[]): Announcement[] {
+  sortData(data: Staff[]): Staff[] {
     if (!this._sort.active || this._sort.direction === '') {
       return data;
     }
@@ -292,12 +308,22 @@ export class ExampleDataSource extends DataSource<Announcement> {
         case 'id':
           [propertyA, propertyB] = [a.id, b.id];
           break;
-        case 'title':
-          [propertyA, propertyB] = [a.title, b.title];
+        case 'name':
+          [propertyA, propertyB] = [a.name, b.name];
           break;
-        case 'text':
-          [propertyA, propertyB] = [a.text, b.text];
+        case 'surname':
+          [propertyA, propertyB] = [a.surname, b.surname];
           break;
+        case 'phone_number':
+            [propertyA, propertyB] = [a.phone_number, b.phone_number];
+            break;
+        case 'email':
+            [propertyA, propertyB] = [a.email, b.email];
+            break;
+        case 'address':
+            [propertyA, propertyB] = [a.address, b.address];
+            break;
+
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       const valueB = isNaN(+propertyB) ? propertyB : +propertyB;

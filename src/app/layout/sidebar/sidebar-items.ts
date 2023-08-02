@@ -138,7 +138,7 @@ export const ROUTES: RouteInfo[] = [
     role: [Role.Admin],
     submenu: [
       {
-        path: '/admin/departments/all-departments',
+        path: '/admin/staff/all-staff',
         title: 'MENUITEMS.STAFFES.LIST.ALL-STAFFES',
         iconType: '',
         icon: '',
@@ -150,7 +150,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: '/admin/departments/add-department',
+        path: '/admin/staff/add-staff',
         title: 'MENUITEMS.STAFFES.LIST.ADD-STAFF',
         iconType: '',
         icon: '',

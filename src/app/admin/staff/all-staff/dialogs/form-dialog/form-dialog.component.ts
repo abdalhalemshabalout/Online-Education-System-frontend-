@@ -2,11 +2,10 @@ import { delay } from 'rxjs/operators';
 import { colorSets } from '@swimlane/ngx-charts';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { AnnouncementService } from '../../announcements.service';
+import { Staff } from '../../staff.model';
+import { StaffService } from '../../staff.service';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { AuthService } from 'src/app/core/service/auth.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { HttpClient,HttpErrorResponse } from '@angular/common/http';
 
 import {
   UntypedFormControl,
@@ -14,7 +13,6 @@ import {
   UntypedFormGroup,
   UntypedFormBuilder
 } from '@angular/forms';
-import { Announcement } from '../../announcement.model';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 @Component({
   selector: 'app-form-dialog',
@@ -23,33 +21,30 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
 export class FormDialogComponent {
-  public Editor = ClassicEditor;
-    readonly: boolean = false;
-    action: string;
-    dialogTitle: string;
-    announcementForm: UntypedFormGroup;
-    announcement: Announcement;
+  action: string;
+  dialogTitle: string;
+  staffForm: UntypedFormGroup;
+  staff: Staff;
+  selectedAcademicain:any;
   constructor(
     private httpClient:HttpClient,
     public dialogRef: MatDialogRef<FormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public announcementService:AnnouncementService,
-    private fb: UntypedFormBuilder,
-    private authService: AuthService,
+    public staffService: StaffService,
+    private fb: UntypedFormBuilder
   ) {
-
     // Set the defaults
     this.action = data.action;
     if (this.action === 'edit') {
-      this.dialogTitle = 'Edit Announcement Form';
-      this.announcement = data.announcement;
-      this.announcementForm = this.createContactForm();
-    } else {
-        this.dialogTitle = 'New Announcemenr Add Form';
-        this.announcement = new Announcement({});
-        this.announcementForm = this.createContactForm();
-    }
+      this.dialogTitle = 'Staff Edit Form';
+      this.staff = data.staff;
+      this.staffForm = this.createContactForm();
 
+    } else {
+      this.dialogTitle = 'New Staff Add Form';
+      this.staff = new Staff({});
+      this.staffForm = this.createContactForm();
+    }
   }
   formControl = new UntypedFormControl('', [
     Validators.required
@@ -64,9 +59,17 @@ export class FormDialogComponent {
   }
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
-      id: [this.announcement.id],
-      title: [this.announcement.title, [Validators.required]],
-      text: [this.announcement.text, [Validators.required]],
+      id: [this.staff.id],
+      name: [this.staff.name, [Validators.required]],
+      surname: [this.staff.surname, [Validators.required]],
+      phone_number: [this.staff.phone_number, [Validators.required]],
+      email: [
+        this.staff.email,
+        [Validators.required, Validators.email, Validators.minLength(5)],
+      ],      
+      password: [this.staff.password],
+      c_password: [this.staff.c_password],
+      address: [this.staff.address, [Validators.required]],
     });
   }
   submit() {
@@ -77,10 +80,9 @@ export class FormDialogComponent {
   }
   public confirmAdd(): void {
     if (this.action === 'edit') {
-      this.announcementService.updateAnnouncement(this.announcementForm.getRawValue());
+      this.staffService.updateStaff(this.staffForm.getRawValue());
     } else {
-      this.announcementService.addAnnouncement(this.announcementForm.value);
-      console.log(this.announcementForm.value);
+      this.staffService.addStaff(this.staffForm.getRawValue());
     }
   }
 

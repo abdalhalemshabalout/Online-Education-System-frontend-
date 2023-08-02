@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { DeleteComponent } from './delete.component';
+import { AddStaffComponent } from './add-staff.component';
 
-describe('DeleteComponent', () => {
-  let component: DeleteComponent;
-  let fixture: ComponentFixture<DeleteComponent>;
+describe('AddStaffComponent', () => {
+  let component: AddStaffComponent;
+  let fixture: ComponentFixture<AddStaffComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteComponent ]
+      declarations: [ AddStaffComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteComponent);
+    fixture = TestBed.createComponent(AddStaffComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
