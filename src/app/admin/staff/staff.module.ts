@@ -18,59 +18,52 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { MatMenuModule } from '@angular/material/menu';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
-import { EditorsComponent } from './all-announcements/editors/editors.component';
-import { AnnouncementRoutingModule } from './announcements-routing.module';
-import { AddAnnouncementComponent } from './add-announcement/add-announcement.component';
-import { AllAnnouncementComponent } from './all-announcements/all-announcement.component';
-import { DeleteComponent } from './all-announcements/dialogs/delete/delete.component';
-import { FormDialogComponent } from './all-announcements/dialogs/form-dialog/form-dialog.component';
-import { ComponentsModule } from 'src/app/shared/components/components.module';
-import { environment } from 'src/environments/environment';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { AnnouncementService } from './all-announcements/announcements.service';
-
-
+import { StaffsRoutingModule } from './staff-routing.module';
+import { AllStaffsComponent } from './all-staff/all-staff.components';
+import { AddStaffComponent } from './add-staff/add-staff.component';
+import { FormDialogComponent } from './all-staff/dialogs/form-dialog/form-dialog.component';
+import { DeleteComponent } from './all-staff/dialogs/delete/delete.component';
+import { SharedModule } from '../../../app/shared/shared.module';
+import { StaffService } from './all-staff/staff.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ComponentsModule } from './../../shared/components/components.module';
 
 @NgModule({
   declarations: [
-    EditorsComponent,
-    AddAnnouncementComponent,
-    AllAnnouncementComponent,
+    AllStaffsComponent,
+    AddStaffComponent,
+    FormDialogComponent,
     DeleteComponent,
-    FormDialogComponent
+
   ],
   imports: [
-    CKEditorModule,
-    MatSortModule,
-    MatDialogModule,
-    MatCardModule,
-    MatSnackBarModule,
-    MatTooltipModule,
-    MatTableExporterModule,
-    MatMenuModule,
-    MatTableModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSnackBarModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
+    MatSortModule,
+    MatCheckboxModule,
     MatToolbarModule,
+    MatCardModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatCheckboxModule,
-    AnnouncementRoutingModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatTableExporterModule,
+    StaffsRoutingModule,
+    MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    MatPaginatorModule,
-
-
   ],
-  providers: [AnnouncementService],
+  providers: [StaffService],
 })
-export class AnnouncementsModule {}
+export class StaffsModule {}

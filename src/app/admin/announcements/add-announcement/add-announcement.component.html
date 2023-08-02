@@ -9,44 +9,31 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div class="card">
             <div class="header">
-              <h2>Duyuru Ekleme Formu</h2>
+              <h2>Announcement Add Form</h2>
 
             </div>
-            <div class="body">
+            <div class="title">
               <form class="m-4" [formGroup]="announcementForm" (ngSubmit)="onSubmit()">
-
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Personel Adı</mat-label>
-                    <input readonly matInput formControlName="liderId">
-                    <mat-icon matSuffix>person</mat-icon>
-                  </mat-form-field>
-                </div>
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                       <mat-form-field class="example-full-width mb-3" appearance="outline">
-                        <mat-label>Başlık</mat-label>
-                        <input matInput formControlName="head">
+                        <mat-label>Title</mat-label>
+                        <input matInput formControlName="title">
                       </mat-form-field>
                     </div>
                 </div>
-                <div class="row body">
+                <div class="row text">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2 ">
-                      <!-- <mat-form-field class="example-full-width mb-3" appearance="outline">
-                        <mat-label>İçerik</mat-label>
-                        <input matInput formControlName="body" >
-
-                      </mat-form-field> -->
                       <div class="example-full-width mb-3" appearance="outline">
-                        <ckeditor formControlName="body" [editor]="Editor" data=""></ckeditor>
+                        <ckeditor formControlName="text" [editor]="Editor" data=""></ckeditor>
                       </div>
                     </div>
                 </div>
                 <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                     <button class="btn-space" [disabled]="!announcementForm.valid " mat-raised-button
-                      color="primary">Gönder</button>
-                    <button type="button" mat-button>İptal</button>
+                      color="primary">Save</button>
+                    <button type="button" mat-button>Cancel</button>
                   </div>
                 </div>
               </form>

@@ -1,0 +1,99 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          <div class="font-weight-bold p-t-5 font-17">
+            {{dialogTitle}}</div>
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="staffForm" (ngSubmit)="submit">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required>
+            <mat-icon matSuffix>face</mat-icon>
+            <mat-error *ngIf="staffForm.get('name').hasError('required')">
+              name required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Sur Name</mat-label>
+            <input matInput formControlName="surname" required>
+            <mat-error *ngIf="staffForm.get('surname').hasError('required')">
+              surname required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone_number">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="staffForm.get('phone_number').hasError('required')">
+              phone number required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="staffForm.get('email').hasError('required')">
+              email required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="action!=='edit'">
+        <div  class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password" required>
+            <mat-error *ngIf="staffForm.get('password').hasError('required')">
+              password required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Password Confirmation</mat-label>
+            <input matInput formControlName="c_password" type="password" required>
+            <mat-error *ngIf="staffForm.get('c_password').hasError('required')">
+              password confirmation required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="address"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row">
+            <button mat-raised-button color="primary" [type]="submit" [disabled]="!staffForm.valid" [mat-dialog-close]="1"
+              (click)="confirmAdd()">Save</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

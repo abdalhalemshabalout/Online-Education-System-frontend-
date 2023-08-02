@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="header">
-            <h2>Tüm Duyurlar</h2>
+            <h2>All Announcements</h2>
           </div>
           <div class="body">
             <div class="responsive_table">
@@ -19,7 +19,7 @@
                     <ul class="header-buttons-left ml-0">
                       <li class="dropdown">
                         <h2>
-                          <strong>Duyurlar</strong>
+                          <strong>Announcements</strong>
                         </h2>
                       </li>
                       <li class="dropdown m-l-20">
@@ -99,21 +99,16 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
                   <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="liderId">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Personel Adı</mat-header-cell>
+                <ng-container matColumnDef="title">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
-                    {{row.liderFullName}}</mat-cell>
+                    {{row.title}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="head">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Başlık</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
-                    {{row.head}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="body">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>İçerik
+                <ng-container matColumnDef="text">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Body
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
-                    {{row.body}}</mat-cell>
+                    {{row.text}}</mat-cell>
                 </ng-container>
                 <!-- actions -->
                 <ng-container matColumnDef="actions">

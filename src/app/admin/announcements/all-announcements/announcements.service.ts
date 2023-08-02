@@ -25,6 +25,8 @@ export class AnnouncementService extends UnsubscribeOnDestroyAdapter {
     super();
     this.addStatus = false;
   }
+  announcement = [];
+
   get data(): Announcement[] {
     return this.dataChange.value;
   }
@@ -33,7 +35,7 @@ export class AnnouncementService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllAnnouncements(): void {
-    this.subs.sink = this.httpClient.get<Announcement[]>(`${environment.apiUrl}/personal/get-announcement`).subscribe(
+    this.subs.sink = this.httpClient.get<Announcement[]>(`${environment.apiUrl}/announcements`).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data['data']);
@@ -48,8 +50,7 @@ export class AnnouncementService extends UnsubscribeOnDestroyAdapter {
   // add Announcement
   addAnnouncement(announcement: Announcement):void {
     this.dialogData = announcement;
-
-      this.httpClient.post(`${environment.apiUrl}/personal/add-announcement`, announcement).subscribe(data => {
+      this.httpClient.post(`${environment.apiUrl}/announcements`, announcement).subscribe(data => {
         this.dialogData = announcement;
         if (data['success'] === true) {
           this.addStatus = data['success'];
@@ -75,7 +76,7 @@ export class AnnouncementService extends UnsubscribeOnDestroyAdapter {
   }
   updateAnnouncement(announcement: Announcement): void {
     this.dialogData = announcement;
-    this.httpClient.post(`${environment.apiUrl}/personal/update-announcement/`+ announcement.id, announcement).subscribe(data => {
+    this.httpClient.put(`${environment.apiUrl}/announcements/`+ announcement.id, announcement).subscribe(data => {
       this.dialogData = announcement;
     },
     (err: HttpErrorResponse) => {
@@ -84,7 +85,7 @@ export class AnnouncementService extends UnsubscribeOnDestroyAdapter {
   );
   }
   deleteAnnouncement(id: number): void {
-    this.httpClient.delete(`${environment.apiUrl}/personal/delete-announcement/`+ id).subscribe(data => {
+    this.httpClient.delete(`${environment.apiUrl}/announcements/`+ id).subscribe(data => {
       },
       (err: HttpErrorResponse) => {
          // error code here

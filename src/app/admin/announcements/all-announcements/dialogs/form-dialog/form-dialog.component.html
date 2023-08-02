@@ -18,21 +18,13 @@
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Başlık</mat-label>
-            <input matInput formControlName="head">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-          <!-- <mat-form-field class="example-full-width mb-3" appearance="outline">
-                <mat-label>İçerik</mat-label>
-                <input matInput formControlName="body" >
-              </mat-form-field> -->
-          <!-- <div class="example-full-width mb-3" appearance="outline">
-            <ckeditor [config]="{ toolbar: []}" disabled=true
-             matInput formControlName="body" [editor]="Editor" data=""></ckeditor>
-          </div> -->
           <div class="example-full-width mb-3" appearance="outline">
             <ckeditor [config]="{
                       link: {
@@ -47,7 +39,7 @@
                 }
             }
         }
-             }" matInput formControlName="body" [editor]="Editor" data=""></ckeditor>
+             }" matInput formControlName="text" [editor]="Editor" data=""></ckeditor>
           </div>
         </div>
       </div>
@@ -55,8 +47,8 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
           <div class="example-button-row">
             <button mat-raised-button color="primary" [type]="submit" [disabled]="!announcementForm.valid"
-              [mat-dialog-close]="1" (click)="confirmAdd()">Kaydet</button>
-            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Sil</button>
+              [mat-dialog-close]="1" (click)="confirmAdd()">Save</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
           </div>
         </div>
       </div>

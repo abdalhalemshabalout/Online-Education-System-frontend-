@@ -1,15 +1,13 @@
 export class Announcement {
     id: number;
-    liderId: string;
-    head: string;
-    body: string;
+    title: string;
+    text: string;
 
     constructor(announcement) {
       {
-        this.id = announcement.id || this.getRandomID();
-        this.liderId = announcement.liderId || '';
-        this.head = announcement.head || '';
-        this.body = announcement.body || '';
+        this.id = announcement.id;
+        this.title = announcement.title || '';
+        this.text = announcement.text || '';
       }
     }
     public getRandomID(): string {

@@ -1,0 +1,98 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" *ngFor="let breadscrum of breadscrums">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Staff Add Form</h2>
+  
+            </div>
+            <div class="body">
+              <form class="m-4" [formGroup]="staffForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Name</mat-label>
+                      <input matInput formControlName="name" type="name" required >
+                      <mat-error *ngIf="staffForm.get('name').hasError('required')">
+                        name required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Surname</mat-label>
+                      <input matInput formControlName="surname" type="name" required>
+                      <mat-error *ngIf="staffForm.get('surname').hasError('required')">
+                        Surname required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput formControlName="phone_number" type="number" required>
+                        <mat-error *ngIf="staffForm.get('phone_number').hasError('required')">
+                            phone number required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>E-mail</mat-label>
+                        <input matInput formControlName="email" type="email" required>
+                        <mat-error *ngIf="staffForm.get('email').hasError('required')">
+                            email required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div> 
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput formControlName="password" type="password"  required>
+                        <mat-error *ngIf="staffForm.get('password').hasError('required')">
+                            password number required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Password Confirmation</mat-label>
+                        <input matInput formControlName="password_confirmation" type="password" required>
+                        <mat-error *ngIf="staffForm.get('password_confirmation').hasError('required')">
+                            password confirmation required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>   
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="address" >
+                      </mat-form-field>
+                    </div>
+                  </div>            
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <button class="btn-space" mat-raised-button color="primary" [disabled]="!staffForm.valid">Save</button>
+                    <button type="button" mat-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
