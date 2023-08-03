@@ -28,7 +28,7 @@ export class FormDialogComponent {
   dclass=[];
   action: string;
   dialogTitle: string;
-  stdForm: UntypedFormGroup;
+  studentForm: UntypedFormGroup;
   students: Students;
   imgUrl=environment.imgUrl;
 
@@ -45,17 +45,16 @@ export class FormDialogComponent {
       this.dialogTitle = data.students.name+ ' ' +data.students.surname;
       this.imgUrl+=data.students.img;
       this.students = data.students;
-      this.stdForm = this.createContactForm();
+      this.studentForm = this.createContactForm();
     } else {
-      this.imgUrl+='images/profile/students/167000005.png';
-      this.dialogTitle = 'Yeni Öğrenci Ekleme Formu';
+      this.dialogTitle = 'Add new student';
       this.students = new Students({});
-      this.stdForm = this.createContactForm();
+      this.studentForm = this.createContactForm();
     }
-    this.getFaculty();
-    this.getDepartment();
-    this.getCountry();
-    this.getClass();
+    // this.getFaculty();
+    // this.getDepartment();
+    // this.getCountry();
+    // this.getClass();
   }
   formControl = new UntypedFormControl('', [
     Validators.required
@@ -71,32 +70,21 @@ export class FormDialogComponent {
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
       id: [this.students.id],
-      img: [this.students.img || ''],
       name: [this.students.name || ''],
       surname: [this.students.surname || ''],
-      fatherName: [this.students.fatherName || ''],
-      motherName: [this.students.motherName || ''],
-      identityNumber: [this.students.identityNumber || ''],
-      countryId: [this.students.countryId || ''],
-      placeOfBirth: [this.students.placeOfBirth || ''],
-      birthDate: [this.students.birthDate],
+      identity_number: [this.students.identity_number || ''],
+      class_room_id: [this.students.class_room_id],
       gender: [this.students.gender],
-      telephone: [this.students.telephone || ''],
-      departmentId: [this.students.departmentId],
-      facultyId: [this.students.facultyId],
-      classId: [this.students.classId],
+      birth_date: [this.students.birth_date],
+      phone_number: [this.students.phone_number || ''],
+      branch_id: [this.students.branch_id],
+      address: [this.students.address],
       email: [
         this.students.email || '',
         [Validators.required, Validators.email, Validators.minLength(5)]
       ],
-      // startDate: [this.students.startDate],
       password: [this.students.password || ''],
       c_password: [this.students.c_password || ''],
-      startDate: [
-        formatDate(this.students.startDate, 'yyyy-MM-dd', 'en'),
-        [Validators.required]
-      ],
-      address: [this.students.address || ''],
     });
   }
   submit() {
@@ -106,27 +94,27 @@ export class FormDialogComponent {
     this.dialogRef.close();
   }
   public confirmAdd(): void {
-    const formData: FormData = new FormData();
-    if (this.stdForm.value['img']) {
-      formData.append('img', this.stdForm.value['img'],this.stdForm.value['img']['name']);
-    }else{
-      formData.append('img','');
-    }
-    for (const [key, value] of Object.entries(this.stdForm.value)) {
-      if (`${key}`!=="img") {
-        formData.append(`${key}`, `${value}`);
-      }
-    }
-    this.submit()
+    // const formData: FormData = new FormData();
+    // if (this.studentForm.value['img']) {
+    //   formData.append('img', this.studentForm.value['img'],this.studentForm.value['img']['name']);
+    // }else{
+    //   formData.append('img','');
+    // }
+    // for (const [key, value] of Object.entries(this.studentForm.value)) {
+    //   if (`${key}`!=="img") {
+    //     formData.append(`${key}`, `${value}`);
+    //   }
+    // }
+    // this.submit()
     if (this.action === 'edit') {
-      this.studentsService.updateStudents(this.stdForm.getRawValue());
+      this.studentsService.updateStudents(this.studentForm.getRawValue());
     } else {
-      this.studentsService.addStudents(formData);
-      setTimeout(() => {
-        if (this.studentsService.addStatus === true) {
-          this.dialogRef.close(1);
-        }
-      }, 1000);
+      this.studentsService.addStudents(this.studentForm.getRawValue());
+      // setTimeout(() => {
+      //   if (this.studentsService.addStatus === true) {
+      //     this.dialogRef.close(1);
+      //   }
+      // }, 1000);
     }
   }
 

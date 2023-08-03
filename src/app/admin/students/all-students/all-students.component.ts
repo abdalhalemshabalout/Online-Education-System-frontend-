@@ -13,8 +13,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.component';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
-import { environment } from 'src/environments/environment';
-import { HttpClient,HttpErrorResponse } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-all-students',
@@ -23,19 +22,16 @@ import { HttpClient,HttpErrorResponse } from '@angular/common/http';
 })
 export class AllStudentsComponent
   extends UnsubscribeOnDestroyAdapter
-  implements OnInit
-{
+  implements OnInit {
   displayedColumns = [
-    'select',
-    'img',
-    'departmentId',
-    'classId',
+    'id',
+    'class_room_id',
+    'branch_id',
     'name',
     'surname',
-    'gender',
-    'telephone',
+    'phone_number',
     'email',
-    'startDate',
+    'gender',
     'actions',
   ];
   exampleDatabase: StudentsService | null;
@@ -43,7 +39,7 @@ export class AllStudentsComponent
   selection = new SelectionModel<Students>(true, []);
   id: number;
   students: Students | null;
-  url='';
+  url = '';
   allStudent = [];
   breadscrums = [
     {
@@ -60,17 +56,7 @@ export class AllStudentsComponent
   ) {
     super();
   }
-   //get All Student
-   public getAllStudent(){
 
-    this.httpClient.get<Students[]>(`${environment.apiUrl}/personal/get-student`).subscribe(
-      (data) => {
-        this.allStudent = (data['data']);
-      },
-      (error: HttpErrorResponse) => {
-      }
-    );
-  }
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filter', { static: true }) filter: ElementRef;
@@ -80,12 +66,11 @@ export class AllStudentsComponent
 
   ngOnInit() {
     this.loadData();
-    this.url=environment.imgUrl;
-    this.getAllStudent();
   }
   refresh() {
     this.loadData();
   }
+
   addNew() {
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
@@ -119,6 +104,7 @@ export class AllStudentsComponent
       }
     });
   }
+
   editCall(row) {
     this.id = row.id;
     let tempDirection;
@@ -147,13 +133,14 @@ export class AllStudentsComponent
         this.refreshTable();
         this.showNotification(
           'black',
-          'Öğrenci Bilgileri Başarıyla Güncellendi...!!!',
+          'The record of student is successfully updated...!!!',
           'bottom',
           'center'
         );
       }
     });
   }
+
   deleteItem(row) {
     this.id = row.id;
     let tempDirection;
@@ -165,7 +152,7 @@ export class AllStudentsComponent
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: row,
       direction: tempDirection,
-      width:'350px',
+      width: '350px',
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
@@ -177,13 +164,14 @@ export class AllStudentsComponent
         this.refreshTable();
         this.showNotification(
           'snackbar-danger',
-          'Öğrenci Kaydı Silindi...!!!',
+          'The record of student is deleted...!!!',
           'bottom',
           'center'
         );
       }
     });
   }
+
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
@@ -199,8 +187,8 @@ export class AllStudentsComponent
     this.isAllSelected()
       ? this.selection.clear()
       : this.dataSource.renderedData.forEach((row) =>
-          this.selection.select(row)
-        );
+        this.selection.select(row)
+      );
   }
   removeSelectedRows() {
     const totalSelect = this.selection.selected.length;
@@ -215,13 +203,13 @@ export class AllStudentsComponent
     });
     this.showNotification(
       'snackbar-danger',
-      totalSelect + 'Öğrenci Kaydı Silindi...!!!',
+      totalSelect + 'The record of student is deleted...!!!',
       'bottom',
       'center'
     );
   }
   public loadData() {
-    this.exampleDatabase = new StudentsService(this.httpClient,this.snackBar);
+    this.exampleDatabase = new StudentsService(this.httpClient, this.snackBar);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -292,8 +280,12 @@ export class ExampleDataSource extends DataSource<Students> {
             const searchStr = (
               students.id +
               students.name +
+              students.surname +
+              students.branch_id +
+              students.class_room_id +
               students.email +
-              students.telephone
+              students.phone_number +
+              students.gender
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -309,7 +301,7 @@ export class ExampleDataSource extends DataSource<Students> {
       })
     );
   }
-  disconnect() {}
+  disconnect() { }
   /** Returns a sorted copy of the database data. */
   sortData(data: Students[]): Students[] {
     if (!this._sort.active || this._sort.direction === '') {
@@ -325,17 +317,23 @@ export class ExampleDataSource extends DataSource<Students> {
         case 'name':
           [propertyA, propertyB] = [a.name, b.name];
           break;
+        case 'surname':
+          [propertyA, propertyB] = [a.birth_date, b.birth_date];
+          break;
+        case 'branch_id':
+          [propertyA, propertyB] = [a.branch_id, b.branch_id];
+          break;
+        case 'class_room_id':
+          [propertyA, propertyB] = [a.class_room_id, b.class_room_id];
+          break;
         case 'email':
           [propertyA, propertyB] = [a.email, b.email];
           break;
-        case 'date':
-          [propertyA, propertyB] = [a.startDate, b.startDate];
+        case 'phone_number':
+          [propertyA, propertyB] = [a.email, b.email];
           break;
-        case 'time':
-          [propertyA, propertyB] = [a.departmentId, b.departmentId];
-          break;
-        case 'mobile':
-          [propertyA, propertyB] = [a.telephone, b.telephone];
+        case 'gender':
+          [propertyA, propertyB] = [a.gender, b.gender];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
@@ -345,5 +343,4 @@ export class ExampleDataSource extends DataSource<Students> {
       );
     });
   }
-
 }
