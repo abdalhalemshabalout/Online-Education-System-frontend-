@@ -1,3 +1,4 @@
+import { Branch } from './../../branches/all-branches/branch.model';
 import { formatDate } from '@angular/common';
 export class Students {
   id: number;
@@ -8,7 +9,9 @@ export class Students {
   gender: string;
   email: string;
   class_room_id: string;
+  className: string;
   branch_id: string;
+  branchName: string;
   role_id: string;
   phone_number: string;
   address: string;

@@ -13,7 +13,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.component';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-all-students',
@@ -25,8 +25,8 @@ export class AllStudentsComponent
   implements OnInit {
   displayedColumns = [
     'id',
-    'class_room_id',
-    'branch_id',
+    'className',
+    'branchName',
     'name',
     'surname',
     'phone_number',
@@ -282,7 +282,7 @@ export class ExampleDataSource extends DataSource<Students> {
               students.name +
               students.surname +
               students.branch_id +
-              students.class_room_id +
+              students.className +
               students.email +
               students.phone_number +
               students.gender
@@ -320,11 +320,11 @@ export class ExampleDataSource extends DataSource<Students> {
         case 'surname':
           [propertyA, propertyB] = [a.birth_date, b.birth_date];
           break;
-        case 'branch_id':
-          [propertyA, propertyB] = [a.branch_id, b.branch_id];
+        case 'branchName':
+          [propertyA, propertyB] = [a.branchName, b.branchName];
           break;
-        case 'class_room_id':
-          [propertyA, propertyB] = [a.class_room_id, b.class_room_id];
+        case 'className':
+          [propertyA, propertyB] = [a.className, b.className];
           break;
         case 'email':
           [propertyA, propertyB] = [a.email, b.email];
