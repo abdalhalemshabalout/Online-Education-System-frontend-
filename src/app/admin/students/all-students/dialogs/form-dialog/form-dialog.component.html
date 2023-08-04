@@ -89,13 +89,8 @@
         <div *ngIf="action!=='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Classroom</mat-label>
-            <!-- <mat-select formControlName="class_room_id" required (selectionChange)="onChangeSelect($event.value)">
-                <mat-option *ngFor="let fau of faculty" [value]="fau.id">{{fau.name}}</mat-option>
-              </mat-select> -->
-            <mat-select formControlName="class_room_id" required>
-              <mat-option [value]="1">1</mat-option>
-              <mat-option [value]="2">2</mat-option>
-              <mat-option [value]="3">3</mat-option>
+            <mat-select formControlName="class_room_id" required (selectionChange)="onChangeSelect($event.value)">
+              <mat-option *ngFor="let classroom of Classrooms" [value]="classroom.id">{{classroom.name}}</mat-option>
             </mat-select>
             <mat-error *ngIf="studentForm.get('class_room_id').hasError('required')">
               Classroom field is required!
@@ -105,19 +100,14 @@
         <div *ngIf="action==='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>class_room</mat-label>
-            <input readonly matInput formControlName="class_room_id" required>
+            <input readonly matInput formControlName="ClassName" required>
           </mat-form-field>
         </div>
         <div *ngIf="action!=='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Branch</mat-label>
-            <!-- <mat-select formControlName="branch_id" required>
-                <mat-option *ngFor="let dep of selectedDepartment" [value]="dep.id">{{dep.name}}</mat-option>
-              </mat-select> -->
             <mat-select formControlName="branch_id" required>
-              <mat-option [value]="1">1</mat-option>
-              <mat-option [value]="2">2</mat-option>
-              <mat-option [value]="3">3</mat-option>
+              <mat-option *ngFor="let branch of selectedBranch" [value]="branch.id">{{branch.name}}</mat-option>
             </mat-select>
             <mat-error *ngIf="studentForm.get('branch_id').hasError('required')">
               Branch field is required!
@@ -127,7 +117,7 @@
         <div *ngIf="action==='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Branch</mat-label>
-            <input readonly matInput formControlName="branch_id" required>
+            <input readonly matInput formControlName="BranchName" required>
           </mat-form-field>
         </div>
       </div>

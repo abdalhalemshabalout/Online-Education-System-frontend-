@@ -1,6 +1,6 @@
+import { Classroom } from './../../classrooms/all-classrooms/classroom.model';
 import { Component } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { StudentsService } from '../all-students/students.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { Branch } from '../../branches/all-branches/branch.model';
 @Component({
   selector: 'app-add-student',
   templateUrl: './add-student.component.html',
@@ -16,11 +17,9 @@ import {
 })
 export class AddStudentComponent {
   studentForm: UntypedFormGroup;
-  department = [];
-  selectedDepartment = [];
-  faculty: [];
-  countrise: [];
-  dclass = [];
+  Branches: Branch[];
+  Classrooms: Classroom[];
+  selectedBranch = [];
   breadscrums = [
     {
       title: 'Add new student',
@@ -29,7 +28,10 @@ export class AddStudentComponent {
     },
   ];
 
-  constructor(private fb: UntypedFormBuilder, private studentsService: StudentsService, private httpClient: HttpClient, private router: Router) {
+  constructor(private fb: UntypedFormBuilder,
+    private studentsService: StudentsService,
+    private httpClient: HttpClient,
+    private router: Router) {
     this.studentForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
@@ -44,72 +46,24 @@ export class AddStudentComponent {
       password: ['', Validators.required],
       c_password: ['', Validators.required],
     });
-    // this.getFaculty();
-    // this.getDepartment();
-    // this.getCountry();
-    // this.getClass();
-  }
-  // get Department data
-  public getDepartment() {
-    this.httpClient.get(`${environment.apiUrl}/personal/get-department-name`).subscribe(data => {
-      this.department = (data['data']);
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      });
+
+    this.studentsService.getAllBranches();
+    this.studentsService.getAllClassrooms();
+    setTimeout(() => {
+      this.Branches = (this.studentsService.allBranches.value);
+      this.Classrooms = this.studentsService.allClassrooms.value;
+    }, 1000);
   }
 
-  // select on change on press the faculte
+  // select on change on press the classroom
   onChangeSelect($event) {
-    var result = this.department.filter((e) => {
-      return e['faculty_id'] == $event;
+    var result = this.Branches.filter((e) => {
+      return e['class_room_id'] == $event;
     });
-    this.selectedDepartment = result;
-  }
-
-  // get Faculty data
-  public getFaculty() {
-    this.httpClient.get(`${environment.apiUrl}/personal/get-faculty`).subscribe(data => {
-      this.faculty = (data['data']);
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      });
-  }
-
-  // Get Country data
-  public getCountry() {
-    this.httpClient.get(`${environment.apiUrl}/personal/get-country`).subscribe(data => {
-      this.countrise = (data['data']);
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      });
-  }
-  // Get Country data
-  public getClass() {
-    this.httpClient.get(`${environment.apiUrl}/personal/get-class`).subscribe(data => {
-      this.dclass = (data['data']);
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      });
+    this.selectedBranch = result;
   }
 
   onSubmit() {
-    // const formData: FormData = new FormData();
-    // if (this.studentForm.value['img']) {
-    //   formData.append('img', this.studentForm.value['img'],this.studentForm.value['img']['name']);
-    // }else{
-    //   formData.append('img','');
-    // }
-
-    // for (const [key, value] of Object.entries(this.studentForm.value)) {
-    //   if (`${key}`!=="img") {
-    //     formData.append(`${key}`, `${value}`);
-    //   }
-    // }
-    // console.log('Form Value', this.studentForm.value);
     this.studentsService.addStudents(this.studentForm.getRawValue());
     setTimeout(() => {
       if (this.studentsService.addStatus == true) {
