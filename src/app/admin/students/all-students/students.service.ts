@@ -7,6 +7,7 @@ import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroy
 import { AuthService } from 'src/app/core/service/auth.service';
 import { Department } from '../../departments/all-departments/department.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { colorSets } from '@swimlane/ngx-charts';
 
 @Injectable()
 export class StudentsService extends UnsubscribeOnDestroyAdapter {
@@ -29,8 +30,9 @@ export class StudentsService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllStudentss(): void {
-    this.subs.sink = this.httpClient.get<Students[]>(`${environment.apiUrl}/personal/get-student`).subscribe(
+    this.subs.sink = this.httpClient.get<Students[]>(`${environment.apiUrl}/students`).subscribe(
       (data) => {
+        console.log(data);
         this.allStudent = (data['data']);
         this.isTblLoading = false;
         this.dataChange.next(data['data']);
@@ -41,11 +43,12 @@ export class StudentsService extends UnsubscribeOnDestroyAdapter {
       }
     );
   }
-  addStudents(students: FormData): void {
+  addStudents(students: Students): void {
     this.addStatus = false;
     this.dialogData = students;
-    this.httpClient.post(`${environment.apiUrl}/personal/add-student`, students).subscribe(data => {
+    this.httpClient.post(`${environment.apiUrl}/students`, students).subscribe(data => {
       this.dialogData = students;
+      console.log(data);
     if (data['success'] === true) {
       this.addStatus = data['success'];
       this.showNotification(
@@ -71,28 +74,23 @@ export class StudentsService extends UnsubscribeOnDestroyAdapter {
   updateStudents(students: Students): void {
     this.dialogData = students;
 
-    /* this.httpClient.put(this.API_URL + students.id, students).subscribe(data => {
+    this.httpClient.put(`${environment.apiUrl}/students/${students.id}`, students).subscribe(data => {
       this.dialogData = students;
+      console.log(data);
     },
     (err: HttpErrorResponse) => {
       // error code here
     }
-  );*/
+  );
   }
   deleteStudents(id: number): void {
-    this.httpClient.delete(`${environment.apiUrl}/personal/delete-student/` + id).subscribe(data => {
+    this.httpClient.delete(`${environment.apiUrl}/students/${id}`).subscribe(data => {
+      console.log(data);
       },
       (err: HttpErrorResponse) => {
          // error code here
       }
     );
-  }
-  departData: any;
-  getDepartData() :Department[] {
-    return this.departData;
-  }
-  getDepartmentFormServer(){
-
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, '', {

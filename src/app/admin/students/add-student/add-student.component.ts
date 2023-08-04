@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { StudentsService } from '../all-students/students.service';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import {
   UntypedFormBuilder,
@@ -15,115 +15,105 @@ import {
   styleUrls: ['./add-student.component.sass'],
 })
 export class AddStudentComponent {
-  stdForm: UntypedFormGroup;
-  department=[];
-  selectedDepartment=[];
-  faculty:[];
-  countrise:[];
-  dclass=[];
+  studentForm: UntypedFormGroup;
+  department = [];
+  selectedDepartment = [];
+  faculty: [];
+  countrise: [];
+  dclass = [];
   breadscrums = [
     {
-      title: 'Öğrenci Ekleme',
-      items: ['Öğrenci'],
-      active: 'Ekle',
+      title: 'Add new student',
+      items: ['Student'],
+      active: 'Add',
     },
   ];
 
   constructor(private fb: UntypedFormBuilder, private studentsService: StudentsService, private httpClient: HttpClient, private router: Router) {
-    this.stdForm = this.fb.group({
-      name: ['', [Validators.required]],
-      surname : ['' ,[Validators.required]],
-      fatherName: ['', [Validators.required]],
-      motherName: ['', [Validators.required]],
-      identityNumber  : ['', [Validators.required]],
-      countryId  : ['', [Validators.required]],
-      placeOfBirth: ['', [Validators.required]],
-      birthDate: ['', ],
-      gender: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
-      facultyId : [''],
-      departmentId : [''],
-      classId: ['', ],
-      startDate: ['', ],
-      email: [
-        '',
-        [Validators.required, Validators.email, Validators.minLength(5)],
-      ],
-      password: ['', [Validators.required]],
-      c_password: ['', [Validators.required]],
-      address: [''],
-      img: [''],
+    this.studentForm = this.fb.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      identity_number: ['', Validators.required],
+      class_room_id: ['', Validators.required],
+      gender: ['', Validators.required],
+      birth_date: ['', Validators.required],
+      phone_number: ['', Validators.required],
+      branch_id: ['', Validators.required],
+      address: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email, Validators.minLength(5)]],
+      password: ['', Validators.required],
+      c_password: ['', Validators.required],
     });
-    this.getFaculty();
-    this.getDepartment();
-    this.getCountry();
-    this.getClass();
+    // this.getFaculty();
+    // this.getDepartment();
+    // this.getCountry();
+    // this.getClass();
   }
   // get Department data
-  public getDepartment(){
+  public getDepartment() {
     this.httpClient.get(`${environment.apiUrl}/personal/get-department-name`).subscribe(data => {
-      this.department=(data['data']);
-      },
+      this.department = (data['data']);
+    },
       (err: HttpErrorResponse) => {
-     // error code here
-    });
+        // error code here
+      });
   }
 
   // select on change on press the faculte
-  onChangeSelect($event){
-    var result=this.department.filter((e)=>{
-      return e['faculty_id']==$event;
+  onChangeSelect($event) {
+    var result = this.department.filter((e) => {
+      return e['faculty_id'] == $event;
     });
-    this.selectedDepartment= result;
+    this.selectedDepartment = result;
   }
 
   // get Faculty data
-  public getFaculty(){
+  public getFaculty() {
     this.httpClient.get(`${environment.apiUrl}/personal/get-faculty`).subscribe(data => {
-      this.faculty=(data['data']);
-      },
+      this.faculty = (data['data']);
+    },
       (err: HttpErrorResponse) => {
-     // error code here
-    });
+        // error code here
+      });
   }
 
   // Get Country data
-  public getCountry(){
+  public getCountry() {
     this.httpClient.get(`${environment.apiUrl}/personal/get-country`).subscribe(data => {
-      this.countrise=(data['data']);
-      },
+      this.countrise = (data['data']);
+    },
       (err: HttpErrorResponse) => {
-     // error code here
-    });
+        // error code here
+      });
   }
   // Get Country data
-  public getClass(){
+  public getClass() {
     this.httpClient.get(`${environment.apiUrl}/personal/get-class`).subscribe(data => {
-      this.dclass=(data['data']);
-      },
+      this.dclass = (data['data']);
+    },
       (err: HttpErrorResponse) => {
-     // error code here
-    });
+        // error code here
+      });
   }
 
   onSubmit() {
-    const formData: FormData = new FormData();
-    if (this.stdForm.value['img']) {
-      formData.append('img', this.stdForm.value['img'],this.stdForm.value['img']['name']);
-    }else{
-      formData.append('img','');
-    }
+    // const formData: FormData = new FormData();
+    // if (this.studentForm.value['img']) {
+    //   formData.append('img', this.studentForm.value['img'],this.studentForm.value['img']['name']);
+    // }else{
+    //   formData.append('img','');
+    // }
 
-    for (const [key, value] of Object.entries(this.stdForm.value)) {
-      if (`${key}`!=="img") {
-        formData.append(`${key}`, `${value}`);
-      }
-    }
-    console.log('Form Value', this.stdForm.value);
-    this.studentsService.addStudents(formData);
+    // for (const [key, value] of Object.entries(this.studentForm.value)) {
+    //   if (`${key}`!=="img") {
+    //     formData.append(`${key}`, `${value}`);
+    //   }
+    // }
+    // console.log('Form Value', this.studentForm.value);
+    this.studentsService.addStudents(this.studentForm.getRawValue());
     setTimeout(() => {
       if (this.studentsService.addStatus == true) {
-        this.stdForm.reset();
+        this.studentForm.reset();
         this.router.navigate(['/admin/students/all-students']);
       }
     }, 1000);

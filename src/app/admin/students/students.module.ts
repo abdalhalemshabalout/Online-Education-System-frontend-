@@ -21,31 +21,31 @@ import { MatTableExporterModule } from 'mat-table-exporter';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { StudentsRoutingModule } from './students-routing.module';
-import { AboutStudentComponent } from './about-student/about-student.component';
 import { AddStudentComponent } from './add-student/add-student.component';
-import { EditStudentComponent } from './edit-student/edit-student.component';
 import { AllStudentsComponent } from './all-students/all-students.component';
-import { DeleteDialogComponent } from './all-students/dialogs/delete/delete.component';
-import { FormDialogComponent } from './all-students/dialogs/form-dialog/form-dialog.component';
 import { StudentsService } from './all-students/students.service';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { StudentAttendanceComponent } from './student-attendance/student-attendance.component';
-import { DeleteDialogComponent as StdDeleteDialogComponent } from './student-attendance/dialogs/delete/delete.component';
-import { FormDialogComponent as StdFormDialogComponent } from './student-attendance/dialogs/form-dialog/form-dialog.component';
-import { StudentAttendanceService } from './student-attendance/attendance.service';
+import { FormDialogComponent } from './all-students/dialogs/form-dialog/form-dialog.component';
+import { DeleteDialogComponent } from './all-students/dialogs/delete/delete.component';
+// import { AboutStudentComponent } from './about-student/about-student.component';
+// import { EditStudentComponent } from './edit-student/edit-student.component';
+// import { StudentAttendanceComponent } from './student-attendance/student-attendance.component';
+// import { DeleteDialogComponent as StdDeleteDialogComponent } from './student-attendance/dialogs/delete/delete.component';
+// import { FormDialogComponent as StdFormDialogComponent } from './student-attendance/dialogs/form-dialog/form-dialog.component';
+// import { StudentAttendanceService } from './student-attendance/attendance.service';
 
 @NgModule({
   declarations: [
-    AboutStudentComponent,
     AddStudentComponent,
-    EditStudentComponent,
     AllStudentsComponent,
-    DeleteDialogComponent,
     FormDialogComponent,
-    StudentAttendanceComponent,
-    StdDeleteDialogComponent,
-    StdFormDialogComponent,
+    DeleteDialogComponent,
+    // AboutStudentComponent,
+    // EditStudentComponent,
+    // StudentAttendanceComponent,
+    // StdDeleteDialogComponent,
+    // StdFormDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -73,6 +73,6 @@ import { StudentAttendanceService } from './student-attendance/attendance.servic
     ComponentsModule,
     SharedModule,
   ],
-  providers: [StudentsService, StudentAttendanceService],
+  providers: [StudentsService],
 })
 export class StudentsModule {}

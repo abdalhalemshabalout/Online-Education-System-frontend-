@@ -1,47 +1,37 @@
 import { formatDate } from '@angular/common';
 export class Students {
   id: number;
-  facultyId:string;
-  departmentId: string;
-  classId: string;
-  countryId: string;
-  img: string;
-  name: string;
   surname: string;
-  telephone: string;
-  email: string;
-  identityNumber: string;
-  fatherName: string;
-  motherName: string;
+  name: string;
+  identity_number: string;
+  birth_date: string;
   gender: string;
-  placeOfBirth: string;
-  birthDate: string;
+  email: string;
+  class_room_id: string;
+  branch_id: string;
+  role_id: string;
+  phone_number: string;
   address: string;
-  startDate: string;
   password: string;
   c_password: string;
-  constructor(students) {
+  is_active: number;
+  constructor(student) {
     {
-      this.id = students.id || '';
-      this.facultyId = students.facultyId || '';
-      this.departmentId = students.departmentId || '';
-      this.classId = students.classId || '';
-      this.img = students.img || '';
-      this.name = students.name || '';
-      this.surname = students.surname || '';
-      this.telephone = students.telephone || '';
-      this.email = students.email || '';
-      this.identityNumber = students.identityNumber || '';
-      this.countryId = students.countryId || '';
-      this.fatherName = students.fatherName || '';
-      this.motherName = students.motherName || '';
-      this.gender = students.gender || '';
-      this.placeOfBirth = students.placeOfBirth || '';
-      this.address = students.address || '';
-      this.startDate = formatDate(new Date(), 'yyyy-MM-dd', 'en') || '';
-      this.birthDate= formatDate(new Date(), 'yyyy-MM-dd', 'en') || '';
-      this.password = students.password || '';
-      this.c_password = students.c_password || '';
+      this.id = student.id;
+      this.class_room_id = student.class_room_id || '';
+      this.branch_id = student.branch_id || '';
+      this.name = student.name || '';
+      this.surname = student.surname || '';
+      this.phone_number = student.phone_number || '';
+      this.email = student.email || '';
+      this.password = student.password || '';
+      this.c_password = student.c_password || '';
+      this.identity_number = student.identity_number || '';
+      this.gender = student.gender || '';
+      this.birth_date = student.birth_date || '';
+      this.address = student.address || '';
+      this.is_active = student.is_active;
+      this.role_id = student.role_id
     }
   }
   public getRandomID(): string {
