@@ -19,8 +19,6 @@ import { AllTeachersComponent } from './all-teachers/all-teachers.component';
 import { DeleteDialogComponent } from './all-teachers/dialogs/delete/delete.component';
 import { FormDialogComponent } from './all-teachers/dialogs/form-dialog/form-dialog.component';
 import { AddTeacherComponent } from './add-teacher/add-teacher.component';
-import { EditTeacherComponent } from './edit-teacher/edit-teacher.component';
-import { AboutTeacherComponent } from './about-teacher/about-teacher.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
@@ -35,8 +33,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DeleteDialogComponent,
     FormDialogComponent,
     AddTeacherComponent,
-    EditTeacherComponent,
-    AboutTeacherComponent,
   ],
   imports: [
     CommonModule,

@@ -1,44 +1,37 @@
 import { formatDate } from '@angular/common';
 export class Teachers {
   id: number;
-  img: string;
+  class_room_id: string;
+  className: string;
+  branch_id: string;
+  branchName: string;
   name: string;
   surname: string;
-  fatherName: string;
-  motherName: string;
-  identityNumber: string;
-  countryId: string;
-  placeOfBirth: string;
-  birthDate: string;
-  gender: string;
+  phone_number: string;
   email: string;
-  departmentGraduated:string;
-  startDate: string;
-  telephone: string;
-  department: string;
   password:string;
   c_password:string;
+  identity_number: string;
+  gender: string;
+  birth_date: string;
   address: string;
-  facultyId: string;
-  departmentId: string;
+  is_active: number;
+
   constructor(teachers) {
     {
       this.id = teachers.id || this.getRandomID();
-      this.img = teachers.img || '';
+      this.class_room_id = teachers.class_room_id || '';
+      this.branch_id = teachers.branch_id || '';
       this.name = teachers.name || '';
       this.surname = teachers.surname || '';
-      this.fatherName = teachers.fatherName || '';
-      this.motherName = teachers.motherName || '';
-      this.identityNumber = teachers.identityNumber || '';
-      this.countryId = teachers.countryId || '';
-      this.gender = teachers.gender || '';
+      this.phone_number = teachers.phone_number || '';
       this.email = teachers.email || '';
-      this.departmentGraduated = teachers.departmentGraduated || '';
-      this.startDate = teachers.startDate, formatDate(new Date(), 'yyyy-MM-dd', 'en') || '' ;
-      this.telephone = teachers.telephone || '';
+      this.password = teachers.password || '';
+      this.c_password = teachers.c_password || '';
+      this.identity_number = teachers.identity_number || '';
+      this.gender = teachers.gender || '';
+      this.birth_date = teachers.birth_date || '';
       this.address = teachers.address || '';
-      this.facultyId = teachers.facultyId || '';
-      this.departmentId = teachers.departmentId || '';
     }
   }
   public getRandomID(): string {

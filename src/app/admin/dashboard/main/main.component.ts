@@ -63,9 +63,9 @@ export class MainComponent implements OnInit {
   public polarChartOptions: Partial<chartOptions>;
   breadscrums = [
     {
-      title: 'Kontrol Panel',
+      title: 'Control Panel',
       items: [],
-      active: 'Kontrol Panel 1',
+      active: 'Control Panel 1',
     },
   ];
   totalNumber = [];

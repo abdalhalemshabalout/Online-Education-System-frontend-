@@ -5,24 +5,29 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { AuthService } from 'src/app/core/service/auth.service';
-import { JSDocComment } from '@angular/compiler';
-import { Department } from '../../departments/all-departments/department.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Branch } from '../../branches/all-branches/branch.model';
+import { Classroom } from '../../classrooms/all-classrooms/classroom.model';
+
 @Injectable()
 export class TeachersService extends UnsubscribeOnDestroyAdapter {
-  private readonly API_URL = 'assets/data/teachers.json';
   isTblLoading = true;
   public addStatus:boolean;
   private authService: AuthService;
   dataChange: BehaviorSubject<Teachers[]> = new BehaviorSubject<Teachers[]>([]);
+  
   // Temporarily stores data from dialogs
+  allTeachers = [];
   dialogData: any;
+  allClassrooms: BehaviorSubject<Classroom[]> = new BehaviorSubject<Classroom[]>([]);
+  allBranches: BehaviorSubject<Branch[]> = new BehaviorSubject<Branch[]>([]);
   constructor(private httpClient: HttpClient,private snackBar: MatSnackBar) {
     super();
-    this.addStatus = false;
+    this.getAllClassrooms();
+    this.getAllBranches();
 
   }
-  teachers = [];
+ 
   get data(): Teachers[] {
     return this.dataChange.value;
   }
@@ -31,19 +36,24 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllTeachers(): void {
-    this.subs.sink = this.httpClient.get<Teachers[]>(`${environment.apiUrl}/personal/get-academician`).subscribe(
+    this.subs.sink = this.httpClient.get<Teachers[]>(`${environment.apiUrl}/teachers`).subscribe(
       (data) => {
-        this.isTblLoading = false;
+        this.allTeachers = (data['data']);
         this.dataChange.next(data['data']);
+        setTimeout(() => {
+          this.setClassroomsAndBranchesNameToData();
+          this.isTblLoading = false;
+        }, 600);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
       }
     );
   }
-  addTeachers(teachers: FormData): void {
+  addTeachers(teachers: Teachers): void {
+    this.addStatus = false;
     this.dialogData = teachers;
-      this.httpClient.post(`${environment.apiUrl}/personal/add-academician`, teachers).subscribe(data => {
+      this.httpClient.post(`${environment.apiUrl}/teachers`, teachers).subscribe(data => {
       this.dialogData = teachers;
       if (data['success'] === true) {
         this.addStatus = data['success'];
@@ -69,28 +79,68 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
   }
   updateTeachers(teachers: Teachers): void {
     this.dialogData = teachers;
-    /* this.httpClient.put(this.API_URL + teachers.id, teachers).subscribe(data => {
+    this.httpClient.put(`${environment.apiUrl}/teachers/${teachers.id}`, teachers).subscribe(data => {
       this.dialogData = teachers;
     },
-    (err: HttpErrorResponse) => {
-      // error code here
-    }
-  );*/
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
   }
   deleteTeachers(id: number): void {
-    this.httpClient.delete(`${environment.apiUrl}/personal/delete-academician/`+ id).subscribe(data => {
+    this.httpClient.delete(`${environment.apiUrl}/teachers/`+ id).subscribe(data => {
       },
       (err: HttpErrorResponse) => {
          // error code here
       }
     );
   }
-  departData: any;
-  getDepartData() :Department[] {
-    return this.departData;
+  setClassroomsAndBranchesNameToData() {
+    this.dataChange.value.forEach(async (e) => {
+      e.className = await this.BuildClassName(e.class_room_id);
+      e.branchName = await this.BuildBranchName(e.branch_id);
+    });
   }
-  getDepartmentFormServer(){
 
+  async BuildClassName(classroomId: string): Promise<string> {
+    var name = "";
+    this.allClassrooms.value.forEach(e => {
+      if (e.id.toString() == classroomId) {
+        name = e.name;
+      }
+    });
+    return name;
+  }
+
+  async BuildBranchName(branchId: string): Promise<string> {
+    var name = "";
+    this.allBranches.value.forEach(e => {
+      if (e.id.toString() == branchId) {
+        name = e.name;
+      }
+    });
+    return name;
+  }
+
+  getAllBranches(): void {
+    this.subs.sink = this.httpClient.get<Branch[]>(`${environment.apiUrl}/branches`).subscribe(
+      (data) => {
+        this.allBranches.next(data['data']);
+      },
+      (error: HttpErrorResponse) => {
+        return null;
+      }
+    );
+  }
+
+  getAllClassrooms(): void {
+    this.subs.sink = this.httpClient.get<Classroom[]>(`${environment.apiUrl}/class-rooms`).subscribe(
+      (data) => {
+        this.allClassrooms.next(data['data']);
+      },
+      (error: HttpErrorResponse) => {
+      }
+    );
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, '', {

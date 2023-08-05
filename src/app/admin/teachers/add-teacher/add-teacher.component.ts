@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { HttpClient} from '@angular/common/http';
 import { TeachersService } from '../all-teachers/teachers.service';
-import { ActivatedRoute, Router} from '@angular/router';
+import { Router} from '@angular/router';
+import { Classroom } from './../../classrooms/all-classrooms/classroom.model';
+import { Branch } from '../../branches/all-branches/branch.model';
 
 import {
   UntypedFormBuilder,
@@ -15,98 +16,55 @@ import {
   styleUrls: ['./add-teacher.component.sass'],
 })
 export class AddTeacherComponent {
-  department=[];
-  selectedDepartment=[];
-  faculty:[];
-  countrise:[];
+  Branches: Branch[];
+  Classrooms: Classroom[];
+  selectedBranch = [];
+
   proForm: UntypedFormGroup;
   breadscrums = [
     {
-      title: 'Eğitmen Ekleme',
-      items: ['Eğitmen'],
-      active: 'Eğitmen Ekle',
+      title: 'Add New Teacher',
+      items: ['Teacher'],
+      active: 'Add',
     },
   ];
-  depart='test';
 
   constructor(private fb: UntypedFormBuilder,private teachersService: TeachersService,private httpClient: HttpClient, private router: Router) {
     this.proForm = this.fb.group({
+      class_room_id: ['', [Validators.required]],
+      branch_id: ['', [Validators.required]],
       name: ['', [Validators.required]],
       surname: ['', [Validators.required]],
-      fatherName: ['', [Validators.required]],
-      motherName: ['', [Validators.required]],
-      identityNumber  : ['', [Validators.required]],
-      countryId  : ['', [Validators.required]],
-      placeOfBirth: ['', [Validators.required]],
-      birthDate: [''],
-      gender: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
+      phone_number  : ['', [Validators.required]],
       email: ['',[Validators.required, Validators.email, Validators.minLength(5)]],
-      departmentGraduated : ['', Validators.required,],
       password: ['', [Validators.required]],
       c_password: ['', [Validators.required]],
-      departmentId : ['',Validators.required],
-      facultyId : ['',Validators.required],
+      identity_number : ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      birth_date : ['', [Validators.required]],
       address: ['',Validators.required],
-      img: [''],
 
     });
 
-    // call funcation on init
-    this.getFaculty();
-    this.getDepartment();
-    this.getCountry();
+    this.teachersService.getAllBranches();
+    this.teachersService.getAllClassrooms();
+    setTimeout(() => {
+      this.Branches = (this.teachersService.allBranches.value);
+      this.Classrooms = this.teachersService.allClassrooms.value;
+    }, 1000);
+
   }
-  // get Faculty data
-  public getFaculty(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-faculty`).subscribe(data => {
-      this.faculty=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
+
+  // select on change on press the classroom
+  onChangeSelect($event) {
+    var result = this.Branches.filter((e) => {
+      return e['class_room_id'] == $event;
     });
+    this.selectedBranch = result;
   }
-  // select on change on press the faculte
-  onChangeSelect($event){
-    var result=this.department.filter((e)=>{
-      return e['faculty_id']==$event;
-    });
-    this.selectedDepartment= result;
-  }
-  // get Department data
-  public getDepartment(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-department-name`).subscribe(data => {
-      this.department=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
-    });
-  }
-  // Get Country data
-  public getCountry(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-country`).subscribe(data => {
-      this.countrise=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
-    });
-  }
+
   onSubmit() {
-    console.log(this.proForm.value['img']+'');
-    const formData: FormData = new FormData();
-    if (this.proForm.value['img']) {
-      formData.append('img', this.proForm.value['img'],this.proForm.value['img']['name']);
-    }else{
-      formData.append('img','');
-    }
-    for (const [key, value] of Object.entries(this.proForm.value)) {
-      if (`${key}`!=="img") {
-        formData.append(`${key}`, `${value}`);
-      }
-    }
-
-    console.log('Form Value', this.proForm.value);
-    this.teachersService.addTeachers(formData);
+    this.teachersService.addTeachers(this.proForm.value());
     setTimeout(() => {
       if (this.teachersService.addStatus == true) {
         this.proForm.reset();
