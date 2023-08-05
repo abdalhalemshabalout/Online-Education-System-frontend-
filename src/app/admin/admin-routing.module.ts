@@ -38,26 +38,11 @@ const routes: Routes = [
       import('./courses/courses.module').then((m) => m.CoursesModule),
   },
   {
-    path: 'departments',
-    loadChildren: () =>
-      import('./departments/departments.module').then(
-        (m) => m.DepartmentsModule
-      ),
-  },
-  {
     path: 'announcement',
     loadChildren: () =>
       import('./announcements/announcements.module').then(
         (m) => m.AnnouncementsModule
       ),
-  },
-  {
-    path: 'dteacher',
-    loadChildren: () => import('./dteacher/dteachers.module').then((m) => m.DteacherModule),
-  },
-  {
-    path: 'dstudents',
-    loadChildren: () => import('./dstudents/dstudents.module').then((m) => m.DstudentModule),
   },
 ];
 

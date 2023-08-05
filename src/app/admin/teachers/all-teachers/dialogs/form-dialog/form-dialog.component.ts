@@ -3,6 +3,9 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { TeachersService } from '../../teachers.service';
 import { environment } from 'src/environments/environment';
+import { Classroom } from './../../../../classrooms/all-classrooms/classroom.model';
+import { Branch } from '../../../../branches/all-branches/branch.model';
+
 import {
   UntypedFormControl,
   Validators,
@@ -18,13 +21,10 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./form-dialog.component.sass'],
 })
 export class FormDialogComponent {
-  department=[];
-  selectedDepartment=[];
-  faculty:[];
-  countrise:[];
+  selectedBranch = [];
+  Branches: Branch[];
+  Classrooms: Classroom[];
   action: string;
-  // facId=0;
-  // depId=0;
   dialogTitle: string;
   proForm: UntypedFormGroup;
   teachers: Teachers;
@@ -49,15 +49,17 @@ export class FormDialogComponent {
 
     }
      else {
-       this.imgUrl+='images/profile/academicians/167000003.png';
-       this.dialogTitle = 'Yeni Eğitmen Ekleme Formu';
+       this.dialogTitle = 'Add New Teacher';
        this.teachers = new Teachers({});
        this.proForm = this.createContactForm();
+       this.proForm = this.createContactForm();
       }
-      this.getFaculty();
-      this.getDepartment();
-      this.getCountry();
-      this.proForm = this.createContactForm();
+      this.teachersService.getAllBranches();
+      this.teachersService.getAllClassrooms();
+      setTimeout(() => {
+        this.Branches = (this.teachersService.allBranches.value);
+        this.Classrooms = this.teachersService.allClassrooms.value;
+      }, 1000);
 
   }
   formControl = new UntypedFormControl('', [
@@ -75,31 +77,23 @@ export class FormDialogComponent {
 
     return this.fb.group({
       id: [this.teachers.id],
-      img: [this.teachers.img],
+      // class_room_id: [this.teachers.class_room_id],
+      // ClassName: [this.teachers.className],
+      // branch_id: [this.teachers.branch_id],
+      // BranchName: [this.teachers.branchName],
       name: [this.teachers.name],
       surname: [this.teachers.surname],
-      fatherName: [this.teachers.fatherName],
-      motherName: [this.teachers.motherName],
-      identityNumber: [this.teachers.identityNumber],
-      countryId: [this.teachers.countryId],
-      placeOfBirth: [this.teachers.placeOfBirth],
-      birthDate: [this.teachers.birthDate],
-      gender: [this.teachers.gender],
-      telephone: [this.teachers.telephone],
-      departmentId: [this.teachers.departmentId],
-      facultyId: [this.teachers.facultyId],
-      email: [
-        this.teachers.email,
-        [Validators.required, Validators.email, Validators.minLength(5)],
-      ],
-      // startDate: [
-      //   formatDate(this.teachers.startDate, 'yyyy-MM-dd', 'en'),
-      //   [Validators.required],
+      // phone_number: [this.teachers.phone_number],
+      // email: [
+      //   this.teachers.email,
+      //   [Validators.required, Validators.email, Validators.minLength(5)],
       // ],
-      departmentGraduated: [this.teachers.departmentGraduated],
-      address: [this.teachers.address],
-      password: [this.teachers.password],
-      c_password: [this.teachers.c_password],
+      // password: [this.teachers.password],
+      // c_password: [this.teachers.c_password],
+      // identity_number: [this.teachers.identity_number],
+      // gender: [this.teachers.gender],
+      // birth_date: [this.teachers.birth_date],
+      // address: [this.teachers.address],
     });
   }
   submit() {
@@ -109,58 +103,19 @@ export class FormDialogComponent {
     this.dialogRef.close();
   }
   public confirmAdd(): void {
-    console.log(this.proForm.value['img']+'');
-    const formData: FormData = new FormData();
-    if (this.proForm.value['img']) {
-      formData.append('img', this.proForm.value['img'],this.proForm.value['img']['name']);
-    }else{
-      formData.append('img','');
-    }
-    for (const [key, value] of Object.entries(this.proForm.value)) {
-      if (`${key}`!=="img") {
-        formData.append(`${key}`, `${value}`);
-      }
-    }
     if (this.action === 'edit') {
       this.teachersService.updateTeachers(this.proForm.getRawValue());
     } else {
-      this.teachersService.addTeachers(formData);
+      this.teachersService.addTeachers(this.proForm.getRawValue());
     }
   }
 
-  //Get Department Data
-  public getDepartment(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-department-name`).subscribe(data => {
-      this.department=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
+  // select on change on press the classroom
+  onChangeSelect($event) {
+    var result = this.Branches.filter((e) => {
+      return e['class_room_id'] == $event;
     });
+    this.selectedBranch = result;
   }
 
-  // select on change on press the faculte
-   onChangeSelect($event){
-    var result=this.department.filter((e)=>{
-      return e['faculty_id']==$event;
-    });
-    this.selectedDepartment= result;
-  }
-  //Get Faculty Data
-  public getFaculty(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-faculty`).subscribe(data => {
-      this.faculty=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
-    });
-  }
-  //Get Country Data
-  public getCountry(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-country`).subscribe(data => {
-      this.countrise=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
-    });
-  }
 }

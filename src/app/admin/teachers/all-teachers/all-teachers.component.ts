@@ -27,13 +27,13 @@ export class AllTeachersComponent
 {
   displayedColumns = [
     'select',
-    'img',
+    'classNamee',
+    'branchName',
     'name',
-    'departmentId',
-    'gender',
-    'telephone',
+    'surname',
+    'phone_number',
     'email',
-    'startDate',
+    'gender',
     'actions',
   ];
   exampleDatabase: TeachersService | null;
@@ -45,8 +45,8 @@ export class AllTeachersComponent
   allTeacher = [];
   breadscrums = [
     {
-      title: 'Tüm Eğitmenler',
-      items: ['Eğitmen'],
+      title: 'All Teachers',
+      items: ['Teacher'],
       active: 'Full',
     },
   ];
@@ -65,20 +65,8 @@ export class AllTeachersComponent
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: '0px', y: '0px' };
 
-  getAllTeachers(): void {
-    this.httpClient.get<Teachers[]>(`${environment.apiUrl}/personal/get-academician`).subscribe(
-      (data) => {
-        this.allTeacher = (data['data']);
-      },
-      (error: HttpErrorResponse) => {
-      }
-    );
-  }
   ngOnInit() {
     this.loadData();
-    this.url=environment.imgUrl;
-    this.getAllTeachers();
-
   }
   refresh() {
     this.loadData();
@@ -106,10 +94,10 @@ export class AllTeachersComponent
         );
         setTimeout(() => {
           this.loadData();
-        }, 20);
+        }, 100);
         this.showNotification(
           'snackbar-success',
-          'Eğitmen Kaydı Başarıyla Oluşturuldu...!!!',
+          'teacher added successfully...!!!',
           'bottom',
           'center'
         );
@@ -144,7 +132,7 @@ export class AllTeachersComponent
         this.refreshTable();
         this.showNotification(
           'black',
-          'Eğitmen Bilgileri Başarıyla Güncellendi...!!!',
+          'The teacher has been modified successfully...!!!',
           'bottom',
           'center'
         );
@@ -174,7 +162,7 @@ export class AllTeachersComponent
         this.refreshTable();
         this.showNotification(
           'snackbar-danger',
-          'Eğitmen Kaydı Silindi...!!!',
+          'The teacher has been removed successfully...!!!',
           'bottom',
           'center'
         );
@@ -212,7 +200,7 @@ export class AllTeachersComponent
     });
     this.showNotification(
       'snackbar-danger',
-      totalSelect + 'Eğitmen Kaydı Silindi...!!!',
+      totalSelect + 'The teacher has been removed successfully...!!!',
       'bottom',
       'center'
     );
@@ -288,11 +276,12 @@ export class ExampleDataSource extends DataSource<Teachers> {
           .filter((teachers: Teachers) => {
             const searchStr = (
               teachers.name +
-              teachers.departmentId +
+              teachers.className +
+              teachers.branchName+
+              teachers.name+
               teachers.gender +
-              teachers.telephone+
-              teachers.email +
-              teachers.startDate
+              teachers.phone_number +
+              teachers.email 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -321,23 +310,23 @@ export class ExampleDataSource extends DataSource<Teachers> {
         case 'id':
           [propertyA, propertyB] = [a.id, b.id];
           break;
+        case 'className':
+          [propertyA, propertyB] = [a.className, b.className];
+          break;
+        case 'branchName':
+            [propertyA, propertyB] = [a.branchName, b.branchName];
+            break;
         case 'name':
           [propertyA, propertyB] = [a.name, b.name];
-          break;
-        case 'departmentId':
-          [propertyA, propertyB] = [a.departmentId, b.departmentId];
           break;
         case 'gender':
           [propertyA, propertyB] = [a.gender, b.gender];
           break;
-        case 'telephone':
-          [propertyA, propertyB] = [a.telephone, b.telephone];
-          break;
+        case 'phone_number':
+            [propertyA, propertyB] = [a.phone_number, b.phone_number];
+            break;
         case 'email':
           [propertyA, propertyB] = [a.email, b.email];
-          break;
-        case 'startDate':
-          [propertyA, propertyB] = [a.startDate, b.startDate];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
