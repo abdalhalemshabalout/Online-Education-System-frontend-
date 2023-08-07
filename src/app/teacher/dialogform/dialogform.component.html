@@ -1,40 +1,46 @@
 <div>
-    <div class="modalHeader">
-        <div class="editRowModal">
-          <div class="modalHeader clearfix">
-            <div class="modal-about">
-              <div class="font-weight-bold p-t-5 font-17">
-                <h2 mat-dialog-title>Bölüm Ekleme Formu</h2>
-            </div>
-            </div>
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          <div class="font-weight-bold p-t-5 font-17">
+            <h2 mat-dialog-title>{{dialogTitle}}</h2>
           </div>
         </div>
-        <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
-          <mat-icon>close</mat-icon>
-        </button>
       </div>
-    <div mat-dialog-content>
-        <form [formGroup]="addCusForm" (ngSubmit)="onSubmitClick()">
-            <div class="text-inside">
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Bölüm Adı" formControlName="contentName" required>
-                    <mat-error *ngIf="addCusForm.controls.contentName.hasError('required')">
-                        lütfen bölüm adı girin
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="text-inside" class="example-full-width mb-3" class="overflow-auto" style="height:280px;" appearance="outline">
-              <ckeditor appearance="outline"  formControlName="description" [editor]="Editor" data="content descreption"></ckeditor>
-            </div>
-            <div class="text-inside">
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Bölüm Linki" formControlName="contentUrl" required>
-            </mat-form-field>
-          </div>
-            <div class="btn-sec">
-                <button class="btn-space" mat-raised-button color="primary">Kaydet</button>
-                <button type="button" mat-button (click)="closeDialog()">Iptal</button>
-            </div>
-        </form>
     </div>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form [formGroup]="lessonContentForm" (ngSubmit)="onSubmitClick()">
+      <div class="text-inside">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Content Title" formControlName="title" required>
+          <!-- <mat-error *ngIf="lessonContentForm.controls.contentName.hasError('required')">
+                        lütfen bölüm adı girin
+                    </mat-error> -->
+        </mat-form-field>
+      </div>
+      <div class="text-inside" class="example-full-width mb-3" class="overflow-auto" style="height:150px;"
+        appearance="outline">
+        <ckeditor appearance="outline" formControlName="text" [editor]="Editor" data="text"></ckeditor>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5">
+        <label>Ekle</label>
+        <app-file-upload formControlName="document"></app-file-upload>
+      </div>
+      <div class="text-inside">
+        <!-- <mat-form-field class="example-full-width">
+              <input matInput placeholder="Bölüm Linki" formControlName="contentUrl" required>
+            </mat-form-field> -->
+      </div>
+      <div class="btn-sec">
+        <button class="btn-space" [mat-dialog-close]="1" (click)="onSubmitClick()" mat-raised-button
+          color="primary">Save</button>
+        <button type="button" mat-button (click)="closeDialog()">Close</button>
+      </div>
+    </form>
+  </div>
 </div>
