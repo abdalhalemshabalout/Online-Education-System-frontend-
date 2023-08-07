@@ -43,8 +43,8 @@ export class AllStudentsComponent
   allStudent = [];
   breadscrums = [
     {
-      title: 'Tüm Öğrenciler',
-      items: ['Öğrenci'],
+      title: 'All Students',
+      items: ['Student'],
       active: 'Full',
     },
   ];
@@ -95,12 +95,12 @@ export class AllStudentsComponent
         setTimeout(() => {
           this.loadData();
         }, 100);
-        // this.showNotification(
-        //   'snackbar-success',
-        //   'Öğrenci Kaydı Başarıyla Oluşturuldu...!!!',
-        //   'bottom',
-        //   'center'
-        // );
+        this.showNotification(
+          'snackbar-success',
+          'student added successfully...!!!',
+          'bottom',
+          'center'
+        );
       }
     });
   }
@@ -133,7 +133,7 @@ export class AllStudentsComponent
         this.refreshTable();
         this.showNotification(
           'black',
-          'The record of student is successfully updated...!!!',
+          'The student has been modified successfully...!!!',
           'bottom',
           'center'
         );
@@ -164,7 +164,7 @@ export class AllStudentsComponent
         this.refreshTable();
         this.showNotification(
           'snackbar-danger',
-          'The record of student is deleted...!!!',
+          'The student has been removed successfully...!!!',
           'bottom',
           'center'
         );
@@ -203,7 +203,7 @@ export class AllStudentsComponent
     });
     this.showNotification(
       'snackbar-danger',
-      totalSelect + 'The record of student is deleted...!!!',
+      totalSelect + 'The student has been removed successfully...!!!',
       'bottom',
       'center'
     );
@@ -281,7 +281,7 @@ export class ExampleDataSource extends DataSource<Students> {
               students.id +
               students.name +
               students.surname +
-              students.branch_id +
+              students.branchName +
               students.className +
               students.email +
               students.phone_number +

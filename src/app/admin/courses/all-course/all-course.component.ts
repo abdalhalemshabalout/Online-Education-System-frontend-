@@ -24,13 +24,12 @@ export class AllCourseComponent extends UnsubscribeOnDestroyAdapter implements O
 
   displayedColumns = [
     'select',
-    'facultyId',
-    'departmentId',
-    'classId',
-    'lessonCode',
-    'lessonName',
-    'kredi',
-    'akts',
+    'className',
+    'branchName',
+    'name',
+    'code',
+    'timer',
+    'detaily',
     'actions',
   ];
   exampleDatabase: CourseService | null;
@@ -38,10 +37,11 @@ export class AllCourseComponent extends UnsubscribeOnDestroyAdapter implements O
   selection = new SelectionModel<Course>(true, []);
   id: number;
   course: Course | null;
+  allCourse = [];
     breadscrums = [
     {
-      title: 'Bütün Dersler',
-      items: ['Dersler'],
+      title: 'All Courses',
+      items: ['Course'],
       active: 'Full',
     },
   ];
@@ -78,7 +78,7 @@ export class AllCourseComponent extends UnsubscribeOnDestroyAdapter implements O
     }
     const dialogRef = this.dialog.open(FormDialogComponent, {
       data: {
-        Course: this.course,
+        course: this.course,
         action: 'add',
       },
       direction: tempDirection,
@@ -90,10 +90,12 @@ export class AllCourseComponent extends UnsubscribeOnDestroyAdapter implements O
         this.exampleDatabase.dataChange.value.unshift(
           this.courseService.getDialogData()
         );
-        this.refreshTable();
+        setTimeout(() => {
+          this.loadData();
+        }, 100);
         this.showNotification(
           'snackbar-success',
-          'Ders Başarıyla Eklendi...!!!',
+          'lesson added successfully...!!!',
           'bottom',
           'center'
         );
@@ -127,10 +129,10 @@ export class AllCourseComponent extends UnsubscribeOnDestroyAdapter implements O
         this.exampleDatabase.dataChange.value[foundIndex] =
           this.courseService.getDialogData();
         // // And lastly refresh table
-        this.loadData();
+        this.refreshTable();
         this.showNotification(
           'black',
-          'Ders Başarıyla Güncellendi...!!!',
+          'lesson has been modified successfully...!!!',
           'bottom',
           'center'
         );
@@ -149,6 +151,7 @@ export class AllCourseComponent extends UnsubscribeOnDestroyAdapter implements O
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: row,
       direction: tempDirection,
+      width: '350px',
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
@@ -160,7 +163,7 @@ export class AllCourseComponent extends UnsubscribeOnDestroyAdapter implements O
         this.refreshTable();
         this.showNotification(
           'snackbar-danger',
-          'Ders Silindi...!!!',
+          'lesson has been removed successfully...!!!',
           'bottom',
           'center'
         );
@@ -198,7 +201,7 @@ export class AllCourseComponent extends UnsubscribeOnDestroyAdapter implements O
     });
     this.showNotification(
       'snackbar-danger',
-      totalSelect + ' Ders Silindi...!!!',
+      totalSelect + 'lesson has been removed successfully...!!!',
       'bottom',
       'center'
     );
@@ -226,6 +229,15 @@ export class AllCourseComponent extends UnsubscribeOnDestroyAdapter implements O
       horizontalPosition: placementAlign,
       panelClass: colorName,
     });
+  }
+  // context menu
+  onContextMenu(event: MouseEvent, item: Course) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + 'px';
+    this.contextMenuPosition.y = event.clientY + 'px';
+    this.contextMenu.menuData = { item: item };
+    this.contextMenu.menu.focusFirstItem('mouse');
+    this.contextMenu.openMenu();
   }
 }
 
@@ -265,13 +277,12 @@ export class ExampleDataSource extends DataSource<Course> {
           .slice()
           .filter((course: Course) => {
             const searchStr = (
-              course.lessonCode +
-              course.lessonName +
-              course.facultyId +
-              course.kredi +
-              course.akts +
-              course.departmentId +
-              course.classId
+              course.branchName +
+              course.className +
+              course.name +
+              course.code +
+              course.timer +
+              course.detaily
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -300,27 +311,23 @@ export class ExampleDataSource extends DataSource<Course> {
         case 'id':
           [propertyA, propertyB] = [a.id, b.id];
           break;
-        case 'lessonCode':
-          [propertyA, propertyB] = [a.lessonCode, b.lessonCode];
-          break;
-        case 'lessonName':
-          [propertyA, propertyB] = [a.lessonName, b.lessonName];
-          break;
-        // case 'date': [propertyA, propertyB] = [a.date, b.date]; break;
-        case 'departmentName':
-          [propertyA, propertyB] = [a.departmentId, b.departmentId];
-          break;
-        case 'facultyName':
-          [propertyA, propertyB] = [a.facultyId, b.facultyId];
+        case 'branchName':
+          [propertyA, propertyB] = [a.branchName, b.branchName];
           break;
         case 'className':
-          [propertyA, propertyB] = [a.classId, b.classId];
+          [propertyA, propertyB] = [a.className, b.className];
           break;
-        case 'kredi':
-          [propertyA, propertyB] = [a.kredi, b.kredi];
+        case 'name':
+          [propertyA, propertyB] = [a.name, b.name];
           break;
-        case 'akts':
-          [propertyA, propertyB] = [a.akts, b.akts];
+        case 'code':
+          [propertyA, propertyB] = [a.code, b.code];
+          break;
+        case 'timer':
+          [propertyA, propertyB] = [a.timer, b.timer];
+          break;
+        case 'detaily':
+          [propertyA, propertyB] = [a.detaily, b.detaily];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

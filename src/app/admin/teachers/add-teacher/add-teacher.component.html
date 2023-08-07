@@ -9,7 +9,7 @@
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card">
           <div class="header">
-            <h2>Add Teacher Form</h2>
+            <h2>Add New Teacher</h2>
 
           </div>
           <div class="body">
@@ -23,7 +23,7 @@
                       <mat-option *ngFor="let classroom of Classrooms" [value]="classroom.id">{{classroom.name}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="proForm.get('class_room_id').hasError('required')">
-                      Classroom field is required!
+                      classroom field is required!
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -34,7 +34,7 @@
                       <mat-option *ngFor="let branch of selectedBranch" [value]="branch.id">{{branch.name}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="proForm.get('branch_id').hasError('required')">
-                      Branch field is required!
+                      branch field is required!
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -45,7 +45,7 @@
                     <mat-label>Name</mat-label>
                     <input matInput formControlName="name" required>
                     <mat-error *ngIf="proForm.get('name').hasError('required')">
-                      Surname field is required!
+                      name field is required!
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -89,7 +89,7 @@
               <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Doğum tarihi</mat-label>
+                    <mat-label>Birth Date</mat-label>
                     <input matInput type="date" formControlName="birth_date">
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="proForm.get('birth_date').hasError('required')">
@@ -103,7 +103,7 @@
                     <input matInput formControlName="phone_number" type="number" required>
                     <mat-icon matSuffix>phone</mat-icon>
                     <mat-error *ngIf="proForm.get('phone_number').hasError('required')">
-                      phone number required!
+                      phone number field is required!
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -115,7 +115,7 @@
                     <input matInput formControlName="email" required>
                     <mat-icon matSuffix>email</mat-icon>
                     <mat-error *ngIf="proForm.get('email').hasError('email') && proForm.get('email').touched">
-                      Email girin!
+                      email field is required!
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -124,7 +124,7 @@
                     <mat-label>Şifre</mat-label>
                     <input matInput formControlName="password" type="password" required>
                     <mat-error *ngIf="proForm.get('password').hasError('required')">
-                      password required!
+                      /Password field is required!
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -133,7 +133,7 @@
                     <mat-label>Şifreyi yeniden gir</mat-label>
                     <input matInput formControlName="c_password" type="password" required>
                     <mat-error *ngIf="proForm.get('c_password').hasError('required')">
-                      conformation password required!
+                      confirmation password field is required!
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -148,9 +148,8 @@
               </div>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                  <button class="btn-space"  mat-raised-button color="primary">Kaydet</button>
-                  <button type="button" mat-button>Kapat</button>
-                  <!-- [disabled]="!proForm.valid" -->
+                  <button class="btn-space" mat-raised-button color="primary"
+                    [disabled]="!proForm.valid">Save</button>
                 </div>
               </div>
             </form>

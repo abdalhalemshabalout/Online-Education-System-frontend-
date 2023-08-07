@@ -117,7 +117,6 @@ export class AllClassroomsComponent
 
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
-        console.log(result);
         // When using an edit things are little different, firstly we find record inside DataService by id
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
           (x) => x.id === this.id
@@ -167,7 +166,6 @@ export class AllClassroomsComponent
     });
   }
   private refreshTable() {
-    console.log(this.paginator.pageSize);
     this.paginator._changePageSize(this.paginator.pageSize);
   }
   /** Whether the number of selected elements matches the total number of rows. */
@@ -191,7 +189,6 @@ export class AllClassroomsComponent
       const index: number = this.dataSource.renderedData.findIndex(
         (d) => d === item
       );
-      // console.log(this.dataSource.renderedData.findIndex((d) => d === item));
       this.exampleDatabase.dataChange.value.splice(index, 1);
       this.refreshTable();
       this.selection = new SelectionModel<Classroom>(true, []);

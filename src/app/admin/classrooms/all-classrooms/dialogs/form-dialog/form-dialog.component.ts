@@ -1,11 +1,8 @@
-import { delay } from 'rxjs/operators';
-import { colorSets } from '@swimlane/ngx-charts';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { Classroom } from '../../classroom.model';
 import { ClassroomService } from '../../classroom.service';
-import { environment } from 'src/environments/environment';
-import { HttpClient,HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import {
   UntypedFormControl,
@@ -39,10 +36,9 @@ export class FormDialogComponent {
       this.dialogTitle = data.classroom.name;
       this.classroom = data.classroom;
       this.classroomForm = this.createContactForm();
-      // this.departmentForm.get('hod').disabled;
 
     } else {
-      this.dialogTitle = 'Add new class';
+      this.dialogTitle = 'Add New Classroom';
       this.classroom = new Classroom({});
       this.classroomForm = this.createContactForm();
     }

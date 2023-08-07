@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {CourseService} from '../all-course/courses.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router} from '@angular/router';
+import { Classroom } from './../../classrooms/all-classrooms/classroom.model';
+import { Branch } from '../../branches/all-branches/branch.model';
 
 
 import {
@@ -17,75 +19,43 @@ import {
   styleUrls: ['./add-course.component.sass'],
 })
 export class AddCourseComponent {
-  department=[];
-  selectedDepartment=[];
-  faculty:[];
-  dclass=[];
-
   courseForm: UntypedFormGroup;
+  Branches: Branch[];
+  Classrooms: Classroom[];
+  selectedBranch = [];
   breadscrums = [
     {
-      title: 'Ders Ekleme',
-      items: ['Ders'],
-      active: 'Ekle',
+      title: 'Add new course',
+      items: ['Course'],
+      active: 'Add',
     },
   ];
   constructor(private fb: UntypedFormBuilder,private courseService: CourseService,private httpClient: HttpClient, private router: Router) {
     this.courseForm = this.fb.group({
-      facultyId : ['', [Validators.required]],
-      departmentId : ['', [Validators.required]],
-      classId: ['', [Validators.required]],
-      lessonTime: ['', [Validators.required]],
-      lessonCode: ['', [Validators.required]],
-      lessonName: ['', [Validators.required]],
-      kredi: [''],
-      akts: [''],
-      telephone: [''],
-      studentCapacity: [''],
+      class_room_id: ['', Validators.required],
+      branch_id: ['', Validators.required],
+      name: ['', [Validators.required]],
+      code: ['', [Validators.required]],
+      timer: ['', [Validators.required]],
       detaily: ['']
-      // uploadFile: [''],
     });
-    this.getFaculty();
-    this.getDepartment();
-    this.getClass();
-
+    this.courseService.getAllBranches();
+    this.courseService.getAllClassrooms();
+    setTimeout(() => {
+      this.Branches = (this.courseService.allBranches.value);
+      this.Classrooms = this.courseService.allClassrooms.value;
+    }, 1000);
   }
-  public getDepartment(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-department-name`).subscribe(data => {
-      this.department=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
-    });
-  }
-    // select on change on press the faculte
-    onChangeSelect($event){
-      var result=this.department.filter((e)=>{
-        return e['faculty_id']==$event;
-      });
-      this.selectedDepartment= result;
-    }
   
-  // get Faculty data
-  public getFaculty(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-faculty`).subscribe(data => {
-      this.faculty=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
+  // select on change on press the classroom
+  onChangeSelect($event) {
+    var result = this.Branches.filter((e) => {
+      return e['class_room_id'] == $event;
     });
+    this.selectedBranch = result;
   }
-   // Get Class data
-   public getClass(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-class`).subscribe(data => {
-      this.dclass=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
-    });
-  }
+
   onSubmit() {
-    console.log('Form Value', this.courseForm.value);
     this.courseService.addLesson(this.courseForm.getRawValue());
     setTimeout(() => {
       if (this.courseService.addStatus == true) {

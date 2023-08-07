@@ -2,7 +2,7 @@
   <div class="modalHeader">
     <div class="editRowModal">
       <div class="modalHeader clearfix">
-        <img width="70px" height="70px" [src]='imgUrl' alt="avatar">
+        <img width="40px" height="40px" src="../../../assets/images/user/user-sidebar.png" alt="avatar">
         <div class="modal-about">
           <div class="font-weight-bold p-t-5 font-17">
             {{dialogTitle}}</div>
@@ -15,7 +15,7 @@
   </div>
   <div mat-dialog-content>
     <form class="register-form m-4" [formGroup]="proForm" (ngSubmit)="submit">
-      <!-- <div class="row">
+      <div class="row">
         <div *ngIf="action!=='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Classroom</mat-label>
@@ -50,7 +50,7 @@
             <input readonly matInput formControlName="BranchName" required>
           </mat-form-field>
         </div>
-      </div> -->
+      </div>
       <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
@@ -73,11 +73,107 @@
         </div>
       </div>
       <div class="row">
-        <div *ngIf="action!=='edit'" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender" required>
+              <mat-option [value]="'male'">
+                Male
+              </mat-option>
+              <mat-option [value]="'female'">
+                Female
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="proForm.get('gender').hasError('required')">
+              Gender field is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>identity_number</mat-label>
+            <input matInput formControlName="identity_number" type="number">
+            <mat-error *ngIf="proForm.get('identity_number').hasError('required')">
+              identity_number field is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>birth_date</mat-label>
+            <input matInput type="date" formControlName="birth_date">
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="proForm.get('birth_date').hasError('required')">
+              birth date field is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>phone_number</mat-label>
+            <input matInput formControlName="phone_number" type="number">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="proForm.get('phone_number').hasError('required')">
+              phone number field is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required>
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="proForm.get('email').hasError('required')">
+              email field is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div *ngIf="action!=='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password" required>
+            <mat-icon matSuffix>visibility_off</mat-icon>
+            <mat-error *ngIf="proForm.get('password').hasError('required')">
+              password field is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div *ngIf="action!=='edit'" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Confirmation Password</mat-label>
+            <input matInput formControlName="c_password" type="password" required>
+            <mat-icon matSuffix>visibility_off</mat-icon>
+            <mat-error *ngIf="proForm.get('c_password').hasError('required')">
+              confirmation password field is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="address" required></textarea>
+            <mat-error *ngIf="proForm.get('address').hasError('required')">
+              address field is required!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
           <div class="example-button-row">
-            <button mat-raised-button color="primary" [type]="submit" [disabled]="!proForm.valid" [mat-dialog-close]="1"
-              (click)="confirmAdd()">Save</button>
-            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">cancel</button>
+            <button *ngIf="action!=='edit'" mat-raised-button color="primary" [type]="submit" [mat-dialog-close]="1"
+              [disabled]="!proForm.valid" (click)="confirmAdd()">Save</button>
+            <button *ngIf="action==='edit'" mat-raised-button color="primary" [type]="submit" [mat-dialog-close]="1"
+              [disabled]="!proForm.valid" (click)="confirmAdd()">Update</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
           </div>
         </div>
       </div>

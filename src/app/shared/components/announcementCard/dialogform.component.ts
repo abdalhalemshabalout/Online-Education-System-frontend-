@@ -12,7 +12,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 export class DialogformComponent implements OnInit {
   public Editor = ClassicEditor;
-  public announcement={'head':'','body':'','Date':''};
+  public announcement={'title':'','text':'','created_at':''};
   public action;
   public addCusForm: UntypedFormGroup;
   constructor(private fb: UntypedFormBuilder,
@@ -24,9 +24,9 @@ export class DialogformComponent implements OnInit {
   }
   public ngOnInit(): void {
     this.addCusForm = this.fb.group({
-      announcementTitle: [this.announcement['head'] || ""],
-      announcementBody: [this.announcement['body'] || ""],
-      announcementDate: [this.announcement['Date'] || ""]
+      announcementTitle: [this.announcement['title'] || ""],
+      announcementBody: [this.announcement['text'] || ""],
+      announcementDate: [this.announcement['created_at'] || ""]
     });
   }
   closeDialog(): void {

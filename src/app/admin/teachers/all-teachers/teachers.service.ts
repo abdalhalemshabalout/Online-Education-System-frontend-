@@ -17,7 +17,7 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
   dataChange: BehaviorSubject<Teachers[]> = new BehaviorSubject<Teachers[]>([]);
   
   // Temporarily stores data from dialogs
-  allTeachers = [];
+  allTeacher = [];
   dialogData: any;
   allClassrooms: BehaviorSubject<Classroom[]> = new BehaviorSubject<Classroom[]>([]);
   allBranches: BehaviorSubject<Branch[]> = new BehaviorSubject<Branch[]>([]);
@@ -38,7 +38,7 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
   getAllTeachers(): void {
     this.subs.sink = this.httpClient.get<Teachers[]>(`${environment.apiUrl}/teachers`).subscribe(
       (data) => {
-        this.allTeachers = (data['data']);
+        this.allTeacher = (data['data']);
         this.dataChange.next(data['data']);
         setTimeout(() => {
           this.setClassroomsAndBranchesNameToData();
@@ -121,7 +121,6 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
     });
     return name;
   }
-
   getAllBranches(): void {
     this.subs.sink = this.httpClient.get<Branch[]>(`${environment.apiUrl}/branches`).subscribe(
       (data) => {

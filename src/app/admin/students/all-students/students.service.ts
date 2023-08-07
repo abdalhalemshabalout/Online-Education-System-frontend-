@@ -11,7 +11,6 @@ import { Classroom } from '../../classrooms/all-classrooms/classroom.model';
 
 @Injectable()
 export class StudentsService extends UnsubscribeOnDestroyAdapter {
-  private readonly API_URL = 'assets/data/students.json';
   isTblLoading = true;
   public addStatus: boolean;
   private authService: AuthService

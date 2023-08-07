@@ -1,11 +1,8 @@
-import { delay } from 'rxjs/operators';
-import { colorSets } from '@swimlane/ngx-charts';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { Staff } from '../../staff.model';
 import { StaffService } from '../../staff.service';
-import { environment } from 'src/environments/environment';
-import { HttpClient,HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import {
   UntypedFormControl,
@@ -41,22 +38,15 @@ export class FormDialogComponent {
       this.staffForm = this.createContactForm();
 
     } else {
-      this.dialogTitle = 'New Staff Add Form';
+      this.dialogTitle = 'Add New Staff';
       this.staff = new Staff({});
       this.staffForm = this.createContactForm();
     }
   }
   formControl = new UntypedFormControl('', [
     Validators.required
-    // Validators.email,
   ]);
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-        ? 'Not a valid email'
-        : '';
-  }
+  
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
       id: [this.staff.id],

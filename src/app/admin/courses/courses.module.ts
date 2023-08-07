@@ -22,8 +22,6 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { CoursesRoutingModule } from './courses-routing.module';
 import { AddCourseComponent } from './add-course/add-course.component';
-import { EditCourseComponent } from './edit-course/edit-course.component';
-import { AboutCourseComponent } from './about-course/about-course.component';
 import { AllCourseComponent } from './all-course/all-course.component';
 import { DeleteDialogComponent } from './all-course/dialogs/delete/delete.component';
 import { FormDialogComponent } from './all-course/dialogs/form-dialog/form-dialog.component';
@@ -38,8 +36,6 @@ import { CourseService } from './all-course/courses.service';
 @NgModule({
   declarations: [
     AddCourseComponent,
-    EditCourseComponent,
-    AboutCourseComponent,
     AllCourseComponent,
     DeleteDialogComponent,
     FormDialogComponent

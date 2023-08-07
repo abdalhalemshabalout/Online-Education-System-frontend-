@@ -22,11 +22,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./staff/staff.module').then((m) => m.StaffsModule),
   },
-  // {
-  //   path: 'teachers',
-  //   loadChildren: () =>
-  //     import('./teachers/teachers.module').then((m) => m.TeachersModule),
-  // },
+  {
+    path: 'teachers',
+    loadChildren: () =>
+      import('./teachers/teachers.module').then((m) => m.TeachersModule),
+  },
   {
     path: 'students',
     loadChildren: () =>

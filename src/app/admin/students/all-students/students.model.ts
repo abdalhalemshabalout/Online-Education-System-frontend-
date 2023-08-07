@@ -2,21 +2,21 @@ import { Branch } from './../../branches/all-branches/branch.model';
 import { formatDate } from '@angular/common';
 export class Students {
   id: number;
-  surname: string;
-  name: string;
-  identity_number: string;
-  birth_date: string;
-  gender: string;
-  email: string;
   class_room_id: string;
   className: string;
   branch_id: string;
   branchName: string;
-  role_id: string;
+  name: string;
+  surname: string;
   phone_number: string;
-  address: string;
+  email: string;
   password: string;
   c_password: string;
+  identity_number: string;
+  birth_date: string;
+  gender: string;
+  role_id: string;
+  address: string;
   is_active: number;
   constructor(student) {
     {
