@@ -2,7 +2,7 @@ import { Classroom } from './../../classrooms/all-classrooms/classroom.model';
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StudentsService } from '../all-students/students.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {
   UntypedFormBuilder,
@@ -33,18 +33,18 @@ export class AddStudentComponent {
     private httpClient: HttpClient,
     private router: Router) {
     this.studentForm = this.fb.group({
+      class_room_id: ['', Validators.required],
+      branch_id: ['', Validators.required],
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      identity_number: ['', Validators.required],
-      class_room_id: ['', Validators.required],
-      gender: ['', Validators.required],
-      birth_date: ['', Validators.required],
       phone_number: ['', Validators.required],
-      branch_id: ['', Validators.required],
-      address: ['', Validators.required],
       email: ['', [Validators.required, Validators.email, Validators.minLength(5)]],
       password: ['', Validators.required],
       c_password: ['', Validators.required],
+      gender: ['', Validators.required],
+      identity_number: ['', Validators.required],
+      birth_date: ['', Validators.required],
+      address: ['', Validators.required],
     });
 
     this.studentsService.getAllBranches();

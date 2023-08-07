@@ -1,11 +1,8 @@
-import { delay } from 'rxjs/operators';
-import { colorSets } from '@swimlane/ngx-charts';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { Branch } from '../../branch.model';
 import { BranchService } from '../../branch.service';
-import { environment } from 'src/environments/environment';
-import { HttpClient,HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ClassroomService } from '../../../../classrooms/all-classrooms/classroom.service';
 
 import {
@@ -44,25 +41,16 @@ export class FormDialogComponent {
       this.dialogTitle = data.branch.name;
       this.branch = data.branch;
       this.branchForm = this.createContactForm();
-      // this.departmentForm.get('hod').disabled;
 
     } else {
-      this.dialogTitle = 'Add new branch';
+      this.dialogTitle = 'Add New Branch';
       this.branch = new Branch({});
       this.branchForm = this.createContactForm();
     }
   }
   formControl = new UntypedFormControl('', [
     Validators.required
-    // Validators.email,
   ]);
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-        ? 'Not a valid email'
-        : '';
-  }
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
       id:[this.branch.id],
@@ -84,7 +72,7 @@ export class FormDialogComponent {
     }
   }
 
-    getClassRooms() {
+  getClassRooms() {
     this.classroomServices.getAllClassrooms();
     setTimeout(() => {
       this.Classrooms = this.classroomServices.data;

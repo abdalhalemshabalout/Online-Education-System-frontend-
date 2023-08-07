@@ -1,16 +1,13 @@
 <div class="container">
-    <h3 mat-dialog-title>Emin misin?</h3>
+    <h3 mat-dialog-title>Are You Sure?</h3>
     <div mat-dialog-content>
         <ul class="clearfix">
-            <li>
-                <p><span class="font-weight-bold">Student: </span>{{data.name}} {{ data.surname }}</p>
-            </li>
         </ul>
     </div>
     <div mat-dialog-actions class="mb-1">
         <button mat-flat-button color="warn" [mat-dialog-close]="1" (click)="confirmDelete()">
-            Sil
+            Delete
         </button>
-        <button mat-flat-button (click)="onNoClick()" tabindex="-1">İptal</button>
+        <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
     </div>
 </div>

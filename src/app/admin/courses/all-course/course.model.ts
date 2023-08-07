@@ -1,27 +1,23 @@
 export class Course {
   id: number;
-  facultyId: string;
-  departmentId: string;
-  classId: number;
-  lessonName: string;
-  lessonCode: string;
-  lessonTime:string;
-  akts: string;
-  kredi: string;
+  class_room_id: string;
+  className: string;
+  branch_id: string;
+  branchName: string;
+  name: string;
+  code: string;
+  timer: number;
   detaily: string;
+
   constructor(course) {
     {
-      this.id = course.id || this.getRandomID();
-      this.facultyId = course.facultyId || '';
-      this.departmentId = course.departmentId || '';
-      this.classId = course.className || '';
-      this.lessonTime = course.lessonTime || '';
-      this.lessonName = course.lessonName || '';
-      this.lessonCode = course.lessonCode || '';
-      this.akts = course.akts || '';
-      this.kredi = course.kredi || '';
-      this.detaily = course.detaily || '';
-
+      this.id             = course.id || this.getRandomID();
+      this.class_room_id  = course.class_room_id || '';
+      this.branch_id      = course.branch_id || '';
+      this.name           = course.name || '';
+      this.code           = course.code || '';
+      this.timer          = course.timer || '';
+      this.detaily        = course.detaily || '';
     }
   }
   public getRandomID(): string {

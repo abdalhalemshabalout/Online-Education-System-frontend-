@@ -24,12 +24,12 @@
                             <ul class="header-buttons-left ml-0">
                               <li class="dropdown">
                                 <h2>
-                                  <strong>Öğrenciler</strong>
+                                  <strong>Students</strong>
                                 </h2>
                               </li>
                               <li class="dropdown m-l-20">
                                 <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                                <input placeholder="Ara" type="text" #filter class="browser-default search-field"
+                                <input placeholder="Search" type="text" #filter class="browser-default search-field"
                                   aria-label="Search box">
                               </li>
                               <li>
@@ -120,13 +120,13 @@
                           </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="className">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header>Class_room_id
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>Classroom Name
                           </mat-header-cell>
                           <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
                             {{row.className}}</mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="branchName">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header>Branch_id
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Name
                           </mat-header-cell>
                           <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.branchName}}
                           </mat-cell>

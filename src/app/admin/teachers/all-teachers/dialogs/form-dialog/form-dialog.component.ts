@@ -1,8 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TeachersService } from '../../teachers.service';
-import { environment } from 'src/environments/environment';
 import { Classroom } from './../../../../classrooms/all-classrooms/classroom.model';
 import { Branch } from '../../../../branches/all-branches/branch.model';
 
@@ -28,7 +27,6 @@ export class FormDialogComponent {
   dialogTitle: string;
   proForm: UntypedFormGroup;
   teachers: Teachers;
-  imgUrl=environment.imgUrl;
   constructor(
     private httpClient: HttpClient,
     public dialogRef: MatDialogRef<FormDialogComponent>,
@@ -41,9 +39,6 @@ export class FormDialogComponent {
     this.action = data.action;
     if (this.action === 'edit') {
       this.dialogTitle = data.teachers.name+ ' ' +data.teachers.surname;
-      this.imgUrl+=data.teachers.img;
-      // this.facId = data.homework['facultyId'];
-      // this.depId = data.homework['departmentId'];
       this.teachers = data.teachers;
       this.proForm = this.createContactForm();
 
@@ -51,7 +46,6 @@ export class FormDialogComponent {
      else {
        this.dialogTitle = 'Add New Teacher';
        this.teachers = new Teachers({});
-       this.proForm = this.createContactForm();
        this.proForm = this.createContactForm();
       }
       this.teachersService.getAllBranches();
@@ -77,23 +71,23 @@ export class FormDialogComponent {
 
     return this.fb.group({
       id: [this.teachers.id],
-      // class_room_id: [this.teachers.class_room_id],
-      // ClassName: [this.teachers.className],
-      // branch_id: [this.teachers.branch_id],
-      // BranchName: [this.teachers.branchName],
+      class_room_id: [this.teachers.class_room_id],
+      ClassName: [this.teachers.className],
+      branch_id: [this.teachers.branch_id],
+      BranchName: [this.teachers.branchName],
       name: [this.teachers.name],
       surname: [this.teachers.surname],
-      // phone_number: [this.teachers.phone_number],
-      // email: [
-      //   this.teachers.email,
-      //   [Validators.required, Validators.email, Validators.minLength(5)],
-      // ],
-      // password: [this.teachers.password],
-      // c_password: [this.teachers.c_password],
-      // identity_number: [this.teachers.identity_number],
-      // gender: [this.teachers.gender],
-      // birth_date: [this.teachers.birth_date],
-      // address: [this.teachers.address],
+      gender: [this.teachers.gender],
+      identity_number: [this.teachers.identity_number],
+      birth_date: [this.teachers.birth_date],
+      phone_number: [this.teachers.phone_number],
+      email: [
+        this.teachers.email,
+        [Validators.required, Validators.email, Validators.minLength(5)],
+      ],
+      password: [this.teachers.password],
+      c_password: [this.teachers.c_password],
+      address: [this.teachers.address],
     });
   }
   submit() {

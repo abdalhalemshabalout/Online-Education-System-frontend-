@@ -1,8 +1,7 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { AnnouncementService } from '../all-announcements/announcements.service';
 import { AuthService } from 'src/app/core/service/auth.service';
-import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router} from '@angular/router';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 

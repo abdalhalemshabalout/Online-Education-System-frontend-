@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { ClassroomService } from '../all-classrooms/classroom.service';
-import { ActivatedRoute, Router} from '@angular/router';
+import { Router} from '@angular/router';
 
 
 @Component({
@@ -17,11 +15,11 @@ export class AddClassroomComponent {
     {
       title: 'Add Classroom',
       items: ['Classroom'],
-      active: 'Ekle',
+      active: 'Add',
     },
   ];
   constructor(private fb: UntypedFormBuilder, private classroomService: ClassroomService,
-    private httpClient: HttpClient, private router: Router) {
+    private router: Router) {
     this.classroomForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
     });

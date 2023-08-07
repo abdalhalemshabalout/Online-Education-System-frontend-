@@ -28,18 +28,18 @@
                               </li>
                               <li class="dropdown m-l-20">
                                 <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                                <input placeholder="Ara" type="text" #filter class="browser-default search-field"
+                                <input placeholder="Search" type="text" #filter class="browser-default search-field"
                                   aria-label="Search box">
                               </li>
                               <li>
-                                <div class="export-button m-l-10" matTooltip="EKLE">
+                                <div class="export-button m-l-10" matTooltip="Add">
                                   <button mat-mini-fab color="primary" (click)="addNew()">
                                     <mat-icon class="col-white">add</mat-icon>
                                   </button>
                                 </div>
                               </li>
                               <li>
-                                <div class="export-button m-l-10" matTooltip="YENİLE">
+                                <div class="export-button m-l-10" matTooltip="Refresh">
                                   <button mat-mini-fab color="primary" (click)="refresh()">
                                     <mat-icon class="col-white">refresh</mat-icon>
                                   </button>
@@ -107,16 +107,16 @@
                           <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="className">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header>Classroom
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>Classroom Name
                           </mat-header-cell>
                           <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
                             {{row.className}}</mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="branchName">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header>Branch
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Name
                           </mat-header-cell>
-                          <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
-                            {{row.branchName}}</mat-cell>
+                          <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.branchName}}
+                          </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="name">
                           <mat-header-cell *matHeaderCellDef mat-sort-header>Name
@@ -143,10 +143,18 @@
                           </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="gender">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header>gender
+                          <mat-header-cell *matHeaderCellDef mat-sort-header> Gender
                           </mat-header-cell>
-                          <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
-                            {{row.gender}}</mat-cell>
+                          <mat-cell mat-cell *matCellDef="let row">
+                            <div *ngIf="row.gender=='male'">
+                              <span class="badge badge-solid-green">
+                                Male</span>
+                            </div>
+                            <div *ngIf="row.gender=='female'">
+                              <span class="badge badge-solid-purple">
+                                Female</span>
+                            </div>
+                          </mat-cell>
                         </ng-container>
                         <!-- actions -->
                         <ng-container matColumnDef="actions">

@@ -1,7 +1,6 @@
 import { Classroom } from './../../../../classrooms/all-classrooms/classroom.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { StudentsService } from '../../students.service';
 import { Branch } from 'src/app/admin/branches/all-branches/branch.model';
@@ -29,7 +28,6 @@ export class FormDialogComponent {
   dialogTitle: string;
   studentForm: UntypedFormGroup;
   students: Students;
-  imgUrl = environment.imgUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -42,11 +40,10 @@ export class FormDialogComponent {
     this.action = data.action;
     if (this.action === 'edit') {
       this.dialogTitle = data.students.name + ' ' + data.students.surname;
-      this.imgUrl += data.students.img;
       this.students = data.students;
       this.studentForm = this.createContactForm();
     } else {
-      this.dialogTitle = 'Add new student';
+      this.dialogTitle = 'Add New Student';
       this.students = new Students({});
       this.studentForm = this.createContactForm();
     }

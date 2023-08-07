@@ -15,8 +15,8 @@
     "CLASSROOMS": {
       "TEXT": "Klassenzimmer",
       "LIST": {
-        "ALL-CLASSES": "Alle Klassenzimmer",
-        "ADD-CLASS": "Klassenzimmer hinzufügen"
+        "ALL-CLASSROOMS": "Alle Klassenzimmer",
+        "ADD-CLASSROOM": "Klassenzimmer hinzufügen"
       }
     },
     "BRANCHES": {
@@ -26,40 +26,32 @@
         "ADD-BRANCH": "Geäst hinzufügen"
       }
     },
+    "STAFFES": {
+      "TEXT": "Mitarbeiterin",
+      "LIST": {
+        "ALL-STAFFES": "Alle Mitarbeiter",
+        "ADD-STAFF": "Mitarbeiter hinzufügen"
+      }
+    },
     "TEACHERS": {
       "TEXT": "Lehrer",
       "LIST": {
         "ALL-TEACHERS": "Alle Lehrer",
-        "ADD-TEACHER": "Lehrer hinzufügen",
-        "EDIT-TEACHER": "Lehrer bearbeiten",
-        "ABOUT-TEACHER": "Über den Lehrer"
+        "ADD-TEACHER": "Lehrer hinzufügen"
       }
     },
     "STUDENTS": {
       "TEXT": "Studentinnen",
       "LIST": {
         "ALL-STUDENTS": "Alle Schüler",
-        "ADD-STUDENT": "Schüler hinzufügen",
-        "EDIT-STUDENT": "Schüler bearbeiten",
-        "ABOUT-STUDENT": "Über Student",
-        "STUDENT-ATTENDANCE": "Student Attendance"
+        "ADD-STUDENT": "Schüler hinzufügen"
       }
     },
     "COURSES": {
       "TEXT": "Kurse",
       "LIST": {
         "ALL-COURSES": "Alle Kurse",
-        "ADD-COURSE": "Kurs hinzufügen",
-        "EDIT-COURSE": "Kurs bearbeiten",
-        "ABOUT-COURSE": "Über den Kurs"
-      }
-    },
-    "DEPARTMENTS": {
-      "TEXT": "Abteilungen",
-      "LIST": {
-        "ALL-DEPARTMENT": "Alle Abteilungen",
-        "ADD-DEPARTMENT": "Abteilung hinzufügen",
-        "EDIT-DEPARTMENT": "Abteilung bearbeiten"
+        "ADD-COURSE": "Kurs hinzufügen"
       }
     },
     "ANNOUNCEMENT": {

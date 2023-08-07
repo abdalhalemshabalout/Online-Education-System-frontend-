@@ -1,10 +1,9 @@
-import { delay } from 'rxjs/operators';
-import { colorSets } from '@swimlane/ngx-charts';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { CourseService } from '../../courses.service';
-import { environment } from 'src/environments/environment';
-import { HttpClient,HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Classroom } from './../../../../classrooms/all-classrooms/classroom.model';
+import { Branch } from 'src/app/admin/branches/all-branches/branch.model';
 
 import {
   UntypedFormControl,
@@ -21,11 +20,9 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
 export class FormDialogComponent {
-    department=[];
-    selectedDepartment=[];
-    faculty:[];
-    dclass=[];
-    claId = 0;
+    selectedBranch = [];
+    Branches: Branch[];
+    Classrooms: Classroom[];
     action: string;
     dialogTitle: string;
     courseForm: UntypedFormGroup;
@@ -39,45 +36,37 @@ export class FormDialogComponent {
   ) {
     // Set the defaults
     this.action = data.action;
- 
     if (this.action === 'edit') {
-      this.dialogTitle = data.course.lessonName;
-      // this.claId = data.course.classId;
+      this.dialogTitle = data.course.name;
       this.course = data.course;
-      
       this.courseForm = this.createContactForm();
     } else {
-        this.dialogTitle = 'Yeni Ders Ekle Formu';
+        this.dialogTitle = 'Add new course';
         this.course = new Course({});
         this.courseForm = this.createContactForm();
-        this.getFaculty();
-        this.getDepartment(); 
       }
-      this.getClass();
+      this.courseService.getAllBranches();
+      this.courseService.getAllClassrooms();
+      setTimeout(() => {
+        this.Branches = (this.courseService.allBranches.value);
+        this.Classrooms = this.courseService.allClassrooms.value;
+      }, 1000);
   }
   formControl = new UntypedFormControl('', [
     Validators.required
-    // Validators.email,
   ]);
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-        ? 'Not a valid email'
-        : '';
-  }
+
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
       id: [this.course.id],
-      facultyId: [this.course.facultyId, [Validators.required]],
-      departmentId: [this.course.departmentId, [Validators.required]],
-      classId: [this.course.classId || '',[Validators.required]],
-      lessonName: [this.course.lessonName, [Validators.required]],
-      lessonTime: [this.course.lessonTime],
-      lessonCode: [this.course.lessonCode],
-      akts: [this.course.akts, [Validators.required]],
-      kredi: [this.course.kredi, [Validators.required]],
-      detaily: [this.course.detaily],
+      class_room_id: [this.course.class_room_id],
+      ClassName: [this.course.className],
+      branch_id: [this.course.branch_id],
+      BranchName: [this.course.branchName],
+      name: [this.course.name || ''],
+      code: [this.course.code],
+      timer: [this.course.timer],
+      detaily: [this.course.detaily]
     });
   }
   submit() {
@@ -95,42 +84,11 @@ export class FormDialogComponent {
   }
 
 
-  public getDepartment(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-department-name`).subscribe(data => {
-      this.department=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
+   // select on change on press the classroom
+   onChangeSelect($event) {
+    var result = this.Branches.filter((e) => {
+      return e['class_room_id'] == $event;
     });
+    this.selectedBranch = result;
   }
-
-  // select on change on press the faculte
-   onChangeSelect($event){
-    var result=this.department.filter((e)=>{
-      return e['faculty_id']==$event;
-    });
-    this.selectedDepartment= result;
-  }
-
-  // get Faculty data
-  public getFaculty(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-faculty`).subscribe(data => {
-      this.faculty=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
-    });
-  }
-
-  // Get Class data
-  public getClass(){
-    this.httpClient.get(`${environment.apiUrl}/personal/get-class`).subscribe(data => {
-      this.dclass=(data['data']);
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
-    });
-  }
-
-
 }

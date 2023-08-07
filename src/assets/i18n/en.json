@@ -30,27 +30,21 @@
       "TEXT": "Staff",
       "LIST": {
         "ALL-STAFFES": "All Staff",
-        "ADD-STAFF": "Add Staff",
-        "EDIT-STAFF": "Edit Staff"
+        "ADD-STAFF": "Add Staff"
       }
     },
     "TEACHERS": {
       "TEXT": "Teachers",
       "LIST": {
         "ALL-TEACHERS": "All Teachers",
-        "ADD-TEACHER": "Add Teacher",
-        "EDIT-TEACHER": "Edit Teacher",
-        "ABOUT-TEACHER": "About Teacher"
+        "ADD-TEACHER": "Add Teacher"
       }
     },
     "STUDENTS": {
       "TEXT": "Students",
       "LIST": {
         "ALL-STUDENTS": "All Students",
-        "ADD-STUDENT": "Add Student",
-        "EDIT-STUDENT": "Edit Student",
-        "ABOUT-STUDENT": "About Student",
-        "STUDENT-ATTENDANCE": "Student Attendance"
+        "ADD-STUDENT": "Add Student"
       }
     },
     "COURSES": {

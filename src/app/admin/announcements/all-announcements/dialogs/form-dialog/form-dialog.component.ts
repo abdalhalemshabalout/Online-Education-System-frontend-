@@ -80,7 +80,6 @@ export class FormDialogComponent {
       this.announcementService.updateAnnouncement(this.announcementForm.getRawValue());
     } else {
       this.announcementService.addAnnouncement(this.announcementForm.value);
-      console.log(this.announcementForm.value);
     }
   }
 
