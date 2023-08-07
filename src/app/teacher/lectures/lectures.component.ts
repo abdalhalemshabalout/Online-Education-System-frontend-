@@ -21,18 +21,14 @@ export class LecturesComponent
 {
 
   LecturePage: LectuerPageComponent;
-  exampleDatabase: LecturesService | null;
+  exampleDatabase: LecturesService;
   selection = new SelectionModel<Lectures>(true, []);
-  id: number;
   userImg: string;
-  lectures: Lectures | null;
-  isLoad = false;
-
   breadscrums = [
     {
-      title: 'Dersler',
-      items: ['Eğitmen'],
-      active: 'Ders',
+      title: 'Lessons',
+      items: ['Teacher'],
+      active: 'Lesson',
     },
   ];
 
@@ -50,7 +46,6 @@ export class LecturesComponent
   }
 
   ngOnInit() {
-    this.isLoad = false;
     this.loadData();
 
   }
@@ -59,11 +54,6 @@ export class LecturesComponent
   }
 
   public loadData() {
-    this.exampleDatabase = new LecturesService(this.httpClient,this.snackBar);
-    this.exampleDatabase.getAllLecturess();
-    setTimeout(() => {
-      this.AllCourses = this.exampleDatabase.getDialogData();
-      this.isLoad = true;
-    }, 800);
+    this.lecturesService.getAllLesson();
   }
 }

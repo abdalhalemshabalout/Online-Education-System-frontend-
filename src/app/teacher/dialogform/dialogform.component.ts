@@ -1,4 +1,4 @@
-import { Component, OnInit ,Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -6,6 +6,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LecturesService } from '../lectures/lectures.service';
+import { LessonContent } from '../lectures/lecturePage/lessonModels/lessonContent.model';
 
 
 @Component({
@@ -16,40 +17,64 @@ import { LecturesService } from '../lectures/lectures.service';
 export class DialogformComponent implements OnInit {
   public Editor = ClassicEditor;
   public courseId;
-  public conetnt={'contentId':'','contentName':'','description':'','contentUrl':''};
+  // public conetnt={'contentId':'','contentName':'','description':'','contentUrl':''};
   public action;
-  public addCusForm: UntypedFormGroup;
+  dialogTitle: string;
+  lessonContentForm: UntypedFormGroup;
+  public LessonContent: LessonContent;
   constructor(private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<DialogformComponent>,
     public lecturesService: LecturesService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+    console.log(data);
     this.action = data.action;
     if (data.action === 'add') {
-      this.courseId = data['lessonId'];
+      this.dialogTitle = "Add new content";
+      this.courseId = data.lessonId;
+      this.LessonContent = new LessonContent({});
+      this.lessonContentForm = this.createContactForm();
     } else {
-      this.courseId = data['lessonId'];
-      this.conetnt = data['content'];
+      this.dialogTitle = data.content.title;
+      this.courseId = data.lessonId;
+      this.LessonContent = data.content;
+      this.lessonContentForm = this.createContactForm();
     }
   }
-  public ngOnInit(): void {
-    this.addCusForm = this.fb.group({
-      lessonId: this.courseId,
-      contentId:this.conetnt['contentId'],
-      contentName: [this.conetnt['contentName'] || "",[Validators.required]],
-      description: [this.conetnt['description'] || "",[Validators.required]],
-      contentUrl: [this.conetnt['contentUrl'] || "",[Validators.required]],
+  createContactForm(): UntypedFormGroup {
+    return this.lessonContentForm = this.fb.group({
+      id: this.LessonContent.id || 0,
+      lesson_id: this.courseId || 0,
+      title: [this.LessonContent.title || "", [Validators.required]],
+      text: [this.LessonContent.text || "", [Validators.required]],
+      document: [this.LessonContent.document || ""]
     });
+  }
+
+
+  public ngOnInit(): void {
+
   }
   closeDialog(): void {
     this.dialogRef.close();
   }
   onSubmitClick() {
-    if (this.action==='add') {
-      this.lecturesService.addLessonContent(this.addCusForm.value);
-      this.dialogRef.close(1);
+    if (this.action === 'add') {
+      var formData: FormData = new FormData();
+      console.log(this.lessonContentForm.getRawValue());
+      console.log(this.lessonContentForm.getRawValue()['document'] + '');
+      if (this.lessonContentForm.getRawValue()['document']) {
+        formData.append('document', this.lessonContentForm.getRawValue()['document'], this.lessonContentForm.getRawValue()['document']['name']);
+      } else {
+        formData.append('document', '');
+      }
+      for (const [key, value] of Object.entries(this.lessonContentForm.getRawValue())) {
+        if (`${key}` !== "document") {
+          formData.append(`${key}`, `${value}`);
+        }
+      }
+      this.lecturesService.addLessonContent(formData);
     } else {
-      this.lecturesService.updateLessonContent(this.addCusForm.value);
-      this.dialogRef.close(1);
+      this.lecturesService.updateLessonContent(this.lessonContentForm.getRawValue());
     }
   }
 }
