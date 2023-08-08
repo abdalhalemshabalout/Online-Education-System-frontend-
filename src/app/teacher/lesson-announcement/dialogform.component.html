@@ -14,14 +14,14 @@
     </button>
   </div>
   <div mat-dialog-content>
-    <form [formGroup]="addAnnuncementForm" (ngSubmit)="onSubmitClick()">
+    <form [formGroup]="annuncementForm" (ngSubmit)="onSubmitClick()">
       <div class="text-inside">
         <mat-form-field class="example-full-width">
           <input matInput placeholder="Announcement Title" formControlName="title" required>
-          <mat-error *ngIf="addAnnuncementForm.controls.title.hasError('required')">
+          <mat-error *ngIf="annuncementForm.controls.title.hasError('required')">
             title field is required!
           </mat-error>
-          <mat-error *ngIf="addAnnuncementForm.controls.title.hasError('pattern')">
+          <mat-error *ngIf="annuncementForm.controls.title.hasError('pattern')">
             title field is required!
           </mat-error>
         </mat-form-field>
@@ -31,7 +31,7 @@
       </div>
 
       <div class="btn-sec">
-        <button class="btn-space" mat-raised-button color="primary">Save</button>
+        <button class="btn-space" [mat-dialog-close]="1" (click)="onSubmitClick()" mat-raised-button color="primary">Save</button>
         <button type="button" mat-button (click)="closeDialog()">Cancel</button>
       </div>
     </form>
