@@ -55,16 +55,15 @@ export class LecturesComponent
   }
 
   ngOnInit() {
-    this.isLoad = false;
     this.loadData();
-    this.getLessonsAnnouncements();
-    this.url=environment.imgUrl;
-
   }
 
   goToLecturesPage(param) {
     this.router.navigate(['student/lecturePage'], { queryParams: { lectureId: param} });
- }
+  }
+  public loadData() {
+    this.lecturesService.getAllLesson();
+  }
 
 //get student Lessons Announcement
 public getLessonsAnnouncements(){
@@ -91,14 +90,6 @@ openAnnouncementCardDialog(Announcement): void {
   }
 });
 }
-  public loadData() {
-    this.exampleDatabase = new LecturesService(this.httpClient,this.snackBar);
-    this.exampleDatabase.getAllLecturess();
-    setTimeout(() => {
-      this.AllCourses = this.exampleDatabase.getDialogData();
-      this.isLoad = true;
-    }, 500);
 
-  }
 }
 

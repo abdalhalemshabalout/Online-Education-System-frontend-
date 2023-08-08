@@ -8,38 +8,35 @@
     <div class="row">
       <div class="col-md-9">
           <div class="header">
+            <h2>All Courses</h2>
           </div>
           <div class="body">
             <div class="row">
-              <div *ngIf="isLoad === false" style="margin-left:40%" id="preloadLesson">
+              <div *ngIf="lecturesService.isTblLoading === true" style="margin-left:40%" id="preloadLesson">
                 <mat-spinner></mat-spinner>
               </div>
-              <div class="row clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let course of AllCourses">
-                  <div class="course-card" (click)="goToLecturesPage(course.lessonId)" id="{{course.lessonId}}">
-                    <div class="course-card-body">
-                      <div class="course-card-top-overflow text-white">
-                        <img src="assets/images/banner/lessonimg.jpg">
-                      </div>
-                      <div class="post-user mt-3">
-                        <span class="float-start msr-3">
-                          <img class="img-circle" src={{url+course.img}} width="40" height="40" alt="...">
-                        </span>
-                        <h6 class="mb-xs mt-xs">{{course.lessonName}}</h6>
-                        <p class="text-muted"><time>---</time></p>
-                        <h5>Sınıf : {{course.className}}</h5>
-                        <h6>Ders Kodu : {{course.lessonCode}}</h6>
-                        <span>Kredi : {{course.kredi}}</span><span class="right">Akts :
-                          {{course.akts}}</span>
-                        <p class="text-muted"></p>
-                      </div>
-                      <div *ngIf="course.detaily">
-                      <p>Detayları : {{course.detaily}}</p>
-                      </div>
-                      <ng-template *ngIf="!course.detaily"></ng-template>
+              <div class="col-md-3" *ngFor="let lesson of lecturesService.dataChange.value">
+                <div class="course-card" (click)="goToLecturesPage(lesson.id)" id="{{lesson.id}}">
+                  <div class="course-card-body">
+                    <div class="course-card-top-overflow text-white">
+                      <img src="../../../assets/images/course/background-img.png" width="300" height="170" alt="...">
                     </div>
-                    <footer class="bg-body-light"></footer>
+                    <div class="post-user mt-3">
+                      <span class="float-start msr-3">
+                        <img class="img-circle" src="../../../assets/images/course/background-img.png" width="40" height="40"
+                          alt="...">
+                      </span>
+                      <h6 class="mb-xs mt-xs">{{lesson.name}}</h6>
+                      <p class="text-muted"><time>---</time></p>
+                      <span class="mb-3">Code : {{lesson.code}}</span><br />
+                      <span>Timer : {{lesson.timer}}</span>
+                      <p class="text-muted"></p>
+                    </div>
+                    <div class="text-center mb-3">
+                    </div>
                   </div>
+                  <footer class="bg-body-light">
+                  </footer>
                 </div>
               </div>
             </div>
