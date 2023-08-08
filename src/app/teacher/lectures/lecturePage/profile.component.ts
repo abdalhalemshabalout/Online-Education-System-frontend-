@@ -78,26 +78,11 @@ export class LectuerPageComponent implements OnInit {
     this.isLoad = false;
     this.route
       .queryParamMap
-      .subscribe(params => {
+      .subscribe(async params => {
         // Defaults to 0 if no query param provided.
         this.courseId = params['params']['lectureId'];
-        this.lecturesService.getLessonInfo(this.courseId);
-        this.lecturesService.getLessonContents(this.courseId);
-        this.lecturesService.getLessonAnnouncements(this.courseId);
-
+        await this.lecturesService.getLessonInfo(this.courseId);
       });
-    setTimeout(() => {
-      // console.log(this.LessonInfo);
-      // this.breadscrums[1].active = this.LessonInfo.name;
-      // this.getCoursContent(this.courseId);
-      // this.getCoursAnnouncement(this.courseId);
-      // this.getQuestionBank(this.courseId);
-         this.getCourseStudents(this.courseId);
-      // this.getCourseExam(this.courseId);
-
-    }, 500);
-    // this.getCoursInfo(this.courseId);
-    // this.getCoursStatistics(this.courseId);
   }
 
   setStep(index: number) {
@@ -225,7 +210,6 @@ export class LectuerPageComponent implements OnInit {
       }
     });
   }
-
   // Add Announcement To Lesson
   openAddAnnouncement(): void {
     const dialogRef = this.dialogModel.open(DialogAnnouncementComponent, {
@@ -245,8 +229,8 @@ export class LectuerPageComponent implements OnInit {
     });
   }
   //Update Lesson Announcement
-  editAnnouncement(note) {
-    this.announcementID = note['noteId'];
+  editAnnouncement(Announcement) {
+    this.announcementID = Announcement['noteId'];
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -258,7 +242,7 @@ export class LectuerPageComponent implements OnInit {
       disableClose: true,
       data: {
         action: 'edit',
-        'note': note,
+        'announcement': Announcement,
       }
     });
     const te = dialogRef.afterClosed().subscribe((result) => {
@@ -268,8 +252,8 @@ export class LectuerPageComponent implements OnInit {
     });
   }
   //Delete Lesson Announcement
-  deleteAnnouncement(note) {
-    this.announcementID = note['noteId'];
+  deleteAnnouncement(announcement) {
+    this.announcementID = announcement['noteId'];
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -277,7 +261,7 @@ export class LectuerPageComponent implements OnInit {
       tempDirection = 'ltr';
     }
     const dialogRef = this.dialogModel.open(DeleteAnnouncementComponent, {
-      data: note,
+      data: announcement,
       direction: tempDirection,
     });
     const te = dialogRef.afterClosed().subscribe((result) => {
@@ -288,16 +272,6 @@ export class LectuerPageComponent implements OnInit {
         });
         // this.getCoursStatistics(this.courseId);
       }
-    });
-  }
-
-  // Lesson Students
-  getCourseStudents(coursId) {
-    this.httpClient.post(`${environment.apiUrl}/branch_students`,{'branchId':coursId}).subscribe(data => {
-      this.courseStudents = data['data'];
-      },
-      (err: HttpErrorResponse) => {
-     // error code here
     });
   }
 }

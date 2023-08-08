@@ -2,7 +2,8 @@
   <div class="content-block">
     <div class="block-header" *ngFor="let breadscrum of breadscrums">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="lecturesService.dataLessonInfo.name">
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items"
+        [active_item]="lecturesService.dataLessonInfo.name">
       </app-breadcrumb>
     </div>
     <!-- Your content goes here  -->
@@ -35,6 +36,7 @@
       <div class="col-lg-8 col-md-12">
         <div class="card">
           <mat-tab-group>
+            <!-- Contents -->
             <mat-tab>
               <ng-template mat-tab-label>
                 <mat-icon class="example-tab-icon msr-2">book</mat-icon>
@@ -70,16 +72,19 @@
                               </mat-panel-description>
                             </mat-expansion-panel-header>
                             <mat-panel-description>
-                              {{content.updated_at}}
+                              {{content.created_at | date: 'dd/MM/YYYY HH:mm:ss'}}
                             </mat-panel-description>
                             <div class="text-inside" class="example-full-width mb-3" appearance="outline">
-                              <ckeditor *ngIf="content.text" disabled=true [editor]="Editor" [config]="{toolbar:[]}" data="{{content.text}}"></ckeditor>
+                              <ckeditor *ngIf="content.text" disabled=true [editor]="Editor" [config]="{toolbar:[]}"
+                                data="{{content.text}}"></ckeditor>
                               <ng-template *ngIf="!content.text"></ng-template>
                             </div>
                             <hr>
                             <div class="row">
                               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mt-3 ml-3">
-                                <a *ngIf="content.document"  mat-stroked-button target="_blank" href="{{url+content.document}}" ><img src="../../../../assets/images/course/document.png" alt="Document"></a>
+                                <a *ngIf="content.document" mat-stroked-button target="_blank"
+                                  href="{{url+content.document}}"><img
+                                    src="../../../../assets/images/course/document.png" alt="Document"></a>
                                 <ng-template *ngIf="!content.document"></ng-template>
                               </div>
                             </div>
@@ -94,10 +99,10 @@
                             </div>
                             <mat-action-row>
                               <button *ngIf="step !== 0" mat-button color="warn" (click)="prevStep()">Prev</button>
-                              <button *ngIf="step !== lecturesService.dataLessonContents.length-1" mat-button color="primary"
-                                (click)="nextStep()">Next</button>
-                              <button *ngIf="step === lecturesService.dataLessonContents.length-1" mat-button color="primary"
-                                (click)="nextStep()">End</button>
+                              <button *ngIf="step !== lecturesService.dataLessonContents.length-1" mat-button
+                                color="primary" (click)="nextStep()">Next</button>
+                              <button *ngIf="step === lecturesService.dataLessonContents.length-1" mat-button
+                                color="primary" (click)="nextStep()">End</button>
                             </mat-action-row>
                           </mat-expansion-panel>
                         </mat-accordion>
@@ -107,6 +112,7 @@
                 </div>
               </div>
             </mat-tab>
+            <!-- Announcements -->
             <mat-tab>
               <ng-template mat-tab-label>
                 <mat-icon class="example-tab-icon msr-2">announcement</mat-icon>
@@ -140,7 +146,8 @@
                               </mat-panel-description>
                             </mat-expansion-panel-header>
                             <div class="text-inside" class="example-full-width mb-3" appearance="outline">
-                              <ckeditor disabled=true [editor]="Editor" [config]="{toolbar:[]}" data="{{note.text}}"></ckeditor>
+                              <ckeditor disabled=true [editor]="Editor" [config]="{toolbar:[]}" data="{{note.text}}">
+                              </ckeditor>
                               <!-- <mat-panel-description>
                                 {{note.Date}}
                               </mat-panel-description> -->
@@ -171,6 +178,7 @@
                 </div>
               </div>
             </mat-tab>
+            <!-- Students -->
             <mat-tab>
               <ng-template mat-tab-label>
                 <mat-icon class="example-tab-icon msr-2">personal</mat-icon>
@@ -195,11 +203,11 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let student of courseStudents">
-                              <td>{{student.identity_number}}</td>
+                            <tr *ngFor="let student of lecturesService.dataLessonStudents">
+                              <td>{{student.id}}</td>
                               <td>{{student.name}}{{student.surname}}</td>
-                              <td>{{student.identity_number}}</td>
-                              <td>{{student.identity_number}}</td>
+                              <td>{{student.gender}}</td>
+                              <td>{{student.phone_number}}</td>
                               <td><a href="mailto:{{student.email}}"> {{student.email}} </a></td>
                             </tr>
                           </tbody>

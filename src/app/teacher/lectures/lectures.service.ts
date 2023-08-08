@@ -1,3 +1,4 @@
+import { Students } from './lecturePage/lessonModels/lessonStudent';
 import { LessonContent } from './lecturePage/lessonModels/lessonContent.model';
 import { LessonAnnouncement } from './lecturePage/lessonModels/lessonAnnouncement';
 import { Lesson } from './lecturePage/lessonModels/lesson.model';
@@ -21,6 +22,8 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
   lessonInfo: BehaviorSubject<Lesson> = new BehaviorSubject<Lesson>(null);
   lessonContents: BehaviorSubject<LessonContent[]> = new BehaviorSubject<LessonContent[]>([]);
   lessonAnnouncements: BehaviorSubject<LessonAnnouncement[]> = new BehaviorSubject<LessonAnnouncement[]>([]);
+  lessonStudents: BehaviorSubject<Students[]> = new BehaviorSubject<Students[]>([]);
+
   // Temporarily stores data from dialogs
   dialogData: any;
   constructor(private httpClient: HttpClient, private snackBar: MatSnackBar,) {
@@ -42,6 +45,9 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
   }
   get dataLessonAnnouncements(): LessonAnnouncement[] {
     return this.lessonAnnouncements.value;
+  }
+  get dataLessonStudents(): Students[] {
+    return this.lessonStudents.value;
   }
   /** CRUD METHODS */
   getAllLesson(): void {
@@ -109,14 +115,18 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
 
   //#endregion
 
+  //#region  //!Lesson Contents
 
-  getLessonInfo(lessonId): void {
+  // get lesson info
+  async getLessonInfo(lessonId): Promise<void> {
     this.subs.sink = this.httpClient.get<Lesson>(`${environment.apiUrl}/lessons/${lessonId}`).subscribe(
       async (data) => {
         this.lessonInfo.next(JSON.parse(JSON.stringify(data)));
         this.lessonInfo.value.ClassName = await this.BuildClassName(this.lessonInfo.value.class_room_id);
         this.lessonInfo.value.BranchName = await this.BuildBranchName(this.lessonInfo.value.branch_id);
-        console.log(this.lessonInfo.value);
+        await this.getLessonStudents(this.lessonInfo.value.branch_id);
+        await this.getLessonContents(this.lessonInfo.value.id);
+        this.isTblLoading = false;
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -124,9 +134,8 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
       }
     );
   }
-//#region  //!Lesson Contents
-
-  getLessonContents(lessonId): void {
+  // get contents of lesson
+  async getLessonContents(lessonId): Promise<void> {
     this.subs.sink = this.httpClient.get<LessonContent>(`${environment.apiUrl}/lesson-content/${lessonId}`).subscribe(
       async (data) => {
         this.lessonContents.next(JSON.parse(JSON.stringify(data)));
@@ -134,17 +143,20 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
           e.lessonName = this.lessonInfo.value.name;
         });
         this.isTblLoading = false;
-        console.log(this.lessonContents.value);
       },
-      (error: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
         this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }
-
-  
-  getLessonAnnouncements(lessonId): void {
+  // get Announcements of lesson
+  async getLessonAnnouncements(lessonId): Promise<void> {
     this.subs.sink = this.httpClient.get<LessonAnnouncement>(`${environment.apiUrl}/lesson-announcements/${lessonId}`).subscribe(
       async (data) => {
         this.lessonAnnouncements.next(JSON.parse(JSON.stringify(data)));
@@ -152,18 +164,21 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
           e.lessonName = this.lessonInfo.value.name;
         });
         this.isTblLoading = false;
-        console.log(this.lessonAnnouncements.value);
       },
-      (error: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
         this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }
-  addLessonContent(content:FormData): void {
-    console.log(content);
+  // add new lesson
+  async addLessonContent(content: FormData): Promise<void> {
     this.httpClient.post(`${environment.apiUrl}/lesson-contents`, content).subscribe(data => {
-      console.log(data);
       if (data['success'] === true) {
         this.showNotification(
           'snackbar-success',
@@ -182,9 +197,12 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
     },
       (err: HttpErrorResponse) => {
         // error code here
+        this.isTblLoading = false;
+        console.log(err.name + ' ' + err.message);
       });
   }
-    updateLessonContent(content): void {
+  // update inof of lesson
+  async updateLessonContent(content): Promise<void> {
     this.httpClient.put(`${environment.apiUrl}/lesson-contents/${content['id']}`, content).subscribe(data => {
       if (data['data'] === 1) {
         this.showNotification(
@@ -204,9 +222,17 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
     },
       (err: HttpErrorResponse) => {
         // error code here
+        this.isTblLoading = false;
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       });
   }
-  deleteLectureContent(conetntId): void {
+  // delete lesson
+  async deleteLectureContent(conetntId): Promise<void> {
     this.httpClient.delete(`${environment.apiUrl}/lesson-contents/${conetntId}`).subscribe(data => {
       if (data['success'] === true) {
         this.showNotification(
@@ -226,31 +252,29 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
     },
       (err: HttpErrorResponse) => {
         // error code here
+        this.isTblLoading = false;
         this.showNotification(
           'snackbar-danger',
-          err,
+          err.name + " || " + err.message,
           'bottom',
           'center'
         );
       });
   }
-
-//#endregion //!Lesson Contents
-
   // Add Announcement To lesson
-  addLessonAnnouncement(note): void {
-    this.httpClient.post(`${environment.apiUrl}/lesson-announcements`, note).subscribe(data => {
+  async addLessonAnnouncement(announcement: LessonAnnouncement): Promise<void> {
+    this.httpClient.post(`${environment.apiUrl}/lesson-announcements`, announcement).subscribe(data => {
       if (data['success'] === true) {
         this.showNotification(
           'snackbar-success',
-          'Ders Notu Başarıyla Eklendi...!!!',
+          'Lesson announcement successfully added...!!!',
           'bottom',
           'center'
         );
       } else {
         this.showNotification(
           'snackbar-info',
-          'Ders Notu Eklenmedi...!!!',
+          'Lesson announcement not successfully added...!!!',
           'bottom',
           'center',
         );
@@ -258,22 +282,29 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
     },
       (err: HttpErrorResponse) => {
         // error code here
+        this.isTblLoading = false;
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       });
   }
   //Update Announcement
-  updateLessonAnnouncement(note): void {
-    this.httpClient.put(`${environment.apiUrl}/lesson-announcements/${note['id']}`, note).subscribe(data => {
+  async updateLessonAnnouncement(announcement: LessonAnnouncement): Promise<void> {
+    this.httpClient.put(`${environment.apiUrl}/lesson-announcements/${announcement.id}`, announcement).subscribe(data => {
       if (data['data'] === 1) {
         this.showNotification(
           'snackbar-success',
-          'Ders İçeriği Başarıyla Güncellendi...!!!',
+          'Lesson announcement successfully updated...!!!',
           'bottom',
           'center'
         );
       } else {
         this.showNotification(
           'snackbar-info',
-          'Ders İçeriği Güncellenmedi...!!!',
+          'Lesson announcement not successfully updated...!!!',
           'bottom',
           'center'
         );
@@ -281,22 +312,29 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
     },
       (err: HttpErrorResponse) => {
         // error code here
+        this.isTblLoading = false;
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       });
   }
   //Delete Announcement
-  deleteLectureAnnouncement(note): void {
+  async deleteLectureAnnouncement(note): Promise<void> {
     this.httpClient.delete(`${environment.apiUrl}/lesson-announcements/${note}`).subscribe(data => {
       if (data['success'] === true) {
         this.showNotification(
           'snackbar-danger',
-          'Ders Notu Başarıyla silindi...!!!',
+          'Lesson announcement successfully deleted...!!!',
           'bottom',
           'center'
         );
       } else {
         this.showNotification(
           'snackbar-danger',
-          'Ders Notu silinmedi...!!!',
+          'Lesson announcement not successfully deleted...!!!',
           'bottom',
           'center'
         );
@@ -304,14 +342,33 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
     },
       (err: HttpErrorResponse) => {
         // error code here
+        this.isTblLoading = false;
         this.showNotification(
           'snackbar-danger',
-          err,
+          err.name + " || " + err.message,
           'bottom',
           'center'
         );
       });
   }
+  // Lesson Students
+  async getLessonStudents(branchId: string): Promise<void> {
+    this.httpClient.post(`${environment.apiUrl}/branch_students`, { 'branchId': branchId }).subscribe(data => {
+      this.lessonStudents.next(JSON.parse(JSON.stringify(data)));
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
+
+      });
+  }
+  //#endregion //!Lesson Contents
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, '', {
       duration: 2000,

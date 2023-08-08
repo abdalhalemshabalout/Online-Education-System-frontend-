@@ -26,7 +26,6 @@ export class DialogformComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogformComponent>,
     public lecturesService: LecturesService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(data);
     this.action = data.action;
     if (data.action === 'add') {
       this.dialogTitle = "Add New Content";
@@ -49,15 +48,13 @@ export class DialogformComponent implements OnInit {
       document: [this.LessonContent.document || ""]
     });
   }
-
-
   public ngOnInit(): void {
 
   }
   closeDialog(): void {
     this.dialogRef.close();
   }
-  onSubmitClick() {
+  async onSubmitClick() {
     if (this.action === 'add') {
       var formData: FormData = new FormData();
       console.log(this.lessonContentForm.getRawValue());
@@ -72,9 +69,9 @@ export class DialogformComponent implements OnInit {
           formData.append(`${key}`, `${value}`);
         }
       }
-      this.lecturesService.addLessonContent(formData);
+      await this.lecturesService.addLessonContent(formData);
     } else {
-      this.lecturesService.updateLessonContent(this.lessonContentForm.getRawValue());
+      await this.lecturesService.updateLessonContent(this.lessonContentForm.getRawValue());
     }
   }
 }

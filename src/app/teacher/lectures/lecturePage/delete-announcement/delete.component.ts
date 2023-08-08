@@ -11,11 +11,11 @@ export class DeleteAnnouncementComponent {
     public dialogRef: MatDialogRef<DeleteAnnouncementComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public lecturesService: LecturesService
-  ) {}
+  ) { }
   onNoClick(): void {
     this.dialogRef.close();
   }
-  confirmDelete(): void {
-    this.lecturesService.deleteLectureAnnouncement(this.data.noteId);
+  async confirmDelete(): Promise<void> {
+    await this.lecturesService.deleteLectureAnnouncement(this.data.announcement.id);
   }
 }

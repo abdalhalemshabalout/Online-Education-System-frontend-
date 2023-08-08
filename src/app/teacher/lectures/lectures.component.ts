@@ -49,6 +49,7 @@ export class LecturesComponent
     this.loadData();
   }
   goToLecturesPage(param) {
+    this.lecturesService.isTblLoading = true;
     this.router.navigate(['teacher/lecturePage'], { queryParams: { lectureId: param} });
   }
 

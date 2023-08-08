@@ -1,4 +1,3 @@
-import { DOCUMENT } from '@angular/common';
 export class LessonContent {
   id: number;
   lesson_id: string;
