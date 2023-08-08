@@ -47,7 +47,6 @@ export class LecturesComponent
 
   ngOnInit() {
     this.loadData();
-
   }
   goToLecturesPage(param) {
     this.router.navigate(['teacher/lecturePage'], { queryParams: { lectureId: param} });

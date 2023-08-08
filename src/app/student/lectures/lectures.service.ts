@@ -23,8 +23,8 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
     return this.dataChange.value;
   }
   /** CRUD METHODS */
-  getAllLecturess(): void {
-    this.subs.sink = this.httpClient.get<Lectures[]>(`${environment.apiUrl}/student/get-student-lesson`).subscribe(
+  getAllLesson(): void {
+    this.subs.sink = this.httpClient.get<Lectures[]>(`${environment.apiUrl}/lessons`).subscribe(
       (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data['data']);
@@ -35,7 +35,7 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
       }
     );
   }
-  
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, '', {
       duration: 2000,
