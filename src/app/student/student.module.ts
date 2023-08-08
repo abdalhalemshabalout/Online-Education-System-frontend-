@@ -38,6 +38,7 @@ import { LectuerPageComponent } from './lectures/lecturePage/profile.component';
 import { LecturesService } from './lectures/lectures.service';
 import { ComponentsModule } from '../shared/components/components.module';
 import { SharedModule } from '../shared/shared.module';
+import { LecturesService as teacherLecturesService } from '../teacher/lectures/lectures.service'
 
 @NgModule({
   declarations: [
@@ -83,7 +84,6 @@ import { SharedModule } from '../shared/shared.module';
     CKEditorModule,
   ],
   providers: [
-    LecturesService,
-  ],
+    LecturesService, teacherLecturesService],
 })
 export class StudentModule {}

@@ -7,19 +7,13 @@ import { DeleteDialogComponentContent } from './delete/delete.component';
 import { AuthService } from 'src/app/core/service/auth.service';
 
 import { DeleteAnnouncementComponent } from './delete-announcement/delete.component';
-
-
 import {
   MatDialog,
   MatDialogConfig,
   MatDialogRef,
 } from '@angular/material/dialog';
-
-import { DocuementDialogComponent } from '../../documentform/documentform.component';
 import { DialogformComponent } from '../../dialogform/dialogform.component';
-
 import { DialogAnnouncementComponent } from '../../lesson-announcement/dialogform.component';
-
 import { AlignCenter } from 'angular-feather/icons';
 import { LecturesService } from '../lectures.service';
 import { Lesson } from './lessonModels/lesson.model';
@@ -38,12 +32,6 @@ export class LectuerPageComponent implements OnInit {
     },
   ];
   public Editor = ClassicEditor;
-  courseAnnouncements = [];
-  courseContentes = [];
-  questionBank = [];
-  courseStudents = [];
-  courseExams = [];
-
   url = environment.imgUrl;
   courseId: string;
   contentId: string;
@@ -57,13 +45,9 @@ export class LectuerPageComponent implements OnInit {
   isHidden: boolean = false;
   contentID: Number;
   announcementID: Number;
-
-  isLoad = false;
-
-  //#region  New Variable
-
   LessonInfo: Lesson;
 
+  //#region  New Variable
 
   //#endregion New Variable
   constructor(private route: ActivatedRoute,
@@ -71,11 +55,8 @@ export class LectuerPageComponent implements OnInit {
     private httpClient: HttpClient,
     private dialogModel: MatDialog,
     public lecturesService: LecturesService) {
-    this.courseContentes = [];
-    this.courseAnnouncements = [];
   }
   ngOnInit() {
-    this.isLoad = false;
     this.route
       .queryParamMap
       .subscribe(async params => {
@@ -203,9 +184,9 @@ export class LectuerPageComponent implements OnInit {
     const te = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         // for delete we use splice in order to remove single object from DataService
-        this.courseContentes = this.courseContentes.filter((obj) => {
-          return obj['contentId'] !== this.contentID;
-        });
+        // this.courseContentes = this.courseContentes.filter((obj) => {
+        //   return obj['contentId'] !== this.contentID;
+        // });
         this.lecturesService.getLessonContents(this.courseId);
       }
     });
@@ -267,9 +248,9 @@ export class LectuerPageComponent implements OnInit {
     const te = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         // for delete we use splice in order to remove single object from DataService
-        this.courseAnnouncements = this.courseAnnouncements.filter((obj) => {
-          return obj['noteId'] !== this.announcementID;
-        });
+        // this.courseAnnouncements = this.courseAnnouncements.filter((obj) => {
+        //   return obj['noteId'] !== this.announcementID;
+        // });
         // this.getCoursStatistics(this.courseId);
       }
     });
