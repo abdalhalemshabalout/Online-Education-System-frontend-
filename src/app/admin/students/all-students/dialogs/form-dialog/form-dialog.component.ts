@@ -68,23 +68,23 @@ export class FormDialogComponent {
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
       id: [this.students.id],
+      class_room_id: [this.students.class_room_id],
+      ClassName: [this.students.className],
+      branch_id: [this.students.branch_id],
+      BranchName: [this.students.branchName],
       name: [this.students.name || ''],
       surname: [this.students.surname || ''],
-      identity_number: [this.students.identity_number || ''],
-      class_room_id: [this.students.class_room_id],
       gender: [this.students.gender],
+      identity_number: [this.students.identity_number || ''],
       birth_date: [this.students.birth_date],
       phone_number: [this.students.phone_number || ''],
-      branch_id: [this.students.branch_id],
-      address: [this.students.address],
       email: [
         this.students.email || '',
         [Validators.required, Validators.email, Validators.minLength(5)]
       ],
       password: [this.students.password || ''],
       c_password: [this.students.c_password || ''],
-      ClassName: [this.students.className],
-      BranchName: [this.students.branchName]
+      address: [this.students.address],
     });
   }
   submit() {

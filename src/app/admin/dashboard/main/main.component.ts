@@ -106,7 +106,7 @@ export class MainComponent implements OnInit {
 
   //get All Teachers
   public getTeachers(){
-    this.httpClient.get(`${environment.apiUrl}/teachers`).subscribe(data => {
+    this.httpClient.get(`${environment.apiUrl}/get-teachers`).subscribe(data => {
       this.Teachers = (data['data']);
       },
       (err: HttpErrorResponse) => {

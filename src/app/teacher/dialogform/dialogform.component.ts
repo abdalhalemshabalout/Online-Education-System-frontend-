@@ -29,7 +29,7 @@ export class DialogformComponent implements OnInit {
     console.log(data);
     this.action = data.action;
     if (data.action === 'add') {
-      this.dialogTitle = "Add new content";
+      this.dialogTitle = "Add New Content";
       this.courseId = data.lessonId;
       this.LessonContent = new LessonContent({});
       this.lessonContentForm = this.createContactForm();

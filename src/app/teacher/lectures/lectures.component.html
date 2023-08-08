@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="header">
-            <h2>All Lessons</h2>
+            <h2>All Courses</h2>
           </div>
           <div class="body">
             <div class="row">
@@ -20,11 +20,11 @@
                 <div class="course-card" (click)="goToLecturesPage(lesson.id)" id="{{lesson.id}}">
                   <div class="course-card-body">
                     <div class="course-card-top-overflow text-white">
-                      <img src="">
+                      <img src="../../../assets/images/course/background-img.png" width="300" height="170" alt="...">
                     </div>
                     <div class="post-user mt-3">
                       <span class="float-start msr-3">
-                        <img class="img-circle" src={{userImg}} width="40" height="40" alt="...">
+                        <img class="img-circle" src="../../../assets/images/course/background-img.png" width="40" height="40" alt="...">
                       </span>
                       <h6 class="mb-xs mt-xs">{{lesson.name}}</h6>
                       <p class="text-muted"><time>---</time></p>
@@ -32,12 +32,8 @@
                       <span>Timer : {{lesson.timer}}</span>
                       <p class="text-muted"></p>
                     </div>
-                    <h6>Class : {{lesson.ClassName}}</h6>
-                    <h6>Branch : {{lesson.BranchName}}</h6>
-                    <p>Detailies : {{lesson.detaily}}</p>
-                    <!-- <div class="text-center mb-3">
-                      <button mat-raised-button color="primary">Devamını Oku</button>
-                    </div> -->
+                    <div class="text-center mb-3">
+                    </div> 
                   </div>
                   <footer class="bg-body-light">
                   </footer>

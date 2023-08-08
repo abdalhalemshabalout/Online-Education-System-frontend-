@@ -16,11 +16,11 @@ import {
   styleUrls: ['./add-teacher.component.sass'],
 })
 export class AddTeacherComponent {
-  Branches: Branch[];
+  proForm: UntypedFormGroup;
   Classrooms: Classroom[];
+  Branches: Branch[];
   selectedBranch = [];
 
-  proForm: UntypedFormGroup;
   breadscrums = [
     {
       title: 'Add New Teacher',
@@ -64,7 +64,7 @@ export class AddTeacherComponent {
   }
 
   onSubmit() {
-    this.teachersService.addTeachers(this.proForm.value());
+    this.teachersService.addTeachers(this.proForm.getRawValue());
     setTimeout(() => {
       if (this.teachersService.addStatus == true) {
         this.proForm.reset();

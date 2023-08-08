@@ -33,9 +33,9 @@ export class LecturesComponent
 
   breadscrums = [
     {
-      title: 'Dersler',
-      items: ['Öğrenci'],
-      active: 'Dersler',
+      title: 'Courses',
+      items: ['Student'],
+      active: 'Courses',
     },
   ];
 
@@ -68,7 +68,7 @@ export class LecturesComponent
 
 //get student Lessons Announcement
 public getLessonsAnnouncements(){
-  this.httpClient.get(`${environment.apiUrl}/student/lessons-announcement`).subscribe(data => {
+  this.httpClient.get(`${environment.apiUrl}/lesson-announcements`).subscribe(data => {
     this.lessonsAnnouncements = (data['data']);
     },
     (err: HttpErrorResponse) => {

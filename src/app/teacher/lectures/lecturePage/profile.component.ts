@@ -17,7 +17,6 @@ import {
 
 import { DocuementDialogComponent } from '../../documentform/documentform.component';
 import { DialogformComponent } from '../../dialogform/dialogform.component';
-import { FormDialogComponent } from '../../homeworks/all-homeworks/dialogs/form-dialog/form-dialog.component';
 
 import { DialogAnnouncementComponent } from '../../lesson-announcement/dialogform.component';
 
@@ -43,12 +42,12 @@ export class LectuerPageComponent implements OnInit {
   courseContentes = [];
   questionBank = [];
   courseStudents = [];
-  courseHomeworks = [];
   courseExams = [];
 
   url = environment.imgUrl;
   courseId: string;
   contentId: string;
+  announcementId: string;
   course: string;
   dialogConfig: MatDialogConfig;
   courseStatistics: any;
@@ -57,10 +56,8 @@ export class LectuerPageComponent implements OnInit {
   stepAnnouncement = -1;
   isHidden: boolean = false;
   contentID: Number;
-  noteID: Number;
-  testID: Number;
+  announcementID: Number;
 
-  userImg: string;
   isLoad = false;
 
   //#region  New Variable
@@ -75,7 +72,6 @@ export class LectuerPageComponent implements OnInit {
     private dialogModel: MatDialog,
     public lecturesService: LecturesService) {
     this.courseContentes = [];
-    this.questionBank = [];
     this.courseAnnouncements = [];
   }
   ngOnInit() {
@@ -87,6 +83,7 @@ export class LectuerPageComponent implements OnInit {
         this.courseId = params['params']['lectureId'];
         this.lecturesService.getLessonInfo(this.courseId);
         this.lecturesService.getLessonContents(this.courseId);
+        this.lecturesService.getLessonAnnouncements(this.courseId);
 
       });
     setTimeout(() => {
@@ -95,8 +92,7 @@ export class LectuerPageComponent implements OnInit {
       // this.getCoursContent(this.courseId);
       // this.getCoursAnnouncement(this.courseId);
       // this.getQuestionBank(this.courseId);
-      // this.getCourseStudent(this.courseId);
-      // this.getCourseHomework(this.courseId);
+         this.getCourseStudents(this.courseId);
       // this.getCourseExam(this.courseId);
 
     }, 500);
@@ -250,7 +246,7 @@ export class LectuerPageComponent implements OnInit {
   }
   //Update Lesson Announcement
   editAnnouncement(note) {
-    this.noteID = note['noteId'];
+    this.announcementID = note['noteId'];
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -273,7 +269,7 @@ export class LectuerPageComponent implements OnInit {
   }
   //Delete Lesson Announcement
   deleteAnnouncement(note) {
-    this.noteID = note['noteId'];
+    this.announcementID = note['noteId'];
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -288,10 +284,20 @@ export class LectuerPageComponent implements OnInit {
       if (result === 1) {
         // for delete we use splice in order to remove single object from DataService
         this.courseAnnouncements = this.courseAnnouncements.filter((obj) => {
-          return obj['noteId'] !== this.noteID;
+          return obj['noteId'] !== this.announcementID;
         });
         // this.getCoursStatistics(this.courseId);
       }
+    });
+  }
+
+  // Lesson Students
+  getCourseStudents(coursId) {
+    this.httpClient.post(`${environment.apiUrl}/branch_students`,{'branchId':coursId}).subscribe(data => {
+      this.courseStudents = data['data'];
+      },
+      (err: HttpErrorResponse) => {
+     // error code here
     });
   }
 }

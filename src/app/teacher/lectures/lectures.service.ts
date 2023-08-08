@@ -1,4 +1,5 @@
 import { LessonContent } from './lecturePage/lessonModels/lessonContent.model';
+import { LessonAnnouncement } from './lecturePage/lessonModels/lessonAnnouncement';
 import { Lesson } from './lecturePage/lessonModels/lesson.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -19,6 +20,7 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
   allBranches: BehaviorSubject<Branch[]> = new BehaviorSubject<Branch[]>([]);
   lessonInfo: BehaviorSubject<Lesson> = new BehaviorSubject<Lesson>(null);
   lessonContents: BehaviorSubject<LessonContent[]> = new BehaviorSubject<LessonContent[]>([]);
+  lessonAnnouncements: BehaviorSubject<LessonAnnouncement[]> = new BehaviorSubject<LessonAnnouncement[]>([]);
   // Temporarily stores data from dialogs
   dialogData: any;
   constructor(private httpClient: HttpClient, private snackBar: MatSnackBar,) {
@@ -37,6 +39,9 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
   }
   get dataLessonContents(): LessonContent[] {
     return this.lessonContents.value;
+  }
+  get dataLessonAnnouncements(): LessonAnnouncement[] {
+    return this.lessonAnnouncements.value;
   }
   /** CRUD METHODS */
   getAllLesson(): void {
@@ -137,6 +142,24 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
       }
     );
   }
+
+  
+  getLessonAnnouncements(lessonId): void {
+    this.subs.sink = this.httpClient.get<LessonAnnouncement>(`${environment.apiUrl}/lesson-announcements/${lessonId}`).subscribe(
+      async (data) => {
+        this.lessonAnnouncements.next(JSON.parse(JSON.stringify(data)));
+        this.lessonAnnouncements.value.forEach((e) => {
+          e.lessonName = this.lessonInfo.value.name;
+        });
+        this.isTblLoading = false;
+        console.log(this.lessonAnnouncements.value);
+      },
+      (error: HttpErrorResponse) => {
+        this.isTblLoading = false;
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
   addLessonContent(content:FormData): void {
     console.log(content);
     this.httpClient.post(`${environment.apiUrl}/lesson-contents`, content).subscribe(data => {
@@ -161,7 +184,7 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
         // error code here
       });
   }
-  updateLessonContent(content): void {
+    updateLessonContent(content): void {
     this.httpClient.put(`${environment.apiUrl}/lesson-contents/${content['id']}`, content).subscribe(data => {
       if (data['data'] === 1) {
         this.showNotification(
@@ -214,83 +237,9 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
 
 //#endregion //!Lesson Contents
 
-
-  addTestQuestinBank(test): void {
-    this.httpClient.post(`${environment.apiUrl}/academician/add-test-question-bank`, test).subscribe(data => {
-      if (data['success'] === true) {
-        this.showNotification(
-          'snackbar-success',
-          'Soru Başarıyla Ekledi...!!!',
-          'bottom',
-          'center'
-        );
-      } else {
-        this.showNotification(
-          'snackbar-info',
-          'Soru Eklenmedi...!!!',
-          'bottom',
-          'center'
-        );
-      }
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      });
-  }
-  updateTestQuestinBank(test): void {
-    this.httpClient.post(`${environment.apiUrl}/academician/update-test-question-bank/${test['testId']}`, test).subscribe(data => {
-      if (data['data'] === 1) {
-        this.showNotification(
-          'snackbar-success',
-          'Soru Başarıyla Güncellendi...!!!',
-          'bottom',
-          'center'
-        );
-      } else {
-        this.showNotification(
-          'snackbar-info',
-          'Soru Güncellenmedi...!!!',
-          'bottom',
-          'center'
-        );
-      }
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-      });
-  }
-  //Delete Test Question
-  deleteTestQuestion(test): void {
-    this.httpClient.delete(`${environment.apiUrl}/academician/delete-test-question-bank/${test}`).subscribe(data => {
-      if (data['success'] === true) {
-        this.showNotification(
-          'snackbar-danger',
-          'Soru silindi...!!!',
-          'bottom',
-          'center'
-        );
-      } else {
-        this.showNotification(
-          'snackbar-danger',
-          'Soru silinmedi...!!!',
-          'bottom',
-          'center'
-        );
-      }
-    },
-      (err: HttpErrorResponse) => {
-        // error code here
-        this.showNotification(
-          'snackbar-danger',
-          err,
-          'bottom',
-          'center'
-        );
-      });
-  }
   // Add Announcement To lesson
   addLessonAnnouncement(note): void {
-    this.httpClient.post(`${environment.apiUrl}/academician/add-lesson-announcement`, note).subscribe(data => {
+    this.httpClient.post(`${environment.apiUrl}/lesson-announcements`, note).subscribe(data => {
       if (data['success'] === true) {
         this.showNotification(
           'snackbar-success',
@@ -313,18 +262,18 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
   }
   //Update Announcement
   updateLessonAnnouncement(note): void {
-    this.httpClient.post(`${environment.apiUrl}/academician/update-lesson-announcement/${note['noteId']}`, note).subscribe(data => {
+    this.httpClient.put(`${environment.apiUrl}/lesson-announcements/${note['id']}`, note).subscribe(data => {
       if (data['data'] === 1) {
         this.showNotification(
           'snackbar-success',
-          'Ders Notu Başarıyla güncellendi...!!!',
+          'Ders İçeriği Başarıyla Güncellendi...!!!',
           'bottom',
           'center'
         );
       } else {
         this.showNotification(
           'snackbar-info',
-          'Ders Notu güncellenmedi...!!!',
+          'Ders İçeriği Güncellenmedi...!!!',
           'bottom',
           'center'
         );
@@ -336,7 +285,7 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
   }
   //Delete Announcement
   deleteLectureAnnouncement(note): void {
-    this.httpClient.delete(`${environment.apiUrl}/academician/delete-lesson-announcement/${note}`).subscribe(data => {
+    this.httpClient.delete(`${environment.apiUrl}/lesson-announcements/${note}`).subscribe(data => {
       if (data['success'] === true) {
         this.showNotification(
           'snackbar-danger',

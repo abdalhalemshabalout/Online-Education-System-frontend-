@@ -25,7 +25,7 @@ export class AddCourseComponent {
   selectedBranch = [];
   breadscrums = [
     {
-      title: 'Add new course',
+      title: 'Add New Course',
       items: ['Course'],
       active: 'Add',
     },
