@@ -50,7 +50,6 @@ export class AddHomeworkComponent {
   }
 
   onSubmit() {
-    console.log(this.homeworkForm.value['document']+'');
     const formData: FormData = new FormData();
     if (this.homeworkForm.value['document']) {
       formData.append('document', this.homeworkForm.value['document'],this.homeworkForm.value['document']['name']);
@@ -62,13 +61,12 @@ export class AddHomeworkComponent {
         formData.append(`${key}`, `${value}`);
       }
     }
-    console.log('Form Value', this.homeworkForm.value);
     this.homeworkService.addHomework(formData);
     setTimeout(() => {
       if (this.homeworkService.addStatus == true) {
         this.homeworkForm.reset();
         this.router.navigate(['/teacher/homeworks/all-homeworks']);
-      }                       
+      }
     }, 1000);
   }
 }

@@ -97,7 +97,6 @@ export class FormDialogComponent {
   }
 
   public confirmAdd(): void {
-    console.log(this.homeworkForm.getRawValue());
     const formData: FormData = new FormData();
     if (this.homeworkForm.value['document']) {
       formData.append('document', this.homeworkForm.value['document'],this.homeworkForm.value['document']['name']);

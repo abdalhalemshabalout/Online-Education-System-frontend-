@@ -57,8 +57,6 @@ export class DialogformComponent implements OnInit {
   async onSubmitClick() {
     if (this.action === 'add') {
       var formData: FormData = new FormData();
-      console.log(this.lessonContentForm.getRawValue());
-      console.log(this.lessonContentForm.getRawValue()['document'] + '');
       if (this.lessonContentForm.getRawValue()['document']) {
         formData.append('document', this.lessonContentForm.getRawValue()['document'], this.lessonContentForm.getRawValue()['document']['name']);
       } else {

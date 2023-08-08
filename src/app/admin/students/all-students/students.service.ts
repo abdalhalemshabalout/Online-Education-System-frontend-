@@ -44,9 +44,14 @@ export class StudentsService extends UnsubscribeOnDestroyAdapter {
           this.isTblLoading = false;
         }, 600);
       },
-      (error: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
         this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }

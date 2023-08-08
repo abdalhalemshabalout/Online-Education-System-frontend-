@@ -12,7 +12,7 @@ import { Classroom } from '../../classrooms/all-classrooms/classroom.model';
 @Injectable()
 export class CourseService extends UnsubscribeOnDestroyAdapter {
   isTblLoading = true;
-  public addStatus:boolean;
+  public addStatus: boolean;
   private authService: AuthService;
   // private snackBar: MatSnackBar;
 
@@ -24,7 +24,7 @@ export class CourseService extends UnsubscribeOnDestroyAdapter {
   allCourse = [];
   allClassrooms: BehaviorSubject<Classroom[]> = new BehaviorSubject<Classroom[]>([]);
   allBranches: BehaviorSubject<Branch[]> = new BehaviorSubject<Branch[]>([]);
-  constructor(private httpClient: HttpClient,private snackBar: MatSnackBar) {
+  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {
     super();
     this.getAllClassrooms();
     this.getAllBranches();
@@ -46,40 +46,51 @@ export class CourseService extends UnsubscribeOnDestroyAdapter {
           this.isTblLoading = false;
         }, 600);
       },
-      (error: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
         this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }
   //add Lesson
-  addLesson(course: Course):void {
+  addLesson(course: Course): void {
     this.addStatus = false;
     this.dialogData = course;
-    console.log(course);
-      this.httpClient.post(`${environment.apiUrl}/lessons`, course).subscribe(data => {
-        this.dialogData = course;
-        if (data['success'] === true) {
-          this.addStatus = data['success'];
-          this.showNotification(
-            'snackbar-success',
-            data['message']+'...!!!',
-            'bottom',
-            'center'
-          );
-        } else {
-          this.addStatus = data['success'];
-          this.showNotification(
-            'snackbar-danger',
-            data['message']+'...!!!',
-            'bottom',
-            'center'
-          );
-        }
-      },
+    this.httpClient.post(`${environment.apiUrl}/lessons`, course).subscribe(data => {
+      this.dialogData = course;
+      if (data['success'] === true) {
+        this.addStatus = data['success'];
+        this.showNotification(
+          'snackbar-success',
+          data['message'] + '...!!!',
+          'bottom',
+          'center'
+        );
+      } else {
+        this.addStatus = data['success'];
+        this.showNotification(
+          'snackbar-danger',
+          data['message'] + '...!!!',
+          'bottom',
+          'center'
+        );
+      }
+    },
       (err: HttpErrorResponse) => {
-     // error code here
-    });
+        // error code here
+        this.isTblLoading = false;
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
+      });
   }
   //Update Lesson Information
   updateLesson(course: Course): void {
@@ -87,21 +98,35 @@ export class CourseService extends UnsubscribeOnDestroyAdapter {
     this.httpClient.post(`${environment.apiUrl}/lessons/ ${course.id}`, course).subscribe(data => {
       this.dialogData = course;
     },
-    (err: HttpErrorResponse) => {
-      // error code here
-    }
-  );
-  }
-  //Delete Lesson
-  deleteLesson(id: number): void {
-    this.httpClient.delete(`${environment.apiUrl}/lessons/ ${id}` ).subscribe(data => {
-      },
       (err: HttpErrorResponse) => {
-         // error code here
+        // error code here
+        this.isTblLoading = false;
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }
-  
+  //Delete Lesson
+  deleteLesson(id: number): void {
+    this.httpClient.delete(`${environment.apiUrl}/lessons/ ${id}`).subscribe(data => {
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+        this.isTblLoading = false;
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
+      }
+    );
+  }
+
   setClassroomsAndBranchesNameToData() {
     this.dataChange.value.forEach(async (e) => {
       e.className = await this.BuildClassName(e.class_room_id);
@@ -133,8 +158,14 @@ export class CourseService extends UnsubscribeOnDestroyAdapter {
       (data) => {
         this.allBranches.next(data['data']);
       },
-      (error: HttpErrorResponse) => {
-        return null;
+      (err: HttpErrorResponse) => {
+        this.isTblLoading = false;
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }
@@ -144,7 +175,14 @@ export class CourseService extends UnsubscribeOnDestroyAdapter {
       (data) => {
         this.allClassrooms.next(data['data']);
       },
-      (error: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
+        this.isTblLoading = false;
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }

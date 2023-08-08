@@ -87,7 +87,6 @@ export class MainComponent implements OnInit {
   public getTotal(){
     this.httpClient.get(`${environment.apiUrl}/total`).subscribe(data => {
       this.totalNumber = data;
-      console.log(data);
       },
       (err: HttpErrorResponse) => {
      // error code here

@@ -13,7 +13,7 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
   dataChange: BehaviorSubject<Lectures[]> = new BehaviorSubject<Lectures[]>([]);
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient,private snackBar: MatSnackBar,) {
+  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar,) {
     super();
   }
   get data(): Lectures[] {
@@ -24,14 +24,19 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllLesson(): void {
-    this.subs.sink = this.httpClient.get<Lectures[]>(`${environment.apiUrl}/user-lessons`).subscribe(
+    this.subs.sink = this.httpClient.get<Lectures[]>(`${environment.apiUrl}/lessons`).subscribe(
       (data) => {
-        this.dataChange.next(data);
         this.isTblLoading = false;
+        this.dataChange.next(data['data']);
       },
-      (error: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
         this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }

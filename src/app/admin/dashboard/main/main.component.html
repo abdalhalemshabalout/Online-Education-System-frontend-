@@ -81,7 +81,7 @@
               <i class="material-icons col-green psr-2">star</i>
               <i class="material-icons col-green psr-2">star</i>
               <i class="material-icons col-green psr-2">star</i>
-            </p>          
+            </p>
           </div>
         </div>
       </div>
@@ -134,7 +134,8 @@
                     <td>{{announcement.title}}</td>
                     <td>{{announcement.text}}</td>
                     <td>
-                      <button mat-flat-button class="col-pink">{{announcement.created_at}}</button>
+                      <button mat-flat-button
+                        class="col-pink">{{announcement.created_at | date: 'dd/MM/YYYY HH:mm:ss'}}</button>
                     </td>
                   </tr>
                 </tbody>
@@ -173,5 +174,5 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
 </section>

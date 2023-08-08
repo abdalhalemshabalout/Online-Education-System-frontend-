@@ -35,7 +35,6 @@ staffForm: UntypedFormGroup;
   }
 
   onSubmit() {
-    console.log(this.staffForm.value);
     this.staffService.addStaff(this.staffForm.value);
     setTimeout(() => {
       if (this.staffService.addStatus == true) {

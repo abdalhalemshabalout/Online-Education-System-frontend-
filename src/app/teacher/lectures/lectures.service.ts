@@ -57,9 +57,14 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
         this.setClassroomsAndBranchesNameToData();
         this.isTblLoading = false;
       },
-      (error: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
         this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }
@@ -128,9 +133,14 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
         await this.getLessonContents(this.lessonInfo.value.id);
         this.isTblLoading = false;
       },
-      (error: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
         this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }
@@ -198,7 +208,12 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
       (err: HttpErrorResponse) => {
         // error code here
         this.isTblLoading = false;
-        console.log(err.name + ' ' + err.message);
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       });
   }
   // update inof of lesson

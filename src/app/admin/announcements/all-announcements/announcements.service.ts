@@ -1,4 +1,4 @@
-import { Announcement} from './announcement.model';
+import { Announcement } from './announcement.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AnnouncementService extends UnsubscribeOnDestroyAdapter {
   private readonly API_URL = '';
   isTblLoading = true;
-  public addStatus:boolean;
+  public addStatus: boolean;
   private authService: AuthService;
   // private snackBar: MatSnackBar;
 
@@ -21,7 +21,7 @@ export class AnnouncementService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient,private snackBar: MatSnackBar) {
+  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {
     super();
     this.addStatus = false;
   }
@@ -40,55 +40,60 @@ export class AnnouncementService extends UnsubscribeOnDestroyAdapter {
         this.isTblLoading = false;
         this.dataChange.next(data['data']);
       },
-      (error: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
         this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
+        this.showNotification(
+          'snackbar-danger',
+          err.name + " || " + err.message,
+          'bottom',
+          'center'
+        );
       }
     );
   }
 
   // add Announcement
-  addAnnouncement(announcement: Announcement):void {
+  addAnnouncement(announcement: Announcement): void {
     this.dialogData = announcement;
-      this.httpClient.post(`${environment.apiUrl}/announcements`, announcement).subscribe(data => {
-        this.dialogData = announcement;
-        if (data['success'] === true) {
-          this.addStatus = data['success'];
-          this.showNotification(
-            'snackbar-success',
-            data['message']+'...!!!',
-            'bottom',
-            'center'
-          );
-        } else {
-          this.addStatus = data['success'];
-          this.showNotification(
-            'snackbar-danger',
-            data['message']+'...!!!',
-            'bottom',
-            'center'
-          );
-        }
-      },
+    this.httpClient.post(`${environment.apiUrl}/announcements`, announcement).subscribe(data => {
+      this.dialogData = announcement;
+      if (data['success'] === true) {
+        this.addStatus = data['success'];
+        this.showNotification(
+          'snackbar-success',
+          data['message'] + '...!!!',
+          'bottom',
+          'center'
+        );
+      } else {
+        this.addStatus = data['success'];
+        this.showNotification(
+          'snackbar-danger',
+          data['message'] + '...!!!',
+          'bottom',
+          'center'
+        );
+      }
+    },
       (err: HttpErrorResponse) => {
-     // error code here
-    });
+        // error code here
+      });
   }
   updateAnnouncement(announcement: Announcement): void {
     this.dialogData = announcement;
-    this.httpClient.put(`${environment.apiUrl}/announcements/`+ announcement.id, announcement).subscribe(data => {
+    this.httpClient.put(`${environment.apiUrl}/announcements/` + announcement.id, announcement).subscribe(data => {
       this.dialogData = announcement;
     },
-    (err: HttpErrorResponse) => {
-      // error code here
-    }
-  );
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
   }
   deleteAnnouncement(id: number): void {
-    this.httpClient.delete(`${environment.apiUrl}/announcements/`+ id).subscribe(data => {
-      },
+    this.httpClient.delete(`${environment.apiUrl}/announcements/` + id).subscribe(data => {
+    },
       (err: HttpErrorResponse) => {
-         // error code here
+        // error code here
       }
     );
   }

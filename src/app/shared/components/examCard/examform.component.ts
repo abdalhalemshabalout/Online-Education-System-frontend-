@@ -20,7 +20,7 @@ export class ExamformComponent implements OnInit {
   public action;
   isLoad = false;
   public addCusForm: UntypedFormGroup;
-  
+
   constructor(
     private fb: UntypedFormBuilder,
     public httpClient: HttpClient,
@@ -46,15 +46,11 @@ export class ExamformComponent implements OnInit {
     const remainingTime = examStartTime.getTime() - now.getTime();
     const hours = Math.floor(remainingTime / (60 * 60 * 1000));
     const minutes = Math.floor((remainingTime % (60 * 60 * 1000)) / (60 * 1000));
-    const seconds = Math.floor((remainingTime % (60 * 1000)) / 1000); 
+    const seconds = Math.floor((remainingTime % (60 * 1000)) / 1000);
     const remainingTimeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    console.log(`Sınav saat : ${remainingTimeString} başlıyor`);
-    console.log(now);
-    console.log(examStartTime);
-    console.log(remainingTime);
 
-  } 
-  
+  }
+
   closeDialog(): void {
     this.dialogRef.close();
   }

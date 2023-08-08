@@ -72,11 +72,9 @@ export class HomeworkService extends UnsubscribeOnDestroyAdapter {
     });
   }
   updateHomework(homework): void {
-    console.log(homework);
     this.dialogData = homework;
     this.httpClient.post(`${environment.apiUrl}/academician/update-homework/${homework['id']}`, homework).subscribe(data => {
       this.dialogData = homework;
-      console.log(data);
     },
     (err: HttpErrorResponse) => {
       // error code here
