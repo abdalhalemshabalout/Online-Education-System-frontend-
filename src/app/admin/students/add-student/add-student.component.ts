@@ -17,12 +17,12 @@ import { Branch } from '../../branches/all-branches/branch.model';
 })
 export class AddStudentComponent {
   studentForm: UntypedFormGroup;
-  Branches: Branch[];
   Classrooms: Classroom[];
+  Branches: Branch[];
   selectedBranch = [];
   breadscrums = [
     {
-      title: 'Add new student',
+      title: 'Add New Student',
       items: ['Student'],
       active: 'Add',
     },

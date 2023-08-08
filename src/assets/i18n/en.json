@@ -65,14 +65,14 @@
       "TEXT": "Teacher",
       "LIST": {
         "DASHBOARD": "Dashboard",
-        "LECTURES": "Lectures"
+        "LECTURES": "My Courses"
       }
     },
     "STUDENT": {
       "TEXT": "Student",
       "LIST": {
         "DASHBOARD": "Dashboard",
-        "LECTURES": "Lessons"
+        "LECTURES": "My Courses"
       }
     }
   }

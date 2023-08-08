@@ -27,7 +27,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: [Role.Admin , Role.Staff],
+    role: [Role.Admin , Role.Staff,Role.Teacher , Role.Student],
     submenu: [
       // {
       //   path: '/admin/dashboard/main',
@@ -329,18 +329,18 @@ export const ROUTES: RouteInfo[] = [
 //#endregion
 
   //#region //!Teacher Modules
-  {
-    path: '/teacher/dashboard',
-    title: 'MENUITEMS.TEACHER.LIST.DASHBOARD',
-    iconType: 'material-icons-two-tone',
-    icon: 'space_dashboard',
-    class: '',
-    groupTitle: false,
-    badge: '',
-    badgeClass: '',
-    role: [Role.Teacher],
-    submenu: [],
-  },
+  // {
+  //   path: '/teacher/dashboard',
+  //   title: 'MENUITEMS.TEACHER.LIST.DASHBOARD',
+  //   iconType: 'material-icons-two-tone',
+  //   icon: 'space_dashboard',
+  //   class: '',
+  //   groupTitle: false,
+  //   badge: '',
+  //   badgeClass: '',
+  //   role: [Role.Teacher],
+  //   submenu: [],
+  // },
   {
     path: '/teacher/lectures',
     title: 'MENUITEMS.TEACHER.LIST.LECTURES',
@@ -357,18 +357,18 @@ export const ROUTES: RouteInfo[] = [
 
   //#region //!Student Modules
 
-  {
-    path: '/student/dashboard',
-    title: 'MENUITEMS.STUDENT.LIST.DASHBOARD',
-    iconType: 'material-icons-two-tone',
-    icon: 'space_dashboard',
-    class: '',
-    groupTitle: false,
-    badge: '',
-    badgeClass: '',
-    role: [Role.Student],
-    submenu: [],
-  },
+  // {
+  //   path: '/student/dashboard',
+  //   title: 'MENUITEMS.STUDENT.LIST.DASHBOARD',
+  //   iconType: 'material-icons-two-tone',
+  //   icon: 'space_dashboard',
+  //   class: '',
+  //   groupTitle: false,
+  //   badge: '',
+  //   badgeClass: '',
+  //   role: [Role.Student],
+  //   submenu: [],
+  // },
   {
     path: '/student/lectures',
     title: 'MENUITEMS.STUDENT.LIST.LECTURES',

@@ -13,136 +13,24 @@
             <div class="contact-grid">
               <div class="profile-header bg-dark">
                 <br />
-                <div class="name-center">{{lecturesService.dataLessonInfo.name}}</div>
-                <div class="user-name">{{lecturesService.dataLessonInfo.code}}</div>
+                <div class="user-name">Code: {{lecturesService.dataLessonInfo.code}}</div>
+                <div class="name-center">Course: {{lecturesService.dataLessonInfo.name}}</div><br />
+                <span class="phone">
+                  <i class="material-icons">alarm</i>Timer : {{lecturesService.dataLessonInfo.timer}}
+                </span>
               </div>
-              <img src={{userImg}} class="user-img" alt="">
               <p>
-                Class : {{lecturesService.dataLessonInfo.ClassName}}
+                Classroom : {{lecturesService.dataLessonInfo.ClassName}}
                 <br />
                 Branch : {{lecturesService.dataLessonInfo.BranchName}}
               </p>
-              <div>
-                <span class="phone">
-                  <i class="material-icons">alarm</i>Timer : {{lecturesService.dataLessonInfo.timer}}</span>
-              </div>
-              <!-- <div *ngIf="courseStatistics" class="row">
-                <div class="col-4">
-                  <h5>{{courseStatistics.homeworkTotal}}</h5>
-                  <small>Ödev Sayısı</small>
-                </div>
-                <div class="col-4">
-                  <h5>{{courseStatistics.lessonContentTotal}}</h5>
-                  <small>İçerik Sayısı</small>
-                </div>
-                <div class="col-4">
-                  <h5>{{courseStatistics.studentTotal}}</h5>
-                  <small>Öğrenci Sayısı</small>
-                </div>
-              </div> -->
+              <p>
+                Details : {{lecturesService.dataLessonInfo.detaily}}
+              </p>
+
             </div>
           </div>
         </div>
-        <!-- <div class="card">
-          <mat-tab-group mat-align-tabs="start">
-
-            <mat-tab label="Ödevler">
-              <ng-template mat-tab-label>
-                Ders Ödevleri
-              </ng-template>
-              <div class="body">
-                <div class="right">
-                  <br>
-                  <button mat-raised-button color="primary" (click)="addHomework()">Yeni Ödev Ekle</button>
-                </div>
-              </div>
-              <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="project_widget">
-                  <div class="body">
-                    <div class="row">
-                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <div class="card">
-                    <div class="tableBody">
-                      <div class="table-responsive">
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>Ödev Adı</th>
-                              <th>Son Teslim Tarihi</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let homework of courseHomeworks  index as i">
-                              <td>{{i+1}} </td>
-                              <td>{{homework.homeworkName}}</td>
-                              <td class="col-pink">{{homework.endDate}}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </mat-tab>
-
-            <mat-tab label="Sınavlar">
-              <ng-template mat-tab-label>
-                Ders Sınavları
-              </ng-template>
-              <div class="body">
-                <div class="right">
-                  <br>
-                  <button mat-raised-button color="primary" (click)="addExam()">Yeni Sınav Ekle</button>
-                </div>
-              </div>
-              <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="project_widget">
-                  <div class="body">
-                    <div class="row">
-                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <div class="card">
-                    <div class="tableBody">
-                      <div class="table-responsive">
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>Sınav Adı</th>
-                              <th>Sınav Tarihi</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let exam of courseExams  index as i">
-                              <td>{{i+1}} </td>
-                              <td>{{exam.examName}}</td>
-                              <td class="col-pink">{{exam.endDate}}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </mat-tab>
-          </mat-tab-group>
-        </div> -->
       </div>
       <div class="col-lg-8 col-md-12">
         <div class="card">
@@ -155,7 +43,7 @@
               <div class="body">
                 <div class="right">
                   <br>
-                  <button mat-raised-button color="primary" (click)="openDialog()">Add new content</button>
+                  <button mat-raised-button color="primary" (click)="openDialog()">Add Content</button>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12">
@@ -189,20 +77,13 @@
                               <ng-template *ngIf="!content.text"></ng-template>
                             </div>
                             <hr>
-                            <!-- <div class="row">
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <a *ngIf="content.contentUrl" style="width: 100%;" mat-stroked-button target="_blank" href="{{content.contentUrl}}">Ders Linki<img src="../../../../assets/images/icons/link.png" alt="Link"></a>
-                                <ng-template *ngIf="!content.contentUrl"></ng-template>
-                              </div>
-                            </div> -->
                             <div class="row">
                               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mt-3 ml-3">
-                                <a *ngIf="content.document"  mat-stroked-button target="_blank" href="{{url+content.document}}" ><img src="../../../../assets/images/icons/doucmenticon.png" alt="Document"></a>
+                                <a *ngIf="content.document"  mat-stroked-button target="_blank" href="{{url+content.document}}" ><img src="../../../../assets/images/course/document.png" alt="Document"></a>
                                 <ng-template *ngIf="!content.document"></ng-template>
                               </div>
                             </div>
                             <div>
-                              <!-- <button mat-raised-button color="primary" (click)="addDocument()">Dosya Ekle</button> -->
                               <button mat-icon-button (click)="editCall(content)" class="tbl-action-btn">
                                 <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                               </button>
@@ -226,127 +107,21 @@
                 </div>
               </div>
             </mat-tab>
-            <!-- <mat-tab>
-              <ng-template mat-tab-label>
-                <mat-icon class="example-tab-icon msr-2">book</mat-icon>
-                Soru Bankası
-              </ng-template>
-              <div class="body">
-                <div class="right">
-                  <br>
-                  <button mat-raised-button color="primary" (click)="openTestForm()">Yeni Soru Ekle</button>
-                </div>
-              </div>
-              <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="project_widget">
-                  <div class="header">
-                    <h2><strong>Soru Bankası</strong></h2>
-                  </div>
-                  <div class="body">
-                    <div class="row">
-                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <mat-accordion *ngFor="let test of questionBank; index as i"
-                          class="example-headers-align">
-                          <mat-expansion-panel [expanded]="stepTest === i" (opened)="setStepTest(i)" hideToggle>
-                            <mat-expansion-panel-header>
-                              <mat-panel-title>
-                                Soru: {{test.questionNumber}}
-                              </mat-panel-title>
-                              <div style="color:rgb(235, 59, 156)">Soru Puanı: {{test.answerPoint}}</div>
-                            </mat-expansion-panel-header>
-                            <div class="row clearfix">
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div>
-                                  <div class="text-inside" class="example-full-width mb-3" appearance="outline">
-                                    <ckeditor *ngIf="test.question" disabled=true [editor]="Editor" [config]="{toolbar:[]}" data="{{test.question}}"></ckeditor>
-                                    <ng-template *ngIf="!test.question"></ng-template>
-                                  </div>  <br>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row clearfix">
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <section class="example-section">
-                                  <span class="example-list-section">
-                                    <ul>  <br>
-                                      A ) <mat-radio-button class="example-radio-button ms-0">
-                                        {{test.answerOne}}
-                                      </mat-radio-button> <br>
-                                      B ) <mat-radio-button class="example-radio-button ms-0">
-                                        {{test.answerTwo}}
-                                      </mat-radio-button> <br>
-                                      <div  *ngIf="test.answerThree">
-                                      C ) <mat-radio-button class="example-radio-button ms-0">
-                                        {{test.answerThree}}
-                                      </mat-radio-button> <br>
-                                      </div>
-                                      <ng-template *ngIf="!test.answerThree"></ng-template>
-                                      <div  *ngIf="test.answerFour">
-                                      D ) <mat-radio-button class="example-radio-button ms-0">
-                                        {{test.answerFour}}
-                                      </mat-radio-button> <br>
-                                      </div>
-                                      <ng-template *ngIf="!test.answerFour"></ng-template>
-                                      <div  *ngIf="test.answerFive">
-                                      E ) <mat-radio-button  class="example-radio-button ms-0">
-                                        {{test.answerFive}}
-                                      </mat-radio-button> <br>
-                                      </div>
-                                      <ng-template *ngIf="!test.answerFive"></ng-template>
-                                      </ul>
-                                  </span>
-                                </section><br>
-                              </div>
-                            </div>
-                            <div class="row" >
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <ng-template *ngIf="!test.correctAnswer"></ng-template>
-                                      <div  *ngIf="test.correctAnswer"> <br>
-                                      <mat-panel-title style="color:red; font-size: large;">
-                                        Cevap : {{test.correctAnswer}}
-                                      </mat-panel-title>
-                              </div>
-                              </div>
-                            </div>
-                            <div>
-                              <button mat-icon-button (click)="editTestQuestion(test)" class="tbl-action-btn">
-                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                              </button>
-                              <button mat-icon-button (click)="$event.stopPropagation()" (click)="deleteTestQuestion(test)"
-                                class="tbl-action-btn">
-                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                              </button>
-                            </div>
-                            <mat-action-row>
-                              <button *ngIf="stepTest !== 0" mat-button color="warn" (click)="prevStepTest()">Önceki</button>
-                              <button *ngIf="stepTest !== questionBank.length-1" mat-button color="primary"
-                                (click)="nextStepTest()">Sonraki</button>
-                              <button *ngIf="stepTest === questionBank.length-1" mat-button color="primary"
-                                (click)="nextStepTest ()">Son</button>
-                            </mat-action-row>
-                          </mat-expansion-panel>
-                        </mat-accordion>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </mat-tab> -->
-            <!-- <mat-tab>
+            <mat-tab>
               <ng-template mat-tab-label>
                 <mat-icon class="example-tab-icon msr-2">announcement</mat-icon>
-                Ders Duyuruları
+                Course Announcements
               </ng-template>
               <div class="body">
                 <div class="right">
                   <br>
-                  <button mat-raised-button color="primary" (click)="openAddAnnouncement()">Yeni Duyuru Ekle</button>
+                  <button mat-raised-button color="primary" (click)="openAddAnnouncement()">Add Announcement</button>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="project_widget">
                   <div class="header">
-                    <h2><strong>Duyurular</strong></h2>
+                    <h2><strong>Announcements</strong></h2>
                   </div>
                   <div class="body">
                     <div class="row">
@@ -357,18 +132,18 @@
                             hideToggle>
                             <mat-expansion-panel-header>
                               <mat-panel-title>
-                                {{note.head}}
+                                {{note.title}}
                               </mat-panel-title>
                               <mat-panel-description>
-                                {{note.lessonId}}
+                                {{lecturesService.dataLessonInfo.name}}
                                 <mat-icon>assignment</mat-icon>
                               </mat-panel-description>
                             </mat-expansion-panel-header>
                             <div class="text-inside" class="example-full-width mb-3" appearance="outline">
-                              <ckeditor disabled=true [editor]="Editor" [config]="{toolbar:[]}" data="{{note.body}}"></ckeditor>
-                              <mat-panel-description>
+                              <ckeditor disabled=true [editor]="Editor" [config]="{toolbar:[]}" data="{{note.text}}"></ckeditor>
+                              <!-- <mat-panel-description>
                                 {{note.Date}}
-                              </mat-panel-description>
+                              </mat-panel-description> -->
                             </div>
                             <hr>
                             <div>
@@ -395,17 +170,17 @@
                   </div>
                 </div>
               </div>
-            </mat-tab> -->
-            <!-- <mat-tab>
+            </mat-tab>
+            <mat-tab>
               <ng-template mat-tab-label>
                 <mat-icon class="example-tab-icon msr-2">personal</mat-icon>
-                Ders Öğrencileri
+                Course Students
               </ng-template>
               <div class="row clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <div class="card">
                     <div class="header">
-                      <h2>Öğrenciler</h2>
+                      <h2>Students</h2>
                     </div>
                     <div class="tableBody">
                       <div class="table-responsive">
@@ -413,18 +188,18 @@
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th>Öğrenci Numarası</th>
-                              <th>Öğrenci Adı</th>
-                              <th>Öğrenci Maili</th>
+                              <th>Full Name</th>
+                              <th>Gender</th>
+                              <th>Phone Number</th>
+                              <th>Email</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr *ngFor="let student of courseStudents">
-                              <td class="table-img">
-                                <img src={{url+student.img}} alt="">
-                              </td>
-                              <td>{{student.studentId}}</td>
-                              <td>{{student.studentName}}</td>
+                              <td>{{student.identity_number}}</td>
+                              <td>{{student.name}}{{student.surname}}</td>
+                              <td>{{student.identity_number}}</td>
+                              <td>{{student.identity_number}}</td>
                               <td><a href="mailto:{{student.email}}"> {{student.email}} </a></td>
                             </tr>
                           </tbody>
@@ -434,7 +209,7 @@
                   </div>
                 </div>
               </div>
-            </mat-tab> -->
+            </mat-tab>
           </mat-tab-group>
         </div>
       </div>

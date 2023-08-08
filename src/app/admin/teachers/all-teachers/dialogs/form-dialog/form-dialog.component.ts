@@ -12,12 +12,14 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { Teachers } from '../../teachers.model';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-form-dialog',
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.sass'],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
 export class FormDialogComponent {
   selectedBranch = [];

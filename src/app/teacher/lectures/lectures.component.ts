@@ -26,9 +26,9 @@ export class LecturesComponent
   userImg: string;
   breadscrums = [
     {
-      title: 'Lessons',
+      title: 'Courses',
       items: ['Teacher'],
-      active: 'Lesson',
+      active: 'Courses',
     },
   ];
 

@@ -153,18 +153,18 @@
               <table class="table table-hover ">
                 <thead>
                   <tr>
-                    <th>#</th>
                     <th>Classroom</th>
                     <th>Branch</th>
                     <th>Teacher</th>
+                    <th># Phone Number</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let teacher of Teachers">
-                    <td>{{teacher.phone_number}}</td>
                     <td>{{teacher.class_room.name}}</td>
                     <td>{{teacher.branch.name}}</td>
                     <td>{{teacher.name}} {{teacher.surname}}</td>
+                    <td>{{teacher.phone_number}}</td>
                   </tr>
                 </tbody>
               </table>

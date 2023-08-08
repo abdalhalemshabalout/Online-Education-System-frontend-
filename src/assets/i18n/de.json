@@ -4,7 +4,7 @@
       "TEXT": "Main"
     },
     "DASHBOARD": {
-      "TEXT": "Dashboard",
+      "TEXT": "Armaturenbrett",
       "LIST": {
         "DASHBOARD1": "Dashboard 1",
         "DASHBOARD2": "Dashboard 2",
@@ -64,15 +64,15 @@
     "TEACHER": {
       "TEXT": "Lehrerin",
       "LIST": {
-        "DASHBOARD": "Dashboard",
-        "LECTURES": "Vorträge"
+        "DASHBOARD": "Armaturenbrett",
+        "LECTURES": "Meine Kurse"
       }
     },
     "STUDENT": {
       "TEXT": "Studentin",
       "LIST": {
-        "DASHBOARD": "Dashboard",
-        "LECTURES": "Vorträge"
+        "DASHBOARD": "Armaturenbrett",
+        "LECTURES": "Meine Kurse"
       }
     }
   }

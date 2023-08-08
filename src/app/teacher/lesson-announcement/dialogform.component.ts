@@ -16,7 +16,7 @@ import { LecturesService } from '../lectures/lectures.service';
 export class DialogAnnouncementComponent implements OnInit {
   public Editor = ClassicEditor;
   public courseId;
-  public note={'noteId':'','head':'','body':''};
+  public note={'noteId':'','title':'','text':''};
   public action;
   public addAnnuncementForm: UntypedFormGroup;
   constructor(private fb: UntypedFormBuilder,
@@ -38,8 +38,8 @@ export class DialogAnnouncementComponent implements OnInit {
     this.addAnnuncementForm = this.fb.group({
       lessonId: this.courseId,
       noteId: this.note['noteId'],
-      head: [this.note['head'] || "",[Validators.required]],
-      body: [this.note['body'] || "", [Validators.required]]
+      title: [this.note['title'] || "",[Validators.required]],
+      text: [this.note['text'] || "", [Validators.required]]
     });
   }
   closeDialog(): void {

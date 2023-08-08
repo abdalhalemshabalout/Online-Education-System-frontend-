@@ -28,7 +28,7 @@ staffForm: UntypedFormGroup;
       phone_number: ['', [Validators.required]],
       email: ['', [Validators.required]],
       password: ['', [Validators.required,]],
-      password_confirmation: ['', [Validators.required]],
+      c_password: ['', [Validators.required]],
       address: ['', [Validators.required,]],
     });
 
