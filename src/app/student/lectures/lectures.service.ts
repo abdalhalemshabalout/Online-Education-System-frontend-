@@ -24,10 +24,10 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllLesson(): void {
-    this.subs.sink = this.httpClient.get<Lectures[]>(`${environment.apiUrl}/lessons`).subscribe(
+    this.subs.sink = this.httpClient.get<Lectures[]>(`${environment.apiUrl}/user-lessons`).subscribe(
       (data) => {
+        this.dataChange.next(data);
         this.isTblLoading = false;
-        this.dataChange.next(data['data']);
       },
       (error: HttpErrorResponse) => {
         this.isTblLoading = false;

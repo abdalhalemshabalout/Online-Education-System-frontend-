@@ -28,7 +28,6 @@
               <p>
                 Details : {{lecturesService.dataLessonInfo.detaily}}
               </p>
-
             </div>
           </div>
         </div>
@@ -164,11 +163,11 @@
                             </div>
                             <mat-action-row>
                               <button *ngIf="stepAnnouncement !== 0" mat-button color="warn"
-                                (click)="prevStepAnnouncement()">Önceki</button>
+                                (click)="prevStepAnnouncement()">prev</button>
                               <button *ngIf="stepAnnouncement !== courseAnnouncements.length-1" mat-button
-                                color="primary" (click)="nextStepAnnouncement()">Sonraki</button>
+                                color="primary" (click)="nextStepAnnouncement()">Next</button>
                               <button *ngIf="stepAnnouncement === courseAnnouncements.length-1" mat-button
-                                color="primary" (click)="nextStepAnnouncement()">Son</button>
+                                color="primary" (click)="nextStepAnnouncement()">End</button>
                             </mat-action-row>
                           </mat-expansion-panel>
                         </mat-accordion>
