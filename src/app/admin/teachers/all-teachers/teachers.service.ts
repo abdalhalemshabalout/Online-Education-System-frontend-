@@ -141,6 +141,7 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
       }
     );
   }
+
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, '', {
       duration: 4000,

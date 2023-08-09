@@ -33,12 +33,12 @@ export class FormDialogComponent {
     // Set the defaults
     this.action = data.action;
     if (this.action === 'edit') {
-      this.dialogTitle = data.classroom.name;
+      this.dialogTitle = 'Classroom Edit Form';
       this.classroom = data.classroom;
       this.classroomForm = this.createContactForm();
 
     } else {
-      this.dialogTitle = 'Add New Classroom';
+      this.dialogTitle = 'Add New Classroom Form';
       this.classroom = new Classroom({});
       this.classroomForm = this.createContactForm();
     }

@@ -9,8 +9,8 @@ export class Teachers {
   surname: string;
   phone_number: string;
   email: string;
-  password:string;
-  c_password:string;
+  password: string;
+  c_password: string;
   identity_number: string;
   gender: string;
   birth_date: string;
@@ -19,7 +19,7 @@ export class Teachers {
 
   constructor(teachers) {
     {
-      this.id = teachers.id || this.getRandomID();
+      this.id = teachers.id;
       this.class_room_id = teachers.class_room_id || '';
       this.branch_id = teachers.branch_id || '';
       this.name = teachers.name || '';

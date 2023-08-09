@@ -38,12 +38,12 @@ export class FormDialogComponent {
     // Set the defaults
     this.action = data.action;
     if (this.action === 'edit') {
-      this.dialogTitle = data.branch.name;
+      this.dialogTitle = 'Branch Edit Form';
       this.branch = data.branch;
       this.branchForm = this.createContactForm();
 
     } else {
-      this.dialogTitle = 'Add New Branch';
+      this.dialogTitle = 'Add New Branch Form';
       this.branch = new Branch({});
       this.branchForm = this.createContactForm();
     }
