@@ -148,7 +148,6 @@
           <mat-form-field class="example-full-width mb-3" appearance="outline">
             <mat-label>Confirmation Password</mat-label>
             <input matInput formControlName="c_password" type="password" required>
-            <mat-icon matSuffix>visibility_off</mat-icon>
             <mat-error *ngIf="proForm.get('c_password').hasError('required')">
               confirmation password field is required!
             </mat-error>

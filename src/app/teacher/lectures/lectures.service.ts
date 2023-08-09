@@ -167,7 +167,7 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
   }
   // get Announcements of lesson
   async getLessonAnnouncements(lessonId): Promise<void> {
-    this.subs.sink = this.httpClient.get<LessonAnnouncement>(`${environment.apiUrl}/lesson-announcements/${lessonId}`).subscribe(
+    this.subs.sink = this.httpClient.get<LessonAnnouncement>(`${environment.apiUrl}/lesson-announcement/${lessonId}`).subscribe(
       async (data) => {
         this.lessonAnnouncements.next(JSON.parse(JSON.stringify(data)));
         this.lessonAnnouncements.value.forEach((e) => {

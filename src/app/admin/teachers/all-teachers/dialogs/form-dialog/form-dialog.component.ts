@@ -40,13 +40,12 @@ export class FormDialogComponent {
 
     this.action = data.action;
     if (this.action === 'edit') {
-      this.dialogTitle = data.teachers.name+ ' ' +data.teachers.surname;
+      this.dialogTitle = 'Teacher Edit Form';
       this.teachers = data.teachers;
       this.proForm = this.createContactForm();
-
     }
      else {
-       this.dialogTitle = 'Add New Teacher';
+       this.dialogTitle = 'Add New Teacher Form';
        this.teachers = new Teachers({});
        this.proForm = this.createContactForm();
       }
@@ -70,7 +69,6 @@ export class FormDialogComponent {
       : '';
   }
   createContactForm(): UntypedFormGroup {
-
     return this.fb.group({
       id: [this.teachers.id],
       class_room_id: [this.teachers.class_room_id],
@@ -87,8 +85,8 @@ export class FormDialogComponent {
         this.teachers.email,
         [Validators.required, Validators.email, Validators.minLength(5)],
       ],
-      password: [this.teachers.password],
-      c_password: [this.teachers.c_password],
+      password: [this.teachers.password || ''],
+      c_password: [this.teachers.c_password || ''],
       address: [this.teachers.address],
     });
   }
