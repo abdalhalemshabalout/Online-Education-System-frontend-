@@ -8,11 +8,6 @@ import { LectuerPageComponent} from './lectures/lecturePage/profile.component';
 
 const routes: Routes = [
   {
-    path: 'homeworks',
-    loadChildren: () =>
-      import('./homeworks/homeworks.module').then((m) => m.HomeworksModule),
-  },
-  {
     path: 'dashboard',
     component: DashboardComponent,
   },

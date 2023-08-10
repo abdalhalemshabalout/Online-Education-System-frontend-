@@ -144,13 +144,13 @@
                                 <mat-icon>assignment</mat-icon>
                               </mat-panel-description>
                             </mat-expansion-panel-header>
+                              <mat-panel-description>
+                                {{announcement.updated_at | date: 'dd/MM/YYYY HH:mm:ss'}}
+                              </mat-panel-description>
                             <div class="text-inside" class="example-full-width mb-3" appearance="outline">
                               <ckeditor disabled=true [editor]="Editor" [config]="{toolbar:[]}"
                                 data="{{announcement.text}}">
                               </ckeditor>
-                              <mat-panel-description>
-                                {{announcement.updated_at | date: 'dd/MM/YYYY HH:mm:ss'}}
-                              </mat-panel-description>
                             </div>
                             <hr>
                             <div>
@@ -207,7 +207,7 @@
                               <td>{{student.id}}</td>
                               <td>{{student.name}}{{student.surname}}</td>
                               <td>{{student.gender}}</td>
-                              <td>{{student.phone_number}}</td>
+                              <td class="col-pink">{{student.phone_number}}</td>
                               <td><a href="mailto:{{student.email}}"> {{student.email}} </a></td>
                             </tr>
                           </tbody>

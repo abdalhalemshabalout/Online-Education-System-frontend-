@@ -46,7 +46,6 @@ import { LectuerPageComponent } from './lectures/lecturePage/profile.component';
 import { SharedModule } from '../shared/shared.module';
 import { DialogformComponent } from './dialogform/dialogform.component';
 import { DeleteDialogComponentContent } from './lectures/lecturePage/delete/delete.component';
-import { HomeworkService } from './homeworks/all-homeworks/homeworks.service';
 import { DialogAnnouncementComponent } from './lesson-announcement/dialogform.component';
 import { DeleteAnnouncementComponent } from './lectures/lecturePage/delete-announcement/delete.component';
 import { DocuementDialogComponent } from './documentform/documentform.component';
@@ -98,6 +97,6 @@ import { DocuementDialogComponent } from './documentform/documentform.component'
     ComponentsModule,
     SharedModule,
   ],
-  providers: [LecturesService,HomeworkService],
+  providers: [LecturesService],
 })
 export class TeacherModule {}

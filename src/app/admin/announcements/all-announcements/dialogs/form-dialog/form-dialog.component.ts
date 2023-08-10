@@ -1,10 +1,7 @@
-import { delay } from 'rxjs/operators';
-import { colorSets } from '@swimlane/ngx-charts';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { AnnouncementService } from '../../announcements.service';
-import { environment } from 'src/environments/environment';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/core/service/auth.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
