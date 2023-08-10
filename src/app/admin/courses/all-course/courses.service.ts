@@ -26,11 +26,18 @@ export class CourseService extends UnsubscribeOnDestroyAdapter {
   allBranches: BehaviorSubject<Branch[]> = new BehaviorSubject<Branch[]>([]);
   constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {
     super();
+    this.isTblLoading = true;
     this.getAllClassrooms();
     this.getAllBranches();
   }
   get data(): Course[] {
     return this.dataChange.value;
+  }
+  get dataClassRoom(): Classroom[] {
+    return this.allClassrooms.value;
+  }
+  get dataBranch(): Branch[] {
+    return this.allBranches.value;
   }
   getDialogData() {
     return this.dialogData;
@@ -38,13 +45,17 @@ export class CourseService extends UnsubscribeOnDestroyAdapter {
   /** CRUD METHODS */
   getAllCourses(): void {
     this.subs.sink = this.httpClient.get<Course[]>(`${environment.apiUrl}/lessons`).subscribe(
-      (data) => {
-        this.allCourse = (data['data']);
-        this.dataChange.next(data['data']);
+      async (data) => {
         setTimeout(() => {
+          this.isTblLoading = true;
+          this.allCourse = (data['data']);
+          this.dataChange.next(data['data']);
           this.setClassroomsAndBranchesNameToData();
           this.isTblLoading = false;
-        }, 600);
+          // setTimeout(async () => {
+          // }, 2000);
+
+        }, 1000);
       },
       (err: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -95,7 +106,7 @@ export class CourseService extends UnsubscribeOnDestroyAdapter {
   //Update Lesson Information
   updateLesson(course: Course): void {
     this.dialogData = course;
-    this.httpClient.post(`${environment.apiUrl}/lessons/ ${course.id}`, course).subscribe(data => {
+    this.httpClient.put(`${environment.apiUrl}/lessons/ ${course.id}`, course).subscribe(data => {
       this.dialogData = course;
     },
       (err: HttpErrorResponse) => {
@@ -127,15 +138,15 @@ export class CourseService extends UnsubscribeOnDestroyAdapter {
     );
   }
 
-  setClassroomsAndBranchesNameToData() {
-    this.dataChange.value.forEach(async (e) => {
+  async setClassroomsAndBranchesNameToData(): Promise<void> {
+    this.data.forEach(async (e) => {
       e.className = await this.BuildClassName(e.class_room_id);
       e.branchName = await this.BuildBranchName(e.branch_id);
     });
   }
   async BuildClassName(classroomId: string): Promise<string> {
     var name = "";
-    this.allClassrooms.value.forEach(e => {
+    this.dataClassRoom.forEach(e => {
       if (e.id.toString() == classroomId) {
         name = e.name;
       }
@@ -145,7 +156,7 @@ export class CourseService extends UnsubscribeOnDestroyAdapter {
 
   async BuildBranchName(branchId: string): Promise<string> {
     var name = "";
-    this.allBranches.value.forEach(e => {
+    this.dataBranch.forEach(e => {
       if (e.id.toString() == branchId) {
         name = e.name;
       }

@@ -1,3 +1,4 @@
+import { Announcement } from './../../admin/announcements/all-announcements/announcement.model';
 import { LessonAnnouncement } from './../../student/lectures/lecturePage/lessonModels/lessonAnnouncement';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -33,7 +34,7 @@ export class DialogAnnouncementComponent implements OnInit {
       this.annuncementForm = this.createContactForm();
     } else {
       this.courseId = data.lessonId;
-      this.lessonAnnouncement = data.content;
+      this.lessonAnnouncement = data.announcement;
       this.annuncementForm = this.createContactForm();
     }
   }

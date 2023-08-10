@@ -1,3 +1,4 @@
+import { number } from 'echarts';
 import { Students } from './lecturePage/lessonModels/lessonStudent';
 import { LessonContent } from './lecturePage/lessonModels/lessonContent.model';
 import { LessonAnnouncement } from './lecturePage/lessonModels/lessonAnnouncement';
@@ -131,6 +132,7 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
         this.lessonInfo.value.BranchName = await this.BuildBranchName(this.lessonInfo.value.branch_id);
         await this.getLessonStudents(this.lessonInfo.value.branch_id);
         await this.getLessonContents(this.lessonInfo.value.id);
+        await this.getLessonAnnouncements(this.lessonInfo.value.id);
         this.isTblLoading = false;
       },
       (err: HttpErrorResponse) => {
@@ -152,7 +154,6 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
         this.lessonContents.value.forEach((e) => {
           e.lessonName = this.lessonInfo.value.name;
         });
-        this.isTblLoading = false;
       },
       (err: HttpErrorResponse) => {
         this.isTblLoading = false;
@@ -173,7 +174,6 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
         this.lessonAnnouncements.value.forEach((e) => {
           e.lessonName = this.lessonInfo.value.name;
         });
-        this.isTblLoading = false;
       },
       (err: HttpErrorResponse) => {
         this.isTblLoading = false;
