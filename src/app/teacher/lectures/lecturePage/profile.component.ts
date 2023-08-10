@@ -17,6 +17,7 @@ import { DialogAnnouncementComponent } from '../../lesson-announcement/dialogfor
 import { AlignCenter } from 'angular-feather/icons';
 import { LecturesService } from '../lectures.service';
 import { Lesson } from './lessonModels/lesson.model';
+import { LessonAnnouncement } from './lessonModels/lessonAnnouncement';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -202,16 +203,15 @@ export class LectuerPageComponent implements OnInit {
       }
     });
 
-    const te = dialogRef.afterClosed().subscribe((result) => {
+    const te = dialogRef.afterClosed().subscribe(async (result) => {
       if (result == 1) {
-        // this.getCoursAnnouncement(this.courseId);
-        // this.getCoursStatistics(this.courseId);
+        await this.lecturesService.getLessonAnnouncements(this.courseId);
       }
     });
   }
   //Update Lesson Announcement
-  editAnnouncement(Announcement) {
-    this.announcementID = Announcement['noteId'];
+  editAnnouncement(Announcement: LessonAnnouncement) {
+    this.announcementID = Announcement.id;
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -223,18 +223,19 @@ export class LectuerPageComponent implements OnInit {
       disableClose: true,
       data: {
         action: 'edit',
+        'lessonId': this.courseId,
         'announcement': Announcement,
       }
     });
-    const te = dialogRef.afterClosed().subscribe((result) => {
+    const te = dialogRef.afterClosed().subscribe(async (result) => {
       if (result == 1) {
-        // this.getCoursAnnouncement(this.courseId);
+        await this.lecturesService.getLessonAnnouncements(this.courseId);
       }
     });
   }
   //Delete Lesson Announcement
-  deleteAnnouncement(announcement) {
-    this.announcementID = announcement['noteId'];
+  deleteAnnouncement(announcement: LessonAnnouncement) {
+    this.announcementID = announcement.id;
     let tempDirection;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -245,13 +246,9 @@ export class LectuerPageComponent implements OnInit {
       data: announcement,
       direction: tempDirection,
     });
-    const te = dialogRef.afterClosed().subscribe((result) => {
+    const te = dialogRef.afterClosed().subscribe(async (result) => {
       if (result === 1) {
-        // for delete we use splice in order to remove single object from DataService
-        // this.courseAnnouncements = this.courseAnnouncements.filter((obj) => {
-        //   return obj['noteId'] !== this.announcementID;
-        // });
-        // this.getCoursStatistics(this.courseId);
+        await this.lecturesService.getLessonAnnouncements(this.courseId);
       }
     });
   }

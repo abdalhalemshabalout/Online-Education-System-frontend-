@@ -80,9 +80,9 @@ export class StaffService extends UnsubscribeOnDestroyAdapter {
   }
 
   // update Staff
-  updateStaff(staff: Staff): void {
+  updateStaff(staff): void {
     this.dialogData = staff;
-    this.httpClient.put(`${environment.apiUrl}/staffs/` + staff.id, staff).subscribe(data => {
+    this.httpClient.put(`${environment.apiUrl}/staffs/${staff.id}`, staff).subscribe(data => {
       this.dialogData = staff;
     },
       (err: HttpErrorResponse) => {

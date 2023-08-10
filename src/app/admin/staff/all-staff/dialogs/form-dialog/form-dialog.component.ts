@@ -22,9 +22,9 @@ export class FormDialogComponent {
   dialogTitle: string;
   staffForm: UntypedFormGroup;
   staff: Staff;
-  selectedAcademicain:any;
+  selectedAcademicain: any;
   constructor(
-    private httpClient:HttpClient,
+    private httpClient: HttpClient,
     public dialogRef: MatDialogRef<FormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public staffService: StaffService,
@@ -46,7 +46,7 @@ export class FormDialogComponent {
   formControl = new UntypedFormControl('', [
     Validators.required
   ]);
-  
+
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
       id: [this.staff.id],
@@ -57,8 +57,8 @@ export class FormDialogComponent {
         this.staff.email,
         [Validators.required, Validators.email, Validators.minLength(5)],
       ],
-      password: [this.staff.password,this.action!='edit'?[Validators.required]:""],
-      c_password: [this.staff.c_password,this.action!='edit'?[Validators.required]:""],
+      password: [this.staff.password, this.action != 'edit' ? [Validators.required] : ""],
+      c_password: [this.staff.c_password, this.action != 'edit' ? [Validators.required] : ""],
       address: [this.staff.address, [Validators.required]],
     });
   }
@@ -70,6 +70,9 @@ export class FormDialogComponent {
   }
   public confirmAdd(): void {
     if (this.action === 'edit') {
+      this.staffForm.removeControl('password');
+      this.staffForm.removeControl('c_password');
+      console.log(this.staffForm.getRawValue());
       this.staffService.updateStaff(this.staffForm.getRawValue());
     } else {
       this.staffService.addStaff(this.staffForm.getRawValue());

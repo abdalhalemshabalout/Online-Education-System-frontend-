@@ -98,6 +98,8 @@ export class FormDialogComponent {
   }
   public confirmAdd(): void {
     if (this.action === 'edit') {
+      this.proForm.removeControl('password');
+      this.proForm.removeControl('c_password');
       this.teachersService.updateTeachers(this.proForm.getRawValue());
     } else {
       this.teachersService.addTeachers(this.proForm.getRawValue());
