@@ -192,14 +192,14 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
       if (data['success'] === true) {
         this.showNotification(
           'snackbar-success',
-          'Ders İçeriği Başarıyla Ekledi...!!!',
+          'lesson content added successfully...!!!',
           'bottom',
           'center'
         );
       } else {
         this.showNotification(
           'snackbar-info',
-          'Ders İçeriği Eklenmedi...!!!',
+          'Error...!!!',
           'bottom',
           'center'
         );
@@ -222,14 +222,14 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
       if (data['data'] === 1) {
         this.showNotification(
           'snackbar-success',
-          'Ders İçeriği Başarıyla Güncellendi...!!!',
+          'lesson content has been modified successfully...!!!',
           'bottom',
           'center'
         );
       } else {
         this.showNotification(
           'snackbar-info',
-          'Ders İçeriği Güncellenmedi...!!!',
+          'ُError...!!!',
           'bottom',
           'center'
         );
@@ -252,14 +252,14 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
       if (data['success'] === true) {
         this.showNotification(
           'snackbar-danger',
-          'Ders İçeriği Silindi..!!!',
+          'lesson content has been removed successfully..!!!',
           'bottom',
           'center'
         );
       } else {
         this.showNotification(
           'snackbar-danger',
-          'Ders İçeriği Silinmedi...!!!',
+          'Error...!!!',
           'bottom',
           'center'
         );
@@ -282,14 +282,14 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
       if (data['success'] === true) {
         this.showNotification(
           'snackbar-success',
-          'Lesson announcement successfully added...!!!',
+          'Lesson announcement Added Successfully...!!!',
           'bottom',
           'center'
         );
       } else {
         this.showNotification(
           'snackbar-info',
-          'Lesson announcement not successfully added...!!!',
+          'Error...!!!',
           'bottom',
           'center',
         );
@@ -312,14 +312,14 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
       if (data['data'] === 1) {
         this.showNotification(
           'snackbar-success',
-          'Lesson announcement successfully updated...!!!',
+          'Lesson announcement has been modified successfull...!!!',
           'bottom',
           'center'
         );
       } else {
         this.showNotification(
           'snackbar-info',
-          'Lesson announcement not successfully updated...!!!',
+          'Error...!!!',
           'bottom',
           'center'
         );
@@ -342,14 +342,14 @@ export class LecturesService extends UnsubscribeOnDestroyAdapter {
       if (data['success'] === true) {
         this.showNotification(
           'snackbar-danger',
-          'Lesson announcement successfully deleted...!!!',
+          'Lesson announcement has been removed successfully...!!!',
           'bottom',
           'center'
         );
       } else {
         this.showNotification(
           'snackbar-danger',
-          'Lesson announcement not successfully deleted...!!!',
+          'Error...!!!',
           'bottom',
           'center'
         );
