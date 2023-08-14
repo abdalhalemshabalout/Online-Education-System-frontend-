@@ -94,30 +94,6 @@ export class LectuerPageComponent implements OnInit {
   prevStepAnnouncement() {
     this.stepAnnouncement--;
   }
-  // addDocument(): void {
-  //   let tempDirection;
-  //   if (localStorage.getItem('isRtl') === 'true') {
-  //     tempDirection = 'rtl';
-  //   } else {
-  //     tempDirection = 'ltr';
-  //   }
-  //   const dialogReform = this.dialogModel.open(DocuementDialogComponent, {
-  //     width: '600px',
-  //     disableClose: true,
-  //     direction: tempDirection,
-  //     data: {
-  //       action: 'add',
-  //       'contentId': this.contentId
-  //     }
-  //   });
-  //   dialogReform.afterClosed().subscribe((result) => {
-  //     if (result === 1) {
-  //       // this.getCoursContent(this.courseId);
-  //       // this.getCoursStatistics(this.courseId);
-  //     }
-  //   });
-  // }
-
 
   // Add Content To Lesson
   openDialog(): void {
